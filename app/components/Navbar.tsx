@@ -20,10 +20,10 @@ const Navbar = () => {
   });
 
   const navLinks = [
-    { name: "Platform", href: "#" },
-    { name: "Solutions", href: "#" },
-    { name: "Resources", href: "#" },
-    { name: "Company", href: "#" },
+    { name: "Home", href: "#" },
+    { name: "About", href: "#" },
+    { name: "Services", href: "#" },
+    { name: "Contact", href: "#" },
   ];
 
   return (
@@ -74,13 +74,15 @@ const Navbar = () => {
             }`}
           >
               <Magnetic>
-                <div className="w-8 h-8 bg-[#00dc82] rounded-full flex items-center justify-center text-[#02040a] font-bold text-lg shadow-[0_0_15px_rgba(0,220,130,0.5)] cursor-pointer">S</div>
+                <div className="h-10 w-auto rounded-lg overflow-hidden cursor-pointer">
+                    <img src="/logo.jpeg" alt="Zlaark Logo" className="h-full w-auto object-contain" />
+                </div>
               </Magnetic>
               <motion.span 
                  layout="position"
-                 className="font-bold text-white tracking-tight hidden md:block"
+                 className="font-bold text-white tracking-tight hidden md:block whitespace-nowrap"
               >
-                SKOAL
+                Skoal Solutions Pvt. Ltd.
               </motion.span>
           </motion.div>
 
@@ -111,9 +113,9 @@ const Navbar = () => {
               <motion.div layout="position" className={`ml-2 ${isScrolled ? "" : "pl-2 border-l border-white/10"}`}>
                 <Magnetic>
                   <button className="hidden md:flex px-5 py-2 bg-white text-black text-sm font-bold rounded-full hover:bg-[#00dc82] transition-colors items-center gap-2 shadow-lg hover:shadow-[#00dc82]/20 cursor-pointer">
-                      <span>Book</span>
-                      <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
-                  </button>
+                <span>Book Demo</span>
+                <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
+              </button>
                 </Magnetic>
               </motion.div>
 
@@ -161,10 +163,10 @@ const Navbar = () => {
                    initial={{ y: 40, opacity: 0 }}
                    animate={{ y: 0, opacity: 1 }}
                    transition={{ delay: 0.5 }}
-                   className="mt-8 px-8 py-3 bg-[#00dc82] text-black font-bold rounded-full text-lg shadow-xl shadow-[#00dc82]/30"
-                >
-                  Book Demo
-                </motion.button>
+                     className="px-8 py-3 bg-white text-black text-xl font-bold rounded-full hover:bg-[#00dc82] transition-colors"
+                   >
+                      Book Demo
+                   </motion.button>
              </div>
           </motion.div>
         )}
