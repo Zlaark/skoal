@@ -1,0 +1,539 @@
+/* Keyframes (Redefined) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpSkew {
+    from {
+        opacity: 0;
+        transform: translateY(40px) skewY(5deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) skewY(0);
+    }
+}
+
+@keyframes pulseBorder {
+    0% {
+        box-shadow: 0 0 0 0 rgba(32, 201, 151, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(32, 201, 151, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(32, 201, 151, 0);
+    }
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
+/* New Text Animations */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes textBlurIn {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+}
+
+/* About Section */
+/* About Section */
+@keyframes bgPulseLight {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.aboutSection {
+    /* White Sides, Green Center */
+    background: linear-gradient(90deg, #ffffff 0%, #e6f4ea 25%, #e6f4ea 75%, #ffffff 100%);
+    background-size: 100% 100%;
+    /* animation: bgPulseLight 10s ease infinite; Remove pulse if fixed gradient preferred, or keep if subtle */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+}
+
+/* Original Colorful Gradient Header on Light BG */
+.aboutContent h2 {
+    background: linear-gradient(90deg, #0f5132, #20c997, #198754, #0f5132);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Restore Green Text Styles for Light BG */
+.aboutContent p {
+    color: #198754;
+    /* Explicit Green Text */
+    background: rgba(255, 255, 255, 0.6);
+    /* Semi-transparent white */
+    border-left-color: #20c997;
+    /* Teal Accent */
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.aboutContent p:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(229, 255, 230, 0.9));
+    color: #0b3d26;
+    border-left-color: #0f5132;
+}
+
+/* Decorative Top Line */
+.aboutSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #0f5132, #20c997, #0f5132);
+    background-size: 200% auto;
+    animation: gradientFlow 3s linear infinite;
+}
+
+.aboutContent {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 20px;
+    /* Advanced Entry Animation */
+    animation: slideUpSkew 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: 0.2s;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s;
+}
+
+/* Container Hover Effect */
+.aboutContent:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 15px 30px rgba(32, 201, 151, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+@keyframes trackingExpand {
+    0% {
+        letter-spacing: -0.2em;
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        letter-spacing: 2px;
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes underlinePulse {
+    0% {
+        width: 40px;
+        opacity: 0.5;
+    }
+
+    100% {
+        width: 100px;
+        opacity: 1;
+    }
+}
+
+/* Shield Logo Styles */
+.aboutLogo {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    filter: drop-shadow(0 4px 10px rgba(25, 135, 84, 0.4));
+    animation: logoFloat 4s ease-in-out infinite, pulseGlow 3s infinite;
+}
+
+@keyframes logoFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes scanReveal {
+    0% {
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        opacity: 1;
+    }
+}
+
+@keyframes scanLineMove {
+    0% {
+        top: 100%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        top: -20%;
+        opacity: 0;
+    }
+}
+
+.aboutContent h2 {
+    margin-bottom: var(--spacing-md);
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    color: #0f5132;
+    z-index: 5;
+
+    /* "Scan Reveal" Animation */
+    animation: scanReveal 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+    /* Star hidden */
+}
+
+/* The scanning laser beam */
+.aboutContent h2::after {
+    content: '';
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    height: 4px;
+    background: #00ff88;
+    /* Bright Neon Green Laser */
+    box-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+    z-index: 10;
+    animation: scanLineMove 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+/* Old underline removed to allow Scan Line to work */
+
+@keyframes floatText {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes float3D {
+    0% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0);
+    }
+
+    25% {
+        transform: perspective(1000px) rotateX(2deg) rotateY(1deg) translateY(-5px);
+    }
+
+    50% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0);
+    }
+
+    75% {
+        transform: perspective(1000px) rotateX(-2deg) rotateY(-1deg) translateY(5px);
+    }
+
+    100% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0);
+    }
+}
+
+@keyframes shimmerReal {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 300% center;
+    }
+}
+
+.aboutContent p {
+    color: #198754;
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.8;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 2rem;
+    border-radius: 16px;
+    border-left: 4px solid #198754;
+
+    /* Realistic Glass/Card Look */
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.05),
+        /* Soft Drop Shadow */
+        0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    /* Top Highlight */
+
+    /* 3D Animation Base */
+    animation: textBlurIn 1s ease-out forwards, float3D 8s ease-in-out infinite;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+
+    /* Realistic Shimmer Setup */
+    background-image: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 30%,
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 255, 255, 0) 70%);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+}
+
+/* Add separate shimmer animation on hover to be "realistic" light interaction */
+.aboutContent p:hover {
+    color: #0b3d26;
+    border-left-color: #0f5132;
+    transform: scale(1.02) translateY(-5px);
+    /* Lift up */
+    box-shadow:
+        0 20px 40px rgba(25, 135, 84, 0.15),
+        0 0 0 1px rgba(25, 135, 84, 0.2);
+    /* Subtle green ring */
+
+    animation: float3D 8s ease-in-out infinite, shimmerReal 1.5s linear;
+    /* Trigger shine once on hover */
+    background-color: white;
+}
+
+/* Services Section */
+.servicesSection {
+    background-color: #f8fdfa;
+    /* Very light green tint */
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    animation: fadeInUp 1s ease-out both;
+    /* Use scroll-driven animation libraries in real app, here we use simple delay or just entry */
+    animation-delay: 0.4s;
+}
+
+.sectionHeader h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-xs);
+    background: linear-gradient(90deg, #0f5132, #20c997, #0f5132);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientFlow 3s linear infinite;
+}
+
+.sectionHeader p {
+    color: var(--text-light);
+    font-size: 1.2rem;
+}
+
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* Helper for staggered children (Global styled wrapper or direct child selector) */
+.cardGrid>div {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.cardGrid>div:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.cardGrid>div:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.cardGrid>div:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+/* Why Choose Us Section */
+.whySection {
+    background-color: var(--white);
+    padding: 100px 0;
+}
+
+.featureGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.featureText {
+    animation: fadeInUp 1s ease-out both;
+    animation-delay: 0.8s;
+}
+
+.featureText h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, #0f5132, #20c997, #0f5132);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientFlow 3s linear infinite;
+}
+
+.featureList {
+    list-style: none;
+    margin-top: var(--spacing-md);
+}
+
+.featureList li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    background: transparent;
+    cursor: default;
+}
+
+.featureList li:hover {
+    background: rgba(32, 201, 151, 0.05);
+    border-left-color: #20c997;
+    transform: translateX(15px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    color: #0f5132;
+    font-weight: 500;
+}
+
+.featureBox {
+    background: linear-gradient(145deg, #0f5132 0%, #0b3d26 100%);
+    color: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(15, 81, 50, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 1s ease-out both;
+    animation-delay: 1s;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.featureBox::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+    animation: rotateGlow 10s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotateGlow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.featureBox:hover {
+    transform: scale(1.02);
+    animation: pulseBorder 2s infinite;
+}
+
+.featureBox h3 {
+    color: #20c997;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    position: relative;
+    z-index: 1;
+}
+
+.featureBox p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .featureGrid {
+        grid-template-columns: 1fr;
+    }
+}
