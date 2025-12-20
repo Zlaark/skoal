@@ -312,11 +312,6 @@ export default function Design4Hero() {
                         <div key={i} className="w-1 h-1 bg-emerald-500/50 rounded-full" />
                     ))}
                 </div>
-                <div className="absolute -right-8 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-2 opacity-50">
-                    {[...Array(5)].map((_, i) => (
-                        <div key={i} className="w-1 h-1 bg-emerald-500/50 rounded-full" />
-                    ))}
-                </div>
 
              </motion.div>
         </div>
