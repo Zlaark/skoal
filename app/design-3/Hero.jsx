@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Shield } from "lucide-react";
 import Image from "next/image";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const StatBadge = ({ icon: Icon, label, value, className, delay = 0 }) => (
     <motion.div
@@ -108,85 +108,69 @@ export default function Hero() {
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-green-500 to-green-300 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] opacity-20 blur-xl" />
 
                         <motion.div
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[600px] perspective-1000"
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] perspective-1000"
                             style={{ perspective: 1000 }}
+                            onMouseMove={(e) => {
+                                const rect = e.currentTarget.getBoundingClientRect();
+                                const x = e.clientX - rect.left;
+                                const y = e.clientY - rect.top;
+                                const centerX = rect.width / 2;
+                                const centerY = rect.height / 2;
+                                const rotateX = ((y - centerY) / centerY) * -10; // Max -10 to 10 deg
+                                const rotateY = ((x - centerX) / centerX) * 10;
+
+                                e.currentTarget.style.transform = `translate(-50%, -50%) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = `translate(-50%, -50%) perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+                            }}
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
                         >
-                            {/* Main Video Card */}
-                            <motion.div 
-                                className="absolute top-10 left-10 right-0 bottom-20 bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-white transform rotate-[-6deg] z-10"
-                                whileHover={{ scale: 1.02, rotate: -4 }}
-                                transition={{ duration: 0.4 }}
-                            >
-                                <div className="relative w-full h-full bg-slate-900">
-                                    <video 
-                                        autoPlay 
-                                        muted 
-                                        loop 
-                                        playsInline
-                                        className="w-full h-full object-cover opacity-90"
-                                        src="https://assets.mixkit.co/videos/preview/mixkit-people-working-in-a-modern-office-4950-large.mp4"
-                                    />
-                                    {/* Overlay Gradient */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                    
-                                    {/* Video UI Elements */}
-                                    <div className="absolute bottom-6 left-6 right-6 text-white">
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                            <span className="text-xs font-medium uppercase tracking-wider text-green-400">Live Operations</span>
+                            <div className="bg-white/40 backdrop-blur-xl border border-white/50 p-8 rounded-3xl shadow-2xl w-full h-full transition-all duration-200 ease-out hover:shadow-green-900/20">
+                                {/* Mock Dashboard UI */}
+                                <div className="flex items-center justify-between mb-6">
+                                    <div className="h-4 w-24 bg-slate-200 rounded-full" />
+                                    <div className="flex gap-1">
+                                        <div className="w-2 h-2 rounded-full bg-red-400" />
+                                        <div className="w-2 h-2 rounded-full bg-yellow-400" />
+                                        <div className="w-2 h-2 rounded-full bg-green-400" />
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="h-24 bg-green-50/50 rounded-xl border border-green-100 p-4 relative overflow-hidden group">
+                                        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-green-100/50 to-transparent" />
+                                        {/* Line Chart Config simulation */}
+                                        <svg className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                                            <motion.path
+                                                d="M0 50 C 20 40, 40 60, 60 30 S 100 10, 140 40 S 200 20, 300 10"
+                                                fill="none"
+                                                stroke="#22c55e"
+                                                strokeWidth="3"
+                                                initial={{ pathLength: 0 }}
+                                                whileInView={{ pathLength: 1 }}
+                                                transition={{ duration: 2, ease: "easeInOut" }}
+                                            />
+                                        </svg>
+                                        {/* Scanning Line Animation */}
+                                        <motion.div
+                                            className="absolute top-0 bottom-0 width-[1px] bg-green-500/50 shadow-[0_0_10px_rgba(34,197,94,0.5)]"
+                                            animate={{ left: ["0%", "100%", "0%"] }}
+                                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                            style={{ width: '2px' }}
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="h-20 bg-white rounded-xl shadow-sm p-3 hover:scale-105 transition-transform">
+                                            <div className="w-8 h-8 bg-blue-50 rounded-lg mb-2" />
+                                            <div className="h-2 w-16 bg-slate-100 rounded-full" />
                                         </div>
-                                        <p className="font-semibold text-lg">Real-time Workforce Analytics</p>
-                                    </div>
-                                    
-                                    {/* Play Button Overlay */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
-                                        <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-white border-b-[10px] border-b-transparent ml-1" />
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Floating Image Card 1 (Top Right) */}
-                            <motion.div 
-                                className="absolute -top-4 -right-8 w-48 h-32 bg-white rounded-2xl shadow-xl p-2 border border-slate-100 z-20 rotate-[6deg]"
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                            >
-                                <div className="w-full h-full rounded-xl overflow-hidden relative">
-                                    <img 
-                                        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" 
-                                        alt="Team meeting" 
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-800">
-                                        Team Sync
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Floating Image Card 2 (Bottom Left) */}
-                            <motion.div 
-                                className="absolute bottom-10 -left-12 w-40 h-40 bg-white rounded-2xl shadow-xl p-2 border border-slate-100 z-20 rotate-[-12deg]"
-                                animate={{ y: [0, 15, 0] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                <div className="w-full h-full rounded-xl overflow-hidden relative bg-slate-50 flex flex-col items-center justify-center gap-2">
-                                    <div className="flex -space-x-2">
-                                        <img src="https://i.pravatar.cc/100?img=1" className="w-8 h-8 rounded-full border-2 border-white" alt="User" />
-                                        <img src="https://i.pravatar.cc/100?img=5" className="w-8 h-8 rounded-full border-2 border-white" alt="User" />
-                                        <img src="https://i.pravatar.cc/100?img=8" className="w-8 h-8 rounded-full border-2 border-white" alt="User" />
-                                    </div>
-                                    <div className="text-center">
-                                        <p className="text-xs font-bold text-slate-800">New Hires</p>
-                                        <p className="text-[10px] text-slate-500">+12 this week</p>
-                                    </div>
-                                    <div className="w-full px-4">
-                                        <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                                            <div className="h-full w-[70%] bg-green-500 rounded-full" />
+                                        <div className="h-20 bg-white rounded-xl shadow-sm p-3 hover:scale-105 transition-transform">
+                                            <div className="w-8 h-8 bg-purple-50 rounded-lg mb-2" />
+                                            <div className="h-2 w-16 bg-slate-100 rounded-full" />
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
-
+                            </div>
                         </motion.div>
 
                         {/* Floating Stat Badges */}

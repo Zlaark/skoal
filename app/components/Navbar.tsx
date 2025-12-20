@@ -95,9 +95,7 @@ const Navbar = () => {
               </Magnetic>
               <motion.span 
                  layout="position"
-                 className={`font-bold tracking-tight hidden md:block whitespace-nowrap ${
-                   isLightMode ? "text-slate-900" : "text-white"
-                 }`}
+                 className="font-bold tracking-tight hidden md:block whitespace-nowrap text-slate-900"
               >
                 Skoal Solutions Pvt. Ltd.
               </motion.span>
@@ -120,11 +118,7 @@ const Navbar = () => {
                 <Magnetic key={link.name}>
                   <a
                     href={link.href}
-                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors group overflow-hidden ${
-                      isLightMode 
-                        ? "text-slate-600 hover:text-black" 
-                        : "text-slate-400 hover:text-white"
-                    }`}
+                    className="relative px-4 py-2 rounded-full text-sm font-medium transition-colors group overflow-hidden text-slate-900 hover:text-black"
                   >
                     <span className="relative z-10">{link.name}</span>
                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300 ${
@@ -160,11 +154,7 @@ const Navbar = () => {
 
               {/* Mobile Toggle */}
             <button 
-              className={`md:hidden p-2 rounded-full ml-2 ${
-                isLightMode 
-                  ? "text-black bg-black/10" 
-                  : "text-white bg-white/10"
-              }`}
+              className="md:hidden p-2 rounded-full ml-2 text-slate-900 bg-black/10"
               onClick={() => setMobileMenuOpen(true)}
             >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
@@ -185,9 +175,7 @@ const Navbar = () => {
               isLightMode ? "bg-white/95" : "bg-[#02040a]/95"
             }`}
           >
-             <button onClick={() => setMobileMenuOpen(false)} className={`absolute top-8 right-8 p-4 transition-colors ${
-               isLightMode ? "text-black/50 hover:text-black" : "text-white/50 hover:text-white"
-             }`}>
+             <button onClick={() => setMobileMenuOpen(false)} className="absolute top-8 right-8 p-4 transition-colors text-slate-900/60 hover:text-slate-900">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
              </button>
              
@@ -199,9 +187,7 @@ const Navbar = () => {
                        initial={{ y: 40, opacity: 0 }}
                        animate={{ y: 0, opacity: 1 }}
                        transition={{ delay: i * 0.1, type: "spring", stiffness: 100 }}
-                       className={`text-4xl md:text-5xl font-bold hover:text-[#00dc82] transition-colors tracking-tight ${
-                         isLightMode ? "text-slate-900" : "text-white"
-                       }`}
+                       className="text-4xl md:text-5xl font-bold hover:text-[#00dc82] transition-colors tracking-tight text-slate-900"
                        onClick={() => setMobileMenuOpen(false)}
                     >
                         {link.name}

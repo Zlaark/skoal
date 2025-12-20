@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Globe2, Zap, Users, ShieldCheck } from 'lucide-react';
@@ -5,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 export default function Hero() {
     return (
-        <section className="relative min-h-screen w-full flex flex-col items-center justify-center bg-background pt-32 pb-20 overflow-x-hidden">
+        <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white text-slate-900 pt-32 pb-20">
 
             {/* --- Digital Aurora Background (Light Theme) --- */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -17,7 +19,7 @@ export default function Hero() {
                     muted
                     loop
                     playsInline
-                    className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-darken grayscale"
+                    className="absolute inset-0 w-full h-full object-cover opacity-15 grayscale"
                 >
                     <source src="/hero-background.mp4" type="video/mp4" />
                 </video>
@@ -63,7 +65,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.8 }}
-                    className="text-6xl md:text-8xl font-bold tracking-tight text-foreground max-w-5xl leading-[1.1] mb-8 drop-shadow-sm"
+                    className="text-6xl md:text-8xl font-bold tracking-tight text-slate-900 max-w-5xl leading-[1.1] mb-8 drop-shadow-sm"
                 >
                     Simplify the <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-emerald-600 to-primary">Complexity</span> of People.
@@ -74,7 +76,7 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-3xl mb-12"
+                    className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl mb-12"
                 >
                     Full-stack workforce management for the modern enterprise. <br className="hidden md:block" />
                     Secure, compliant, and scalable operations across India & the Middle East.
@@ -87,13 +89,13 @@ export default function Hero() {
                     transition={{ delay: 0.6, duration: 0.8 }}
                     className="flex flex-col sm:flex-row items-center gap-6"
                 >
-                    <button className="group relative overflow-hidden btn-primary text-white text-lg font-medium px-10 py-5 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-3 shadow-[0_10px_30px_rgba(16,185,129,0.3)]">
+                    <button className="group relative overflow-hidden btn-primary text-black text-lg font-medium px-10 py-5 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-3 shadow-[0_10px_30px_rgba(16,185,129,0.3)]">
                         <span className="relative z-10">Start Transformation</span>
                         <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </button>
 
-                    <button className="px-10 py-5 rounded-full text-lg font-medium text-foreground bg-white border border-emerald-100 hover:bg-emerald-50 transition-all flex items-center gap-3 shadow-sm hover:shadow-md">
+                    <button className="px-10 py-5 rounded-full text-lg font-medium text-slate-900 bg-white border border-emerald-100 hover:bg-emerald-50 transition-all flex items-center gap-3 shadow-sm hover:shadow-md">
                         <Globe2 className="w-5 h-5 text-primary" /> Our Capabilities
                     </button>
                 </motion.div>
@@ -111,8 +113,8 @@ export default function Hero() {
                         <Zap className="w-5 h-5" />
                     </div>
                     <div>
-                        <div className="text-2xl font-bold text-foreground">98.5%</div>
-                        <div className="text-xs text-muted-foreground">Efficiency Rate</div>
+                        <div className="text-2xl font-bold text-slate-900">98.5%</div>
+                        <div className="text-xs text-slate-500">Efficiency Rate</div>
                     </div>
                 </motion.div>
 
@@ -127,8 +129,8 @@ export default function Hero() {
                         <ShieldCheck className="w-5 h-5" />
                     </div>
                     <div>
-                        <div className="text-lg font-bold text-foreground">100% Audit</div>
-                        <div className="text-xs text-muted-foreground">Ready Compliance</div>
+                        <div className="text-lg font-bold text-slate-900">100% Audit</div>
+                        <div className="text-xs text-slate-500">Ready Compliance</div>
                     </div>
                 </motion.div>
 
@@ -145,15 +147,15 @@ export default function Hero() {
                         ))}
                     </div>
                     <div>
-                        <div className="text-sm font-bold text-foreground">50k+ Managed</div>
-                        <div className="text-xs text-muted-foreground">Active Workforce</div>
+                        <div className="text-sm font-bold text-slate-900">50k+ Managed</div>
+                        <div className="text-xs text-slate-500">Active Workforce</div>
                     </div>
                 </motion.div>
 
             </div>
 
             {/* Bottom Fade - to white/background */}
-            <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
         </section>
     );
 }
