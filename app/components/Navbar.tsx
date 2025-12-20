@@ -14,7 +14,8 @@ const Navbar = () => {
   const pathname = usePathname();
   const isLightMode = pathname === "/design-2";
   const isDesign4 = pathname === "/design-4";
-  const textColorClass = isDesign4 ? "text-white" : "text-slate-900";
+  const isHome = pathname === "/";
+  const textColorClass = (isDesign4 || isHome) ? "text-white" : "text-slate-900";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -120,7 +121,9 @@ const Navbar = () => {
                 <Magnetic key={link.name}>
                   <a
                     href={link.href}
-                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors group overflow-hidden ${textColorClass} ${isDesign4 ? "hover:text-emerald-400" : "hover:text-black"}`}
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors group overflow-hidden ${textColorClass} ${
+                      (isDesign4 || isHome) ? "hover:text-emerald-400" : "hover:text-black"
+                    }`}
                   >
                     <span className="relative z-10">{link.name}</span>
                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300 ${
