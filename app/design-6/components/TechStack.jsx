@@ -1,108 +1,210 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mic2, Share2, PhoneForwarded, Database, Bot, Lock } from "lucide-react";
-
-const features = [
-  {
-    title: "AI-Powered Outbound",
-    desc: "Automated calling workflows that scale instantly.",
-    icon: <Bot size={24} />
-  },
-  {
-    title: "Smart Call Routing",
-    desc: "Intelligent IVR reducing wait times by 40%.",
-    icon: <Share2 size={24} />
-  },
-  {
-    title: "Predictive Dialers",
-    desc: "Maximizing agent connect rates with AI prediction.",
-    icon: <PhoneForwarded size={24} />
-  },
-  {
-    title: "Voice Blasts",
-    desc: "Pre-recorded campaigns for mass outreach.",
-    icon: <Mic2 size={24} />
-  },
-  {
-    title: "Whitelisted CRMs",
-    desc: "Secure integrations with your existing stack.",
-    icon: <Database size={24} />
-  },
-  {
-    title: "Data Security",
-    desc: "Enterprise-grade encryption and compliance.",
-    icon: <Lock size={24} />
-  }
-];
+import { Bot, Phone, Share2, Zap, BrainCircuit, MessageSquare, Mail, ArrowRight } from "lucide-react";
 
 export default function TechStack() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      {/* Background Patterns */}
-      <div className="absolute inset-0 opacity-[0.03]"
+    <section className="relative py-32 bg-slate-50 overflow-hidden" id="tech-stack">
+
+      {/* Background Grid - Subtle Engineering Graph */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
-          backgroundImage: 'linear-gradient(#059669 1px, transparent 1px), linear-gradient(90deg, #059669 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)',
           backgroundSize: '40px 40px'
         }}
       />
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
+
+        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-emerald-600 font-semibold tracking-widest uppercase text-xs mb-3 block"
-          >
-            Future-Ready Infrastructure
-          </motion.span>
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 border border-slate-300 text-xs font-mono text-slate-600 mb-6 uppercase tracking-widest"
           >
-            Orchestrated by <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Intelligence.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mt-6 text-slate-500 text-lg"
-          >
-            Our operations are backed by securely whitelisted CRMs, AI-driven dialers, and custom ticketing systems.
-          </motion.p>
+            <Zap size={12} className="text-amber-500" />
+            <span>Neural Architecture</span>
+          </motion.div>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+            Intelligent <span className="text-emerald-600 font-serif italic">Routing.</span>
+          </h2>
+          <p className="text-lg text-slate-500 leading-relaxed">
+            From raw signal to intelligent action in milliseconds. Our AI engine processes intent, sentiment, and context in real-time.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition-colors duration-300 relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-emerald-500">
-                {feature.icon}
+        {/* --- THE NEURAL GRID VISUALIZATION --- */}
+        <div className="relative grid lg:grid-cols-3 gap-8 items-center max-w-6xl mx-auto">
+
+          {/* SVG Connecting Lines (Visible only on LG screens) */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-20 hidden lg:block pointer-events-none z-0">
+            <svg className="w-full h-full" overflow="visible">
+              {/* Line 1: Input to Core */}
+              <motion.path
+                d="M 200,40 L 450,40"
+                fill="none"
+                stroke="#cbd5e1"
+                strokeWidth="2"
+                strokeDasharray="4 4"
+              />
+              <motion.circle r="3" fill="#10b981">
+                <motion.animateMotion
+                  dur="2s"
+                  repeatCount="indefinite"
+                  path="M 200,40 L 450,40"
+                />
+              </motion.circle>
+
+              {/* Line 2: Core to Output */}
+              <motion.path
+                d="M 650,40 L 900,40"
+                fill="none"
+                stroke="#cbd5e1"
+                strokeWidth="2"
+                strokeDasharray="4 4"
+              />
+              <motion.circle r="3" fill="#10b981">
+                <motion.animateMotion
+                  dur="2s"
+                  repeatCount="indefinite"
+                  path="M 650,40 L 900,40"
+                  begin="1s"
+                />
+              </motion.circle>
+            </svg>
+          </div>
+
+
+
+          {/* --- COLUMN 1: INPUT SIGNALS --- */}
+          <div className="space-y-4 relative z-10">
+            <div className="text-xs font-mono text-slate-400 uppercase tracking-widest text-center mb-4">Incoming Signals</div>
+
+            <SignalCard icon={Phone} label="Voice Calls" sub="PSTN / SIP" delay={0} color="blue" />
+            <SignalCard icon={Mail} label="Email Inbound" sub="SMTP / IMAP" delay={0.1} color="purple" />
+            <SignalCard icon={MessageSquare} label="Live Chat" sub="WebSocket" delay={0.2} color="orange" />
+          </div>
+
+
+          {/* --- COLUMN 2: THE CORE (PROCESSING) --- */}
+          <div className="relative z-10 flex flex-col items-center justify-center py-12 lg:py-0">
+            <div className="text-xs font-mono text-slate-400 uppercase tracking-widest text-center mb-6">Processing Core</div>
+
+            {/* Central Processor Node */}
+            <div className="relative w-64 h-64 flex items-center justify-center">
+              {/* Spinning Rings */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 border border-slate-200 rounded-full border-dashed"
+              />
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-[20px] border border-emerald-100 rounded-full"
+              />
+
+              {/* Core Brain */}
+              <div className="relative w-32 h-32 bg-white rounded-full shadow-2xl shadow-emerald-100 flex items-center justify-center border border-slate-100 z-20">
+                <BrainCircuit size={48} className="text-emerald-600" />
+                {/* Pulse Effect */}
+                <div className="absolute inset-0 bg-emerald-500/10 rounded-full animate-ping" />
               </div>
 
-              <div className="w-12 h-12 rounded-xl bg-white shadow-sm text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                {feature.icon}
+              {/* Labels */}
+              <div className="absolute top-0 bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 shadow-sm transform -translate-y-1/2">
+                INTENT ANALYSIS
               </div>
+              <div className="absolute bottom-0 bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 shadow-sm transform translate-y-1/2">
+                SENTIMENT SCORING
+              </div>
+            </div>
+          </div>
 
-              <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-700 transition-colors">{feature.title}</h4>
-              <p className="text-slate-500 leading-relaxed text-sm">{feature.desc}</p>
 
-              {/* Bottom line animation */}
-              <div className="absolute bottom-0 left-0 h-1 bg-emerald-500 w-0 group-hover:w-full transition-all duration-500" />
-            </motion.div>
-          ))}
+          {/* --- COLUMN 3: OUTPUT ACTION --- */}
+          <div className="space-y-4 relative z-10">
+            <div className="text-xs font-mono text-slate-400 uppercase tracking-widest text-center mb-4">Intelligent Action</div>
+
+            <ResultCard
+              title="Smart Routing"
+              stat="40%"
+              statLabel="Wait Reduction"
+              desc="Route to best agent based on intent."
+              delay={0.4}
+            />
+            <ResultCard
+              title="Predictive Dialing"
+              stat="3x"
+              statLabel="Connect Rate"
+              desc="Filter busies & voicemails."
+              delay={0.5}
+            />
+          </div>
+
         </div>
+
       </div>
     </section>
   );
+}
+
+function SignalCard({ icon: Icon, label, sub, delay, color }) {
+  const colorClasses = {
+    blue: "bg-blue-50 text-blue-600 border-blue-100",
+    purple: "bg-purple-50 text-purple-600 border-purple-100",
+    orange: "bg-orange-50 text-orange-600 border-orange-100"
+  }
+  return (
+    <motion.div
+      initial={{ x: -20, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay }}
+      className="flex items-center gap-4 p-4 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
+    >
+      <div className={`p-3 rounded-lg ${colorClasses[color]} border`}>
+        <Icon size={20} />
+      </div>
+      <div>
+        <div className="font-semibold text-slate-800 text-sm">{label}</div>
+        <div className="text-xs text-slate-400 font-mono">{sub}</div>
+      </div>
+      <ArrowRight size={14} className="ml-auto text-slate-300" />
+    </motion.div>
+  )
+}
+
+function ResultCard({ title, stat, statLabel, desc, delay }) {
+  return (
+    <motion.div
+      initial={{ x: 20, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay }}
+      className="p-6 rounded-2xl bg-white border border-slate-100 shadow-lg shadow-slate-200/50 hover:-translate-y-1 transition-transform"
+    >
+      <div className="flex justify-between items-start mb-4">
+        <div>
+          <h4 className="font-bold text-slate-900">{title}</h4>
+          <p className="text-xs text-slate-500 mt-1">{desc}</p>
+        </div>
+        <div className="text-right">
+          <div className="text-2xl font-bold text-emerald-600">{stat}</div>
+          <div className="text-[10px] text-slate-400 uppercase tracking-wider">{statLabel}</div>
+        </div>
+      </div>
+      <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: "100%" }}
+          transition={{ delay: delay + 0.2, duration: 1 }}
+          className="h-full bg-emerald-500"
+        />
+      </div>
+    </motion.div>
+  )
 }

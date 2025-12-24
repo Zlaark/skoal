@@ -142,10 +142,10 @@ export default function Industries() {
   });
 
   // Increased range to ensure last card is fully viewable
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-95%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-110%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[300vh] bg-[#FAFAFA]">
+    <section ref={targetRef} className="relative h-[350vh] bg-[#FAFAFA]">
 
       {/* Sticky Container */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
