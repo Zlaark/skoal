@@ -124,7 +124,7 @@ const Card = ({ card }) => {
             </div>
 
             {/* Floating Action Button */}
-            <button className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:border-emerald-500 flex items-center justify-center transition-all duration-500 hover:scale-110">
+            <button aria-label="Learn more about this industry" className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:border-emerald-500 flex items-center justify-center transition-all duration-500 hover:scale-110">
               <ArrowRight size={20} className="text-emerald-400 group-hover:text-white transition-colors duration-500" />
             </button>
           </div>
@@ -215,7 +215,7 @@ export default function Industries() {
               <p className="relative z-10 text-slate-500 mb-8 max-w-xs mx-auto">
                 We build custom workforce solutions for unique operational challenges.
               </p>
-              <button className="relative z-10 px-8 py-4 bg-slate-900 text-white rounded-full font-bold shadow-xl shadow-slate-900/10 hover:bg-emerald-600 transition-all duration-300 flex items-center gap-2 group-hover:px-10">
+              <button aria-label="Explore partnership opportunities" className="relative z-10 px-8 py-4 bg-slate-900 text-white rounded-full font-bold shadow-xl shadow-slate-900/10 hover:bg-emerald-600 transition-all duration-300 flex items-center gap-2 group-hover:px-10">
                 Let's Talk <ArrowRight size={18} />
               </button>
             </div>

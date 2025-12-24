@@ -59,6 +59,7 @@ export default function Footer() {
           {/* Back to Top */}
           <button
             onClick={scrollToTop}
+            aria-label="Scroll back to top of page"
             className="group flex items-center gap-2 text-sm font-medium text-emerald-100 hover:text-white transition-colors order-1 md:order-2"
           >
             Back to Top <ArrowUpRight size={16} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />

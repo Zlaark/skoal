@@ -31,6 +31,7 @@ function DemoModal({ isOpen, onClose }) {
             <div className="bg-white rounded-3xl w-full max-w-4xl aspect-video relative shadow-2xl overflow-hidden pointer-events-auto border border-white/20">
               <button
                 onClick={onClose}
+                aria-label="Close modal"
                 className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
               >
                 <X size={20} />

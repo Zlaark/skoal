@@ -189,7 +189,7 @@ function ResultCard({ title, stat, statLabel, desc, delay }) {
     >
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h4 className="font-bold text-slate-900">{title}</h4>
+          <h3 className="font-bold text-slate-900">{title}</h3>
           <p className="text-xs text-slate-500 mt-1">{desc}</p>
         </div>
         <div className="text-right">

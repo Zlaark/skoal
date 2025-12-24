@@ -101,20 +101,20 @@ export default function Contact() {
                 {/* Inputs */}
                 <div className="space-y-8">
                   <div className="relative group">
-                    <input type="text" required placeholder=" " className="peer w-full bg-transparent border-b border-slate-200 py-4 text-xl text-slate-900 focus:outline-none focus:border-emerald-600 transition-colors" />
-                    <label className="absolute left-0 top-4 text-slate-400 text-lg transition-all peer-focus:-top-6 peer-focus:text-xs peer-focus:text-emerald-600 peer-valid:-top-6 peer-valid:text-xs peer-valid:text-emerald-600 pointer-events-none">
+                    <input id="contact-name" type="text" required placeholder=" " className="peer w-full bg-transparent border-b border-slate-200 py-4 text-xl text-slate-900 focus:outline-none focus:border-emerald-600 transition-colors" />
+                    <label htmlFor="contact-name" className="absolute left-0 top-4 text-slate-400 text-lg transition-all peer-focus:-top-6 peer-focus:text-xs peer-focus:text-emerald-600 peer-valid:-top-6 peer-valid:text-xs peer-valid:text-emerald-600 pointer-events-none">
                       Name
                     </label>
                   </div>
                   <div className="relative group">
-                    <input type="email" required placeholder=" " className="peer w-full bg-transparent border-b border-slate-200 py-4 text-xl text-slate-900 focus:outline-none focus:border-emerald-600 transition-colors" />
-                    <label className="absolute left-0 top-4 text-slate-400 text-lg transition-all peer-focus:-top-6 peer-focus:text-xs peer-focus:text-emerald-600 peer-valid:-top-6 peer-valid:text-xs peer-valid:text-emerald-600 pointer-events-none">
+                    <input id="contact-email" type="email" required placeholder=" " className="peer w-full bg-transparent border-b border-slate-200 py-4 text-xl text-slate-900 focus:outline-none focus:border-emerald-600 transition-colors" />
+                    <label htmlFor="contact-email" className="absolute left-0 top-4 text-slate-400 text-lg transition-all peer-focus:-top-6 peer-focus:text-xs peer-focus:text-emerald-600 peer-valid:-top-6 peer-valid:text-xs peer-valid:text-emerald-600 pointer-events-none">
                       Email Address
                     </label>
                   </div>
                   <div className="relative group">
-                    <textarea required rows={1} placeholder=" " className="peer w-full bg-transparent border-b border-slate-200 py-4 text-xl text-slate-900 focus:outline-none focus:border-emerald-600 transition-colors resize-none" />
-                    <label className="absolute left-0 top-4 text-slate-400 text-lg transition-all peer-focus:-top-6 peer-focus:text-xs peer-focus:text-emerald-600 peer-valid:-top-6 peer-valid:text-xs peer-valid:text-emerald-600 pointer-events-none">
+                    <textarea id="contact-message" required rows={1} placeholder=" " className="peer w-full bg-transparent border-b border-slate-200 py-4 text-xl text-slate-900 focus:outline-none focus:border-emerald-600 transition-colors resize-none" />
+                    <label htmlFor="contact-message" className="absolute left-0 top-4 text-slate-400 text-lg transition-all peer-focus:-top-6 peer-focus:text-xs peer-focus:text-emerald-600 peer-valid:-top-6 peer-valid:text-xs peer-valid:text-emerald-600 pointer-events-none">
                       Brief Analysis
                     </label>
                   </div>
@@ -124,6 +124,7 @@ export default function Contact() {
                 <div className="pt-4">
                   <button
                     disabled={formState !== "idle"}
+                    aria-label="Submit contact form"
                     className="group relative overflow-hidden bg-slate-900 text-white rounded-full px-10 py-5 text-lg font-medium transition-all hover:bg-emerald-700 disabled:bg-emerald-500 w-full md:w-auto"
                   >
                     <span className="relative z-10 flex items-center gap-3">

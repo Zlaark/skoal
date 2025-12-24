@@ -159,6 +159,7 @@ const Navbar = () => {
 
               {/* Mobile Toggle */}
             <button 
+              aria-label="Open mobile menu"
               className={`md:hidden p-2 rounded-full ml-2 ${textColorClass} bg-black/10`}
               onClick={() => setMobileMenuOpen(true)}
             >
@@ -180,7 +181,7 @@ const Navbar = () => {
               isLightMode ? "bg-white/95" : "bg-[#02040a]/95"
             }`}
           >
-             <button onClick={() => setMobileMenuOpen(false)} className={`absolute top-8 right-8 p-4 transition-colors ${isLightMode ? "text-slate-900/60 hover:text-slate-900" : "text-white/60 hover:text-white"}`}>
+             <button aria-label="Close mobile menu" onClick={() => setMobileMenuOpen(false)} className={`absolute top-8 right-8 p-4 transition-colors ${isLightMode ? "text-slate-900/60 hover:text-slate-900" : "text-white/60 hover:text-white"}`}>
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
              </button>
              

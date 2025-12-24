@@ -231,7 +231,7 @@ function FeatureRow({ item, index }) {
             </div>
           </div>
 
-          <button className={`mt-12 group flex items-center gap-3 text-white font-semibold transition-all hover:gap-5 ${!isGraphicLeft ? "flex-row-reverse" : ""}`}>
+          <button aria-label={`Read ${item.title} case study`} className={`mt-12 group flex items-center gap-3 text-white font-semibold transition-all hover:gap-5 ${!isGraphicLeft ? "flex-row-reverse" : ""}`}>
             Read Case Study <ArrowUpRight className={`text-${item.accent}-400 group-hover:rotate-45 transition-transform`} />
           </button>
 
