@@ -9,7 +9,7 @@ export default function Loader({ onComplete }) {
   useEffect(() => {
     let start = 0;
     const end = 100;
-    const duration = 2000;
+    const duration = 1000;
 
     const timer = setInterval(() => {
       start += 1;
@@ -19,7 +19,7 @@ export default function Loader({ onComplete }) {
 
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, 2500);
+    }, 1200);
 
     return () => {
       clearInterval(timer);

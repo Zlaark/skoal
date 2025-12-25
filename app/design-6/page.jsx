@@ -26,35 +26,31 @@ export default function Page() {
         )}
       </AnimatePresence>
 
-      {!loading && (
-        <>
-          {/* Hero Section - can be animated */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <Hero />
-          </motion.div>
+      {/* Content renders concurrently behind loader for LCP optimization */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }} // Added small delay to prevent immediate flash behind loader
+      >
+        <Hero />
+      </motion.div>
 
-          {/* Industries Section - OUTSIDE motion.div to preserve sticky positioning */}
-          <Industries />
+      {/* Industries Section - OUTSIDE motion.div to preserve sticky positioning */}
+      <Industries />
 
-          {/* Remaining sections */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <About />
-            <Services />
-            <Work />
-            <TechStack />
-            <Contact />
-            <Footer />
-          </motion.div>
-        </>
-      )}
+      {/* Remaining sections */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <About />
+        <Services />
+        <Work />
+        <TechStack />
+        <Contact />
+        <Footer />
+      </motion.div>
     </main>
   );
 }
