@@ -20,61 +20,322 @@ import Footer from "../components/Footer";
 
 // --- Components ---
 
-// Exact Replica of Home Page "PrecisionCard" for Consistency in Body
+// Premium, High-Fidelity 3D Service Card
 function PrecisionCard({ service, index }) {
     const [isHovered, setIsHovered] = useState(false);
+    const [rotation, setRotation] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = mouseX / rect.width - 0.5;
+        const yPct = mouseY / rect.height - 0.5;
+
+        setRotation({
+            x: yPct * -10, // Max tilt X
+            y: xPct * 10   // Max tilt Y
+        });
+    };
+
+    const handleMouseLeave = () => {
+        setRotation({ x: 0, y: 0 });
+        setIsHovered(false);
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: index * 0.1, duration: 0.8, ease: [0.2, 1, 0.3, 1] }}
+            className="perspective-1000 h-full"
+        >
+            <motion.div
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={handleMouseLeave}
+                className="group relative h-full bg-white rounded-[2.5rem] border border-slate-100 p-8 md:p-10 overflow-hidden cursor-pointer flex flex-col justify-between"
+                style={{
+                    transformStyle: "preserve-3d",
+                }}
+                animate={{
+                    rotateX: rotation.x,
+                    rotateY: rotation.y,
+                    boxShadow: isHovered
+                        ? "0 30px 60px -15px rgba(16, 185, 129, 0.3)"
+                        : "0 10px 30px -10px rgba(0, 0, 0, 0.05)",
+                    y: isHovered ? -10 : 0,
+                    scale: isHovered ? 1.02 : 1
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+                {/* --- BACKGROUND FX --- */}
+
+                {/* 1. Ultra-subtle Noise Texture */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+                {/* 2. Gradient Blob Top-Right */}
+                <motion.div
+                    className="absolute -top-20 -right-20 w-64 h-64 bg-emerald-100/50 rounded-full blur-3xl pointer-events-none"
+                    animate={isHovered ? { scale: 1.5, opacity: 0.8 } : { scale: 1, opacity: 0.5 }}
+                    transition={{ duration: 1 }}
+                />
+
+                {/* 3. Gradient Blob Bottom-Left */}
+                <motion.div
+                    className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-100/50 rounded-full blur-3xl pointer-events-none"
+                    animate={isHovered ? { scale: 1.5, opacity: 0.8 } : { scale: 1, opacity: 0.5 }}
+                    transition={{ duration: 1 }}
+                />
+
+                {/* 4. Active "Shine" Gradient Overlay */}
+                <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-emerald-50/20 opacity-0 pointer-events-none"
+                    animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
+                />
+
+                {/* --- FLOATING CONTENT LAYERS --- */}
+
+                {/* HEADER */}
+                <div className="relative z-10" style={{ transform: "translateZ(30px)" }}>
+                    <div className="flex justify-between items-start mb-8">
+                        {/* 3D Floating Icon */}
+                        <motion.div
+                            className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-white border border-slate-100 shadow-lg flex items-center justify-center text-emerald-600 group-hover:text-white overflow-hidden transition-colors duration-500"
+                            whileHover={{ rotate: [0, -5, 5, 0] }}
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <div className="relative z-10">{service.icon}</div>
+                        </motion.div>
+
+                        {/* Status Capsule */}
+                        <div className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-100 flex items-center gap-2 shadow-sm group-hover:bg-white/80 group-hover:border-emerald-100 transition-colors duration-500">
+                            <motion.span
+                                className="w-2 h-2 rounded-full"
+                                animate={{ backgroundColor: isHovered ? "#10b981" : "#cbd5e1" }}
+                            />
+                            <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase group-hover:text-emerald-700 transition-colors">
+                                {isHovered ? "ACTIVE" : "IDLE"}
+                            </span>
+                        </div>
+                    </div>
+
+                    <h3 className="text-3xl font-serif text-slate-900 mb-4 group-hover:translate-x-1 transition-transform duration-300">
+                        {service.title}
+                    </h3>
+
+                    <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-[90%] font-medium">
+                        {service.desc}
+                    </p>
+                </div>
+
+                {/* DIVIDER with simple expansion effect */}
+                <motion.div
+                    className="w-full h-px bg-slate-100 my-8 relative overflow-hidden"
+                    style={{ transform: "translateZ(10px)" }}
+                >
+                    <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+                        initial={{ x: "-100%" }}
+                        animate={isHovered ? { x: "100%" } : { x: "-100%" }}
+                        transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0, ease: "linear" }}
+                    />
+                </motion.div>
+
+                {/* FOOTER */}
+                <div className="relative z-10 flex items-end justify-between" style={{ transform: "translateZ(40px)" }}>
+                    <div>
+                        <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-1">
+                            {service.statLabel}
+                        </div>
+                        <motion.div
+                            className="text-5xl font-mono font-light tracking-tighter text-slate-900"
+                            animate={isHovered ? { color: "#047857" } : { color: "#0f172a" }}
+                        >
+                            {service.stat}
+                        </motion.div>
+                    </div>
+
+                    <motion.button
+                        className="w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 transition-all duration-300 shadow-sm"
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        <ArrowRight size={20} className="group-hover:-rotate-45 transition-transform duration-300" />
+                    </motion.button>
+                </div>
+
+                {/* Floating Particles (Sparkles) */}
+                {isHovered && Array.from({ length: 6 }).map((_, i) => (
+                    <motion.div
+                        key={i}
+                        className="absolute w-1 h-1 bg-emerald-400 rounded-full blur-[1px] pointer-events-none"
+                        initial={{ opacity: 0, x: Math.random() * 300, y: Math.random() * 300, scale: 0 }}
+                        animate={{
+                            opacity: [0, 1, 0],
+                            y: [null, -50],
+                            x: [null, Math.random() * 20 - 10],
+                            scale: [0, 1.5, 0]
+                        }}
+                        transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+                    />
+                ))}
+
+            </motion.div>
+        </motion.div>
+    );
+}
+
+// Special Large 3D Card for HRMS Section
+function HRMS3DCard() {
+    const [rotation, setRotation] = useState({ x: 0, y: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = mouseX / rect.width - 0.5;
+        const yPct = mouseY / rect.height - 0.5;
+
+        setRotation({
+            x: yPct * -5,  // Much subtler tilt for a large card
+            y: xPct * 5
+        });
+    };
+
+    const handleMouseLeave = () => {
+        setRotation({ x: 0, y: 0 });
+        setIsHovered(false);
+    };
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className={`relative p-8 rounded-[2.5rem] bg-white border border-slate-200 shadow-xl shadow-slate-200/50 transition-all duration-500 h-full flex flex-col justify-between group overflow-hidden hover:shadow-2xl hover:-translate-y-2 hover:border-emerald-200`}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="perspective-2000"
         >
-            <div className={`absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
+            <motion.div
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={handleMouseLeave}
+                className="relative bg-white rounded-[3rem] p-12 lg:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 text-center overflow-hidden cursor-default group"
+                style={{ transformStyle: "preserve-3d" }}
+                animate={{
+                    rotateX: rotation.x,
+                    rotateY: rotation.y,
+                    boxShadow: isHovered
+                        ? "0 50px 120px -20px rgba(16, 185, 129, 0.2)"
+                        : "0 40px 100px -20px rgba(0, 0, 0, 0.05)",
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            >
+                {/* 1. Top Gradient Border Accent */}
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-400 via-[#0A261D] to-emerald-400" />
 
-            <div className="absolute top-6 right-6 flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full transition-colors duration-300 ${isHovered ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
-                <span className="text-[10px] font-mono font-bold text-slate-400 tracking-widest">
-                    {isHovered ? 'ACTIVE' : 'IDLE'}
-                </span>
-            </div>
+                {/* 2. Shine Effect */}
+                <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-emerald-50/30 opacity-0 pointer-events-none"
+                    animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                />
 
-            <div className="relative z-10 mb-10">
-                <div className={`w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-200 group-hover:scale-110`}>
-                    <div className="text-slate-600 group-hover:text-white transition-colors">
-                        {service.icon}
-                    </div>
-                </div>
-                <h3 className="text-2xl font-serif font-medium text-slate-900 mb-2 group-hover:text-black transition-colors">
-                    {service.title}
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed max-w-[90%] group-hover:text-slate-600 transition-colors">
-                    {service.desc}
-                </p>
-            </div>
+                {/* 3. Floating Content */}
+                <div className="relative z-10 flex flex-col items-center" style={{ transform: "translateZ(30px)" }}>
 
-            <div className="relative z-10 mt-auto pt-6 border-t border-slate-100 group-hover:border-slate-200 transition-colors">
-                <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-1">
-                    {service.statLabel}
-                </div>
-                <div className="flex items-baseline justify-between overflow-hidden">
+                    {/* Floating Icon */}
                     <motion.div
-                        key={isHovered ? "hover" : "idle"}
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                        className={`text-4xl lg:text-5xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900`}
+                        className="w-24 h-24 bg-[#0A261D] rounded-[2rem] flex items-center justify-center text-white shadow-2xl shadow-emerald-900/20 mb-10 rotate-[-5deg]"
+                        animate={isHovered ? { rotate: 0, scale: 1.1 } : { rotate: -5, scale: 1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
                     >
-                        {service.stat}
+                        <Database size={40} strokeWidth={1.5} />
                     </motion.div>
-                    <ArrowUpRight className={`opacity-0 group-hover:opacity-100 transition-all duration-500 text-emerald-500 transform translate-y-4 group-hover:translate-y-0`} size={24} />
+
+                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-slate-900 mb-8 tracking-tighter">
+                        Powered by <span className="text-emerald-700">Skoal HRMS</span>
+                    </h2>
+
+                    <p className="text-xl md:text-2xl text-slate-500 leading-relaxed max-w-3xl mx-auto mb-14">
+                        All payroll operations are managed through Skoal’s in-house HRMS platform, securely whitelisted for each client with <span className="inline-block bg-emerald-50 text-slate-900 font-semibold px-3 py-1 rounded-lg border border-emerald-100 transform -skew-x-6 hover:skew-x-0 transition-transform cursor-cell">dedicated databases</span> and access controls.
+                    </p>
+
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="group relative px-10 py-5 bg-[#0A261D] text-white rounded-full font-bold text-lg overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-emerald-900/30 transition-all"
+                    >
+                        <span className="relative z-10 flex items-center gap-3">
+                            Request System Demo
+                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-[#0A261D] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                    </motion.button>
+                </div>
+            </motion.div>
+        </motion.div>
+    );
+}
+
+// New Stats Section Component
+function StatsSection() {
+    const stats = [
+        {
+            stat: "30+",
+            label: "years of experience",
+            icon: <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}><Layers className="text-emerald-400" size={32} /></motion.div>
+        },
+        {
+            stat: "180+",
+            label: "countries worldwide",
+            icon: <Globe className="text-emerald-400" size={32} />
+        },
+        {
+            stat: "1,400",
+            label: "global customers",
+            icon: <Users className="text-emerald-400" size={32} />
+        },
+        {
+            stat: "11M+",
+            label: "employees served",
+            icon: <ShieldCheck className="text-emerald-400" size={32} />
+        },
+        {
+            stat: "200M+",
+            label: "annual employee interactions",
+            icon: <Activity className="text-emerald-400" size={32} />
+        }
+    ];
+
+    return (
+        <section className="bg-[#0A261D] py-20 px-6 overflow-hidden">
+            <div className="container mx-auto max-w-7xl">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center relative z-10">
+                    {stats.map((item, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1, duration: 0.8 }}
+                            className="flex flex-col items-center group"
+                        >
+                            <div className="mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/30 transition-all duration-500">
+                                {item.icon}
+                            </div>
+                            <h3 className="text-4xl lg:text-5xl font-bold text-white mb-3 tracking-tight">
+                                {item.stat}
+                            </h3>
+                            <p className="text-emerald-100/60 text-sm font-medium uppercase tracking-wide max-w-[120px] mx-auto leading-relaxed">
+                                {item.label}
+                            </p>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
-        </motion.div>
+        </section>
     );
 }
 
@@ -347,43 +608,13 @@ export default function ServicesPage() {
                 </div>
             </section>
 
+            {/* --- STATS SECTION --- */}
+            <StatsSection />
+
             {/* --- HRMS FOOTER --- */}
-            <section className="py-32 px-6 lg:px-12 relative overflow-hidden">
-                <div className="container mx-auto max-w-6xl relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="bg-white rounded-[3rem] p-12 lg:p-20 shadow-2xl border border-slate-100 text-center relative overflow-hidden group"
-                    >
-                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 via-[#0A261D] to-emerald-400" />
-                        <motion.div
-                            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-                            transition={{ duration: 8, repeat: Infinity }}
-                            className="absolute -left-20 -bottom-20 w-96 h-96 bg-emerald-50 rounded-full blur-3xl"
-                        />
-
-                        <div className="relative z-10">
-                            <div className="w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center mx-auto mb-8 text-white shadow-xl rotate-3 group-hover:rotate-12 transition-all duration-500">
-                                <Database size={32} />
-                            </div>
-                            <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 tracking-tighter">
-                                Powered by <span className="text-emerald-700">Skoal HRMS</span>
-                            </h2>
-                            <p className="text-xl text-slate-500 leading-relaxed max-w-3xl mx-auto mb-12">
-                                All payroll operations are managed through Skoal’s in-house HRMS platform, securely whitelisted for each client with <span className="text-slate-900 font-semibold bg-emerald-50 px-2 py-1 rounded">dedicated databases</span> and access controls.
-                            </p>
-
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="inline-flex items-center gap-2 px-10 py-5 bg-[#0A261D] text-white rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-emerald-900/20 transition-all"
-                            >
-                                Request System Demo
-                                <ArrowRight size={20} />
-                            </motion.button>
-                        </div>
-                    </motion.div>
+            <section className="py-32 px-6 lg:px-12 relative overflow-hidden bg-slate-50/50">
+                <div className="container mx-auto max-w-5xl relative z-10">
+                    <HRMS3DCard />
                 </div>
             </section>
 
