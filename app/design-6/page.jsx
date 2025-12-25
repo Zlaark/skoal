@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import Loader from "./components/Loader";
 import Hero from "./components/Hero";
 import Industries from "./components/Industries";
 
@@ -16,21 +14,14 @@ const Contact = dynamic(() => import("./components/Contact"), { ssr: false });
 const Footer = dynamic(() => import("./components/Footer"), { ssr: false });
 
 export default function Page() {
-  const [loading, setLoading] = useState(true);
-
   return (
     <main className="relative min-h-screen bg-[#fafafa] text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
-      <AnimatePresence mode="wait">
-        {loading && (
-          <Loader onComplete={() => setLoading(false)} />
-        )}
-      </AnimatePresence>
 
       {/* Content renders concurrently behind loader for LCP optimization */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }} // Added small delay to prevent immediate flash behind loader
+        transition={{ duration: 0.5, ease: "easeOut" }} // Faster initial render
       >
         <Hero />
       </motion.div>

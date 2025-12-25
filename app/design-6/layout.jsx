@@ -5,7 +5,10 @@ import Navbar from "../components/Navbar";
 // If design-6 specific globals are needed, we can create them. 
 // For now, reuse main app globals but override with inline classes where needed.
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: 'swap', // Prevent FOIT, show fallback immediately
+});
 
 export const metadata = {
   title: "Skoal Solutions - Global Payroll Reimagined",
