@@ -115,19 +115,19 @@ const PremiumVisualization = () => {
                     key={i}
                     className="absolute w-1 h-1 rounded-full bg-emerald-400"
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${(i * 13) % 100}%`,
+                        top: `${(i * 37) % 100}%`,
                     }}
                     animate={{
                         y: [0, -100],
-                        x: [0, (Math.random() - 0.5) * 50],
+                        x: [0, ((i % 2 === 0 ? 1 : -1) * 25)],
                         opacity: [0, 1, 0],
                         scale: [0, 1, 0]
                     }}
                     transition={{
-                        duration: 3 + Math.random() * 2,
+                        duration: 3 + (i % 3),
                         repeat: Infinity,
-                        delay: Math.random() * 3,
+                        delay: (i * 0.2),
                         ease: "easeOut"
                     }}
                 />

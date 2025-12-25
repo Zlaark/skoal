@@ -88,17 +88,17 @@ function ComplianceNetworkAnimation() {
                     key={i}
                     className="absolute bg-emerald-400 h-[1px] w-12"
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                        rotate: Math.random() * 360
+                        left: `${(i * 19) % 100}%`,
+                        top: `${(i * 23) % 100}%`,
+                        rotate: (i * 45) % 360
                     }}
                     animate={{
                         opacity: [0, 0.6, 0],
                         scaleX: [0.5, 1.5, 0.5],
-                        x: [0, (Math.random() - 0.5) * 100],
-                        y: [0, (Math.random() - 0.5) * 100]
+                        x: [0, ((i % 2 === 0 ? 1 : -1) * 50)],
+                        y: [0, ((i % 3 === 0 ? 1 : -1) * 30)]
                     }}
-                    transition={{ duration: 3 + Math.random() * 2, repeat: Infinity }}
+                    transition={{ duration: 3 + (i % 3), repeat: Infinity }}
                 />
             ))}
         </div>
