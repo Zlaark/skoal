@@ -10,7 +10,6 @@ export default function Contact() {
   const canvasRef = useRef(null);
 
   // --- GLOBE CONFIGURATION ---
-  // --- GLOBE CONFIGURATION ---
   useEffect(() => {
     let phi = 0;
 
@@ -63,8 +62,8 @@ export default function Contact() {
   return (
     <section className="relative py-24 bg-[#FAFAFA] text-slate-900 overflow-hidden min-h-screen flex items-center" id="contact">
 
-      {/* Background Grid Pattern (Restored) */}
-      <div className="absolute inset-0 opacity-[0.4] pointer-events-none"
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 opacity-[0.5] pointer-events-none"
         style={{
           backgroundImage: 'linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px)',
           backgroundSize: '40px 40px'
@@ -83,103 +82,93 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* --- RIGHT: EXECUTIVE FORM (Reverted) --- */}
+          {/* --- RIGHT: GLASSMORPHISM CARD FORM --- */}
           <div className="order-1 lg:order-2">
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
 
-              {/* Decorative Header */}
-              <div className="mb-12">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="h-px w-8 bg-emerald-500"></div>
-                  <span className="text-emerald-700 font-bold tracking-[0.2em] text-xs uppercase">Inquiries</span>
-                </div>
-                <h2 className="text-5xl md:text-6xl font-serif text-slate-900 mb-6 leading-none">
-                  Let's build <br />
-                  <span className="italic text-emerald-800">momentum.</span>
+              {/* Header Title */}
+              <div className="mb-8 pl-4">
+                <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-2">
+                  Get in <span className="italic text-emerald-700">touch.</span>
                 </h2>
-                <p className="text-lg text-slate-500 max-w-md font-light">
-                  Our engineering team is ready to audit your workforce infrastructure.
-                </p>
+                <p className="text-slate-500 font-light">We are ready to listen.</p>
               </div>
 
-              {/* Clean Form Layout */}
-              <form onSubmit={handleSubmit} className="space-y-12">
+              {/* Glass Card Container */}
+              <div className="relative bg-white/70 backdrop-blur-xl border border-white/60 rounded-[2rem] p-10 shadow-2xl shadow-slate-200/50">
 
-                {/* Name Input */}
-                <div className="relative group">
-                  <input
-                    type="text"
-                    id="name"
-                    required
-                    placeholder=" "
-                    className="block py-4 w-full text-xl text-slate-900 bg-transparent border-0 border-b border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors"
-                  />
-                  <label
-                    htmlFor="name"
-                    className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
-                  >
-                    Full Name
-                  </label>
-                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-slate-300 group-hover:bg-slate-400 transition-colors" />
-                  <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-emerald-600 transition-all duration-500 peer-focus:w-full" />
-                </div>
+                <form onSubmit={handleSubmit} className="space-y-8">
 
-                {/* Email Input */}
-                <div className="relative group">
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    placeholder=" "
-                    className="block py-4 w-full text-xl text-slate-900 bg-transparent border-0 border-b border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors"
-                  />
-                  <label
-                    htmlFor="email"
-                    className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
-                  >
-                    Business Email
-                  </label>
-                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-slate-300 group-hover:bg-slate-400 transition-colors" />
-                  <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-emerald-600 transition-all duration-500 peer-focus:w-full" />
-                </div>
+                  {/* Name Input */}
+                  <div className="relative group">
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      placeholder=" "
+                      className="block py-3 w-full text-lg text-slate-900 bg-transparent border-0 border-b-[1.5px] border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors"
+                    />
+                    <label
+                      htmlFor="name"
+                      className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
+                    >
+                      Full Name
+                    </label>
+                  </div>
 
-                {/* Message Input */}
-                <div className="relative group">
-                  <textarea
-                    id="message"
-                    rows={2}
-                    required
-                    placeholder=" "
-                    className="block py-4 w-full text-xl text-slate-900 bg-transparent border-0 border-b border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors resize-none"
-                  />
-                  <label
-                    htmlFor="message"
-                    className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
-                  >
-                    Requirements
-                  </label>
-                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-slate-300 group-hover:bg-slate-400 transition-colors" />
-                  <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-emerald-600 transition-all duration-500 peer-focus:w-full" />
-                </div>
+                  {/* Email Input */}
+                  <div className="relative group">
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      placeholder=" "
+                      className="block py-3 w-full text-lg text-slate-900 bg-transparent border-0 border-b-[1.5px] border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors"
+                    />
+                    <label
+                      htmlFor="email"
+                      className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
+                    >
+                      Business Email
+                    </label>
+                  </div>
 
-                <div className="pt-8 w-full md:w-auto">
-                  <button
-                    disabled={formState !== "idle"}
-                    className="group relative inline-flex items-center justify-between gap-8 px-10 py-5 bg-[#022c22] text-white overflow-hidden transition-all hover:pr-8 hover:pl-12 hover:shadow-2xl hover:shadow-emerald-900/30 disabled:opacity-70 disabled:cursor-not-allowed w-full md:w-auto rounded-none md:rounded-sm"
-                  >
-                    <span className="relative z-10 font-bold tracking-widest text-sm uppercase">
-                      {formState === "idle" ? "Initiate Request" : "Transmitting..."}
-                    </span>
-                    <span className="relative z-10 flex items-center justify-center w-8 h-8 bg-white/10 rounded-full group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-                      {formState === "sent" ? <CheckCircle2 size={16} /> : <ArrowRight size={16} />}
-                    </span>
+                  {/* Message Input */}
+                  <div className="relative group">
+                    <textarea
+                      id="message"
+                      rows={2}
+                      required
+                      placeholder=" "
+                      className="block py-3 w-full text-lg text-slate-900 bg-transparent border-0 border-b-[1.5px] border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors resize-none"
+                    />
+                    <label
+                      htmlFor="message"
+                      className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
+                    >
+                      Requirements
+                    </label>
+                  </div>
 
-                    {/* Slide Hover Effect */}
-                    <div className="absolute inset-0 bg-emerald-800 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out" />
-                  </button>
-                </div>
+                  <div className="pt-4">
+                    <button
+                      disabled={formState !== "idle"}
+                      className="group w-full relative flex items-center justify-center gap-3 px-8 py-4 bg-[#0A261D] text-white rounded-xl overflow-hidden transition-all hover:shadow-xl hover:shadow-emerald-900/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      <span className="relative z-10 font-bold tracking-widest text-xs uppercase">
+                        {formState === "idle" ? "Initiate Request" : "Transmitting..."}
+                      </span>
+                      <div className="relative z-10 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-emerald-500 transition-colors">
+                        {formState === "sent" ? <CheckCircle2 size={14} /> : <ArrowRight size={14} className="-rotate-45 group-hover:rotate-0 transition-transform duration-500" />}
+                      </div>
 
-              </form>
+                      {/* Shimmer */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                    </button>
+                  </div>
+
+                </form>
+              </div>
 
             </motion.div>
           </div>
