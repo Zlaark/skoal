@@ -17,10 +17,14 @@ export default function Contact() {
     if (!canvasRef.current) return;
 
     try {
+      // Detect screen size for responsive globe
+      const isMobile = window.innerWidth < 1024; // lg breakpoint
+      const globeSize = isMobile ? 600 : 1200; // Mobile: 600px, Desktop: 1200px
+
       const globe = createGlobe(canvasRef.current, {
         devicePixelRatio: 2,
-        width: 1200, // Explicit px value matching container * 2
-        height: 1200,
+        width: globeSize,
+        height: globeSize,
         phi: 0,
         theta: 0,
         dark: 0,
@@ -76,9 +80,9 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-20 items-center">
 
           {/* --- LEFT VISUAL (Globe) --- */}
-          <div className="relative h-[600px] flex items-center justify-center order-2 lg:order-1 perspective-[1000px]">
-            <div className="relative w-full max-w-[600px] aspect-square">
-              <canvas ref={canvasRef} style={{ width: '100%', height: '100%', maxWidth: '600px', maxHeight: '600px' }} />
+          <div className="relative h-[300px] lg:h-[600px] flex items-center justify-center order-2 lg:order-1 perspective-[1000px]">
+            <div className="relative w-full max-w-[300px] lg:max-w-[600px] aspect-square">
+              <canvas ref={canvasRef} style={{ width: '100%', height: '100%', maxWidth: '300px', maxHeight: '300px' }} className="lg:!max-w-[600px] lg:!max-h-[600px]" />
             </div>
           </div>
 
