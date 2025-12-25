@@ -2,15 +2,18 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Loader from "./components/Loader";
-import About from "./components/About";
-import Services from "./components/Services";
 import Hero from "./components/Hero";
-import Footer from "./components/Footer";
 import Industries from "./components/Industries";
-import TechStack from "./components/TechStack";
-import Work from "./components/Work";
-import Contact from "./components/Contact";
+
+// Lazy load below-the-fold components
+const About = dynamic(() => import("./components/About"), { ssr: false });
+const Services = dynamic(() => import("./components/Services"), { ssr: false });
+const Work = dynamic(() => import("./components/Work"), { ssr: false });
+const TechStack = dynamic(() => import("./components/TechStack"), { ssr: false });
+const Contact = dynamic(() => import("./components/Contact"), { ssr: false });
+const Footer = dynamic(() => import("./components/Footer"), { ssr: false });
 
 export default function Page() {
   const [loading, setLoading] = useState(true);

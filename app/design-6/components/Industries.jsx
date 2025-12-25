@@ -191,7 +191,7 @@ export default function Industries() {
         <div className="w-full relative z-20 pt-48 md:pt-64">
           <motion.div
             style={{ x }}
-            className="flex gap-6 md:gap-8 pl-8 md:pl-16 pr-20 items-center"
+            className="flex gap-6 md:gap-8 pl-8 md:pl-16 pr-20 items-center will-change-transform"
           >
 
             {/* Intro Spacer */}
