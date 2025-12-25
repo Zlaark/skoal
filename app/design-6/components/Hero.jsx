@@ -70,7 +70,7 @@ export default function Hero() {
 
   return (
     // Updated py-20 to pt-32 pb-20 to fix "touching navbar" issue
-    <section ref={targetRef} className="sticky top-0 z-0 h-screen flex items-center overflow-hidden bg-white pt-32 pb-20 text-slate-900">
+    <section ref={targetRef} className="relative lg:sticky top-0 z-0 min-h-screen lg:h-screen flex items-center overflow-hidden bg-white py-20 lg:pt-32 lg:pb-20 text-slate-900">
       <DemoModal isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
 
       {/* Cleaner Background: Subtle Grid + Soft Aurora */}
@@ -117,7 +117,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Heading with increased spacing */}
-          <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[1.1] mb-8 text-slate-900">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[1.1] mb-6 md:mb-8 text-slate-900">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={{ y: "100%" }}
@@ -146,7 +146,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-            className="text-xl text-slate-500 mb-10 leading-relaxed max-w-lg font-medium"
+            className="text-base md:text-xl text-slate-500 mb-8 md:mb-10 leading-relaxed max-w-lg font-medium"
           >
             Secure, compliant, and scalable people solutions across India and the Middle East.
           </motion.p>
@@ -155,11 +155,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
-            className="flex flex-wrap items-center gap-5"
+            className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 sm:gap-5"
           >
             <MagneticButton
               // Primary Button updated to #0A261D
-              className="bg-[#0A261D] text-white rounded-full px-8 py-4 font-semibold text-lg hover:shadow-2xl hover:shadow-emerald-900/20 transition-all shadow-xl shadow-slate-900/20 relative overflow-hidden"
+              className="bg-[#0A261D] text-white rounded-full px-6 py-3 sm:px-8 sm:py-4 font-semibold text-base sm:text-lg hover:shadow-2xl hover:shadow-emerald-900/20 transition-all shadow-xl shadow-slate-900/20 relative overflow-hidden w-full sm:w-auto justify-center"
               rippleClass="bg-gradient-to-r from-emerald-800 to-teal-700"
             >
               <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors">
@@ -172,7 +172,7 @@ export default function Hero() {
             </MagneticButton>
 
             <MagneticButton
-              className="bg-white text-slate-900 border border-slate-200 rounded-full px-8 py-4 font-semibold text-lg hover:border-emerald-600/30 hover:bg-emerald-50/30 transition-all cursor-pointer"
+              className="bg-white text-slate-900 border border-slate-200 rounded-full px-6 py-3 sm:px-8 sm:py-4 font-semibold text-base sm:text-lg hover:border-emerald-600/30 hover:bg-emerald-50/30 transition-all cursor-pointer w-full sm:w-auto justify-center"
               onClick={() => setIsDemoOpen(true)}
             >
               <Play size={20} fill="currentColor" className="mr-3 text-[#0A261D]" />
@@ -185,16 +185,16 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1 }}
-            className="mt-16 flex flex-wrap gap-6"
+            className="mt-12 md:mt-16 flex flex-wrap gap-4 md:gap-6"
           >
             {/* Unique "Live" Compliance Badge */}
-            <div className="group flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-emerald-900/5 hover:border-emerald-500/20 transition-all duration-500 cursor-default hover:-translate-y-1">
-              <div className="relative w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-[#0A261D]">
+            <div className="group flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-2xl bg-white border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-emerald-900/5 hover:border-emerald-500/20 transition-all duration-500 cursor-default hover:-translate-y-1">
+              <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-[#0A261D]">
                 <Shield size={22} strokeWidth={1.5} />
                 <span className="absolute top-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-pulse" />
               </div>
               <div>
-                <div className="text-2xl font-serif font-medium text-slate-900 leading-none mb-1 group-hover:text-emerald-700 transition-colors">
+                <div className="text-xl md:text-2xl font-serif font-medium text-slate-900 leading-none mb-1 group-hover:text-emerald-700 transition-colors">
                   100%
                 </div>
                 <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
@@ -204,12 +204,12 @@ export default function Hero() {
             </div>
 
             {/* Global Coverage Badge */}
-            <div className="group flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-emerald-900/5 hover:border-emerald-500/20 transition-all duration-500 cursor-default hover:-translate-y-1">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-900 group-hover:rotate-12 transition-transform duration-500">
+            <div className="group flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-2xl bg-white border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-emerald-900/5 hover:border-emerald-500/20 transition-all duration-500 cursor-default hover:-translate-y-1">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-900 group-hover:rotate-12 transition-transform duration-500">
                 <Globe size={22} strokeWidth={1.5} />
               </div>
               <div>
-                <div className="text-2xl font-serif font-medium text-slate-900 leading-none mb-1 group-hover:text-blue-700 transition-colors">
+                <div className="text-xl md:text-2xl font-serif font-medium text-slate-900 leading-none mb-1 group-hover:text-blue-700 transition-colors">
                   Global
                 </div>
                 <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
