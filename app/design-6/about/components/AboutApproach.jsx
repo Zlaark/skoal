@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Target, Lightbulb, Users, ArrowUpRight, Sparkles } from "lucide-react";
+import { Target, Lightbulb, Users, ArrowUpRight, ArrowRight, Sparkles } from "lucide-react";
 
 const approaches = [
     {
@@ -13,9 +13,7 @@ const approaches = [
         stat: "2+",
         statLabel: "REGIONS COVERED",
         gradient: "from-blue-500/30 to-cyan-400/30",
-        borderHover: "group-hover:border-blue-500",
-        bgHover: "group-hover:bg-blue-50",
-        color: "text-blue-700"
+        color: "text-blue-400"
     },
     {
         icon: Lightbulb,
@@ -25,9 +23,7 @@ const approaches = [
         stat: "24/7",
         statLabel: "MONITORING",
         gradient: "from-amber-500/30 to-orange-400/30",
-        borderHover: "group-hover:border-amber-500",
-        bgHover: "group-hover:bg-amber-50",
-        color: "text-amber-700"
+        color: "text-amber-400"
     },
     {
         icon: Users,
@@ -37,85 +33,72 @@ const approaches = [
         stat: "100%",
         statLabel: "SATISFACTION RATE",
         gradient: "from-emerald-500/30 to-teal-400/30",
-        borderHover: "group-hover:border-emerald-500",
-        bgHover: "group-hover:bg-emerald-50",
-        color: "text-emerald-700"
+        color: "text-emerald-400"
     }
 ];
 
-// Premium Approach Card Component
+// Premium "Dark" Card Component (Adapted from Industries)
 const ApproachCard = ({ card, index }) => {
-    const [isHovered, setIsHovered] = useState(false);
     const Icon = card.icon;
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{
-                delay: index * 0.1,
-                duration: 0.5
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className={`relative p-8 rounded-[2.5rem] bg-white border border-slate-200 shadow-xl shadow-slate-200/50 transition-all duration-500 h-full flex flex-col justify-between group overflow-hidden ${card.borderHover} hover:shadow-2xl hover:-translate-y-1`}
+            transition={{ delay: index * 0.1, duration: 0.6 }}
+            className="group relative overflow-hidden rounded-[2rem] bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 h-full flex flex-col justify-between"
         >
-            {/* Active Indicator Pulse */}
-            <div className="absolute top-6 right-6 flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${isHovered ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
-                <span className="text-[10px] font-mono font-bold text-slate-400 tracking-widest">
-                    {isHovered ? 'ACTIVE' : 'IDLE'}
-                </span>
-            </div>
+            {/* Dynamic Background Gradients */}
+            <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-gradient-to-br ${card.gradient}`} />
 
-            {/* Gradient Background on Hover */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
+            {/* Noise Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
 
-            {/* Header */}
-            <div className="relative z-10 mb-8">
-                {/* Icon */}
-                <div className={`w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 transition-all duration-500 ${card.bgHover} ${card.color} group-hover:scale-110`}>
-                    <Icon size={20} strokeWidth={1.5} />
-                </div>
+            {/* Abstract Shapes */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px] group-hover:bg-emerald-400/30 transition-colors duration-700" />
+            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                {/* Subtitle Badge */}
-                <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-3 group-hover:text-slate-600 transition-colors">
-                    {card.subtitle}
-                </div>
-
-                {/* Title */}
-                <h3 className="text-2xl font-serif font-medium text-slate-900 mb-4 group-hover:text-black transition-colors leading-tight">
-                    {card.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-slate-500 text-sm leading-relaxed group-hover:text-slate-600 transition-colors">
-                    {card.description}
-                </p>
-            </div>
-
-            {/* Footer with HUGE STAT */}
-            <div className="relative z-10 mt-auto pt-6 border-t border-slate-100 group-hover:border-slate-200 transition-colors">
-                <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mb-1">
-                    {card.statLabel}
-                </div>
-
-                {/* Massive Stat Typography */}
-                <div className="flex items-baseline justify-between">
-                    <div className="text-5xl lg:text-7xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900 transition-colors">
-                        {card.stat}
+            {/* Content Container */}
+            <div className="relative p-8 md:p-10 flex flex-col h-full z-10">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-8 group-hover:text-emerald-100 transition-colors duration-500">
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-400/30 backdrop-blur-md transition-all duration-500">
+                        <Icon size={26} className={`${card.color} group-hover:text-white transition-colors duration-500`} strokeWidth={1.5} />
                     </div>
-                    <ArrowUpRight
-                        className="opacity-0 group-hover:opacity-100 transition-all duration-500 text-slate-400"
-                        size={24}
-                    />
+                    <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-300 md:text-emerald-400 group-hover:text-emerald-200 transition-colors duration-500">
+                        {card.subtitle}
+                    </span>
                 </div>
-            </div>
 
-            {/* Corner Decorative Element */}
-            <div className="absolute bottom-0 left-0 w-32 h-32 opacity-0 group-hover:opacity-10 transition-opacity duration-700">
-                <div className={`absolute bottom-4 left-4 w-20 h-20 bg-gradient-to-br ${card.gradient} rounded-full blur-2xl`} />
+                {/* Title & Desc */}
+                <div className="mb-auto">
+                    <h3 className="text-3xl font-serif font-medium text-white mb-4 transition-colors duration-500 leading-tight">
+                        {card.title}
+                    </h3>
+                    <p className="text-emerald-100/80 text-[16px] leading-relaxed group-hover:text-emerald-100/90 transition-colors duration-500 font-light">
+                        {card.description}
+                    </p>
+                </div>
+
+                {/* Bottom Section */}
+                <div className="pt-8 mt-8 border-t border-white/5 group-hover:border-white/10 transition-colors duration-500">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <div className="text-4xl lg:text-5xl font-bold text-white group-hover:text-emerald-50 transition-colors duration-500 tracking-tighter">
+                                {card.stat}
+                            </div>
+                            <div className="text-xs font-medium text-emerald-300/80 group-hover:text-emerald-300 transition-colors duration-500 mt-2 uppercase tracking-wider">
+                                {card.statLabel}
+                            </div>
+                        </div>
+
+                        {/* Floating Action Button */}
+                        <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:border-emerald-500 flex items-center justify-center transition-all duration-500 hover:scale-110">
+                            <ArrowRight size={20} className="text-emerald-400 group-hover:text-white transition-colors duration-500" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </motion.div>
     );
@@ -123,55 +106,26 @@ const ApproachCard = ({ card, index }) => {
 
 export default function AboutApproach() {
     return (
-        <section className="relative py-32 bg-slate-50 text-slate-900 overflow-hidden border-t border-slate-200">
+        <section className="relative py-32 bg-[#fafafa] overflow-hidden">
             {/* Background Technical Grid */}
             <div
-                className="absolute inset-0 pointer-events-none opacity-[0.3]"
+                className="absolute inset-0 pointer-events-none opacity-[0.4]"
                 style={{
-                    backgroundImage: 'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)',
+                    backgroundImage: 'linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px)',
                     backgroundSize: '4rem 4rem'
                 }}
             />
 
-            {/* ANIMATED PIPELINES - Connecting Flow */}
-            <div className="absolute inset-0 pointer-events-none opacity-20">
-                <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="pipeline-gradient-approach" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="transparent" />
-                            <stop offset="50%" stopColor="#059669" />
-                            <stop offset="100%" stopColor="transparent" />
-                        </linearGradient>
-                    </defs>
-                    {/* Horizontal Flow Lines */}
-                    <motion.rect
-                        initial={{ x: "-100%" }}
-                        animate={{ x: "100%" }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                        x="0" y="30%" width="20%" height="2" fill="url(#pipeline-gradient-approach)"
-                    />
-                    <motion.rect
-                        initial={{ x: "-100%" }}
-                        animate={{ x: "100%" }}
-                        transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 2 }}
-                        x="0" y="70%" width="30%" height="2" fill="url(#pipeline-gradient-approach)"
-                    />
-                    {/* Vertical Flow Lines */}
-                    <motion.rect
-                        initial={{ y: "-100%" }}
-                        animate={{ y: "100%" }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
-                        x="40%" y="0" width="2" height="20%" fill="url(#pipeline-gradient-approach)"
-                    />
-                </svg>
-            </div>
-
             {/* Large Typography Background */}
-            <div className="absolute top-20 left-10 md:left-20 z-0 pointer-events-none opacity-[0.02]">
-                <span className="text-[18vw] font-bold leading-none tracking-tighter text-slate-900">
+            <div className="absolute top-20 left-0 right-0 z-0 pointer-events-none opacity-[0.03] text-center overflow-hidden">
+                <span className="text-[18vw] font-bold leading-none tracking-tighter text-slate-900 inline-block transform -translate-y-12">
                     APPROACH
                 </span>
             </div>
+
+            {/* Center Glow Core */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-100/50 blur-[100px] rounded-full pointer-events-none z-0" />
+
 
             <div className="container mx-auto px-6 lg:px-12 relative z-10">
                 {/* Section Header */}
@@ -193,10 +147,10 @@ export default function AboutApproach() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6"
+                        className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium tracking-tight text-slate-900 mb-6"
                     >
                         What Sets Us{" "}
-                        <span className="font-serif italic text-emerald-700">Apart.</span>
+                        <span className="italic text-emerald-700">Apart.</span>
                     </motion.h2>
 
                     <motion.p
@@ -212,14 +166,11 @@ export default function AboutApproach() {
                 </div>
 
                 {/* Approach Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     {approaches.map((approach, i) => (
                         <ApproachCard key={i} card={approach} index={i} />
                     ))}
                 </div>
-
-                {/* Center Glow Core */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-50/80 blur-[100px] rounded-full pointer-events-none -z-10" />
 
                 {/* Bottom Tagline */}
                 <motion.div
@@ -227,11 +178,11 @@ export default function AboutApproach() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.6 }}
-                    className="mt-20 text-center"
+                    className="mt-24 text-center"
                 >
-                    <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed">
-                        With Skoal Solutions, you gain more than a vendor—you gain a strategic partner
-                        committed to driving operational excellence and sustainable growth.
+                    <div className="inline-block p-[2px] rounded-full bg-gradient-to-r from-transparent via-slate-200 to-transparent w-full max-w-xs mx-auto mb-8" />
+                    <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed font-medium tracking-wide uppercas">
+                        Driving Operational Excellence & Sustainable Growth
                     </p>
                 </motion.div>
             </div>
