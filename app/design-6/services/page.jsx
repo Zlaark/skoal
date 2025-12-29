@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue } from "framer-motion";
 import {
     Calculator,
     ShieldCheck,
@@ -14,7 +14,13 @@ import {
     Globe,
     ArrowUpRight,
     Layers,
-    PieChart
+    PieChart,
+    Headset,
+    TrendingUp,
+    MessageSquare,
+    Phone,
+    ShoppingCart,
+    BarChart3
 } from "lucide-react";
 import Footer from "../components/Footer";
 
@@ -279,61 +285,248 @@ function HRMS3DCard() {
     );
 }
 
+// Animated Counter Component
+function Counter({ value, suffix = "" }) {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-20px" });
+    const motionValue = useMotionValue(0);
+    const springValue = useSpring(motionValue, { damping: 30, stiffness: 100 });
+    const rounded = useTransform(springValue, (latest) => Math.floor(latest));
+    const [displayValue, setDisplayValue] = useState(0);
+
+    useEffect(() => {
+        if (isInView) {
+            // Parse numeric value from string (remove commas, signs)
+            const numericValue = parseInt(value.replace(/,/g, "").replace(/\+/g, "").replace(/M/g, ""), 10);
+            motionValue.set(numericValue);
+        }
+    }, [isInView, value, motionValue]);
+
+    useEffect(() => {
+        return rounded.on("change", (latest) => {
+            setDisplayValue(latest.toLocaleString());
+        });
+    }, [rounded]);
+
+    return <span ref={ref}>{displayValue}{suffix}</span>;
+}
+
 // New Stats Section Component
 function StatsSection() {
     const stats = [
         {
-            stat: "30+",
+            value: "30",
+            suffix: "+",
             label: "years of experience",
-            icon: <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}><Layers className="text-emerald-400" size={32} /></motion.div>
+            icon: <Layers className="text-emerald-400" size={32} />
         },
         {
-            stat: "180+",
+            value: "180",
+            suffix: "+",
             label: "countries worldwide",
             icon: <Globe className="text-emerald-400" size={32} />
         },
         {
-            stat: "1,400",
+            value: "1,400",
+            suffix: "",
             label: "global customers",
             icon: <Users className="text-emerald-400" size={32} />
         },
         {
-            stat: "11M+",
+            value: "11",
+            suffix: "M+",
             label: "employees served",
             icon: <ShieldCheck className="text-emerald-400" size={32} />
         },
         {
-            stat: "200M+",
+            value: "200",
+            suffix: "M+",
             label: "annual employee interactions",
             icon: <Activity className="text-emerald-400" size={32} />
         }
     ];
 
     return (
-        <section className="bg-[#0A261D] py-20 px-6 overflow-hidden">
-            <div className="container mx-auto max-w-7xl">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center relative z-10">
+        <section className="bg-[#0A261D] py-24 px-6 relative overflow-hidden">
+            {/* Animated Background Elements */}
+            <div className="absolute inset-0 pointer-events-none">
+                <motion.div
+                    animate={{ opacity: [0.1, 0.3, 0.1], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 8, repeat: Infinity }}
+                    className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"
+                />
+                <motion.div
+                    animate={{ opacity: [0.1, 0.2, 0.1], scale: [1.2, 1, 1.2] }}
+                    transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+                    className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"
+                />
+            </div>
+
+            <div className="container mx-auto max-w-7xl relative z-10">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center">
                     {stats.map((item, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: i * 0.1, duration: 0.8 }}
-                            className="flex flex-col items-center group"
+                            transition={{ delay: i * 0.1, duration: 0.8, ease: "easeOut" }}
+                            whileHover={{ y: -10 }}
+                            className="flex flex-col items-center group cursor-default"
                         >
-                            <div className="mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/30 transition-all duration-500">
-                                {item.icon}
-                            </div>
-                            <h3 className="text-4xl lg:text-5xl font-bold text-white mb-3 tracking-tight">
-                                {item.stat}
+                            <motion.div
+                                className="mb-6 p-5 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/40 transition-all duration-300 relative overflow-hidden"
+                                whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <div className="relative z-10">{item.icon}</div>
+                                <motion.div
+                                    className="absolute inset-0 bg-emerald-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    layoutId="glow"
+                                />
+                            </motion.div>
+
+                            <h3 className="text-4xl lg:text-5xl font-bold text-white mb-3 tracking-tight font-mono">
+                                <Counter value={item.value} suffix={item.suffix} />
                             </h3>
-                            <p className="text-emerald-100/60 text-sm font-medium uppercase tracking-wide max-w-[120px] mx-auto leading-relaxed">
+
+                            <p className="text-emerald-100/60 text-xs font-bold uppercase tracking-widest max-w-[140px] mx-auto leading-relaxed group-hover:text-emerald-400 transition-colors duration-300">
                                 {item.label}
                             </p>
                         </motion.div>
                     ))}
                 </div>
+            </div>
+        </section>
+    );
+}
+
+// Helper for BPO List Items
+function BPOItem({ icon, title }) {
+    return (
+        <motion.li
+            className="flex items-center gap-4 p-4 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-100 transition-all duration-300"
+            whileHover={{ x: 5 }}
+        >
+            <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                {icon}
+            </div>
+            <span className="text-slate-700 font-medium">{title}</span>
+        </motion.li>
+    );
+}
+
+// BPO Services Section
+function BPOSection() {
+    return (
+        <section className="py-32 px-6 lg:px-12 bg-white relative overflow-hidden">
+            {/* Background Decoration */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03]">
+                <div className="absolute top-20 right-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full blur-[120px]" />
+            </div>
+
+            <div className="container mx-auto max-w-7xl relative z-10">
+                {/* Header */}
+                <div className="text-center max-w-3xl mx-auto mb-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <span className="text-emerald-600 font-bold tracking-widest text-xs uppercase mb-4 block">
+                            Outsourcing Solutions
+                        </span>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-8 tracking-tight leading-tight">
+                            Skoal <span className="text-emerald-700">BPO Services</span>
+                        </h2>
+                        <p className="text-xl text-slate-500 leading-relaxed">
+                            Secure, scalable, and performance-driven solutions tailored for modern digital businesses. We deliver omnichannel customer experience and revenue outcomes.
+                        </p>
+                    </motion.div>
+                </div>
+
+                {/* Cards Grid */}
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-20">
+
+                    {/* Card 1: Customer Support */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="group relative bg-[#022c22] rounded-[3rem] p-8 md:p-12 overflow-hidden text-white"
+                    >
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
+
+                        <div className="relative z-10">
+                            <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-8 backdrop-blur-sm border border-white/10">
+                                <Headset size={32} className="text-emerald-400" />
+                            </div>
+
+                            <h3 className="text-3xl font-bold mb-2">Customer Support</h3>
+                            <p className="text-emerald-100/70 mb-10">Complete customer engagement suite.</p>
+
+                            <ul className="space-y-4">
+                                <li className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                                    <MessageSquare size={20} className="text-emerald-400" />
+                                    <span>Email & ticket-based support</span>
+                                </li>
+                                <li className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                                    <MessageSquare size={20} className="text-emerald-400" />
+                                    <span>Live chat & messaging platforms</span>
+                                </li>
+                                <li className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                                    <Phone size={20} className="text-emerald-400" />
+                                    <span>Inbound voice support</span>
+                                </li>
+                                <li className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                                    <Users size={20} className="text-emerald-400" />
+                                    <span>Outbound customer engagement</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </motion.div>
+
+                    {/* Card 2: Revenue Support */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="group relative bg-slate-50 rounded-[3rem] p-8 md:p-12 overflow-hidden border border-slate-100"
+                    >
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 opacity-50" />
+
+                        <div className="relative z-10">
+                            <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center mb-8 shadow-sm border border-slate-100">
+                                <TrendingUp size={32} className="text-emerald-600" />
+                            </div>
+
+                            <h3 className="text-3xl font-bold text-slate-900 mb-2">Revenue & Growth</h3>
+                            <p className="text-slate-500 mb-10">Maximize value with sales support.</p>
+
+                            <ul className="space-y-4">
+                                <BPOItem icon={<ShoppingCart size={20} />} title="Cart abandonment calling" />
+                                <BPOItem icon={<ArrowUpRight size={20} />} title="Upsell and cross-sell campaigns" />
+                                <BPOItem icon={<BarChart3 size={20} />} title="Curated cohort outbound sales" />
+                            </ul>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Footer Note */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center max-w-2xl mx-auto p-6 rounded-2xl bg-emerald-50/50 border border-emerald-100/50"
+                >
+                    <div className="flex items-center justify-center gap-3 text-emerald-800 font-medium text-sm">
+                        <ShieldCheck size={18} />
+                        <span>All operations supported by securely whitelisted CRMs, dialers, and ticketing systems.</span>
+                    </div>
+                </motion.div>
             </div>
         </section>
     );
@@ -610,6 +803,9 @@ export default function ServicesPage() {
 
             {/* --- STATS SECTION --- */}
             <StatsSection />
+
+            {/* --- BPO SERVICES SECTION --- */}
+            <BPOSection />
 
             {/* --- HRMS FOOTER --- */}
             <section className="py-32 px-6 lg:px-12 relative overflow-hidden bg-slate-50/50">

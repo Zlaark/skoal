@@ -29,7 +29,7 @@ const Navbar = () => {
     { name: "Home", href: "/design-6" },
     { name: "About", href: "/design-6/about" },
     { name: "Services", href: "/design-6/services" },
-    { name: "Contact", href: "/design-6#contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
