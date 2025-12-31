@@ -12,7 +12,7 @@ import Magnetic from "./Magnetic";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const isLightMode = pathname === "/design-2" || pathname?.startsWith("/design-6");
+  const isLightMode = pathname === "/design-2" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about";
   const isDesign4 = pathname === "/design-4";
   const isHome = pathname === "/";
   const textColorClass = (isDesign4 || isHome) ? "text-white" : "text-slate-900";
