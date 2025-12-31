@@ -51,35 +51,12 @@ function AnimatedCounter({ end, suffix = "" }) {
     return <span>{count}{suffix}</span>;
 }
 
-// 3D Tilt Card Component
-function TiltCard({ children, className }) {
-    const [rotateX, setRotateX] = useState(0);
-    const [rotateY, setRotateY] = useState(0);
-
-    const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        setRotateX((y - centerY) / 20);
-        setRotateY((centerX - x) / 20);
-    };
-
-    const handleMouseLeave = () => {
-        setRotateX(0);
-        setRotateY(0);
-    };
-
+// Card Wrapper - simplified to not interfere with form inputs
+function CardWrapper({ children, className }) {
     return (
         <motion.div
             className={className}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-                transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-                transformStyle: 'preserve-3d'
-            }}
+            whileHover={{ y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
             {children}
@@ -246,7 +223,7 @@ export default function BookDemoPage() {
                         animate={{ opacity: 1, x: 0, rotateY: 0 }}
                         transition={{ duration: 0.8, delay: 0.5 }}
                     >
-                        <TiltCard className="relative">
+                        <CardWrapper className="relative">
                             {/* Glowing Border */}
                             <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/50 via-teal-500/30 to-emerald-500/50 rounded-[2rem] blur-sm" />
 
@@ -440,7 +417,7 @@ export default function BookDemoPage() {
                                     </form>
                                 )}
                             </div>
-                        </TiltCard>
+                        </CardWrapper>
                     </motion.div>
 
                     {/* RIGHT: Features & Stats */}
