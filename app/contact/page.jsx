@@ -288,8 +288,8 @@ function FAQCard({ question, answer, isOpen, onClick, index }) {
         onClick={onClick}
         whileHover={{ scale: 1.01 }}
         className={`relative p-6 lg:p-8 rounded-2xl cursor-pointer overflow-hidden transition-all duration-500 ${isOpen
-            ? 'bg-[#0A261D] shadow-2xl shadow-emerald-900/30'
-            : 'bg-white border border-slate-100 shadow-lg hover:shadow-xl hover:border-emerald-200'
+          ? 'bg-[#0A261D] shadow-2xl shadow-emerald-900/30'
+          : 'bg-white border border-slate-100 shadow-lg hover:shadow-xl hover:border-emerald-200'
           }`}
       >
         {/* Shimmer on dark card */}
@@ -310,8 +310,8 @@ function FAQCard({ question, answer, isOpen, onClick, index }) {
           {/* Number Badge */}
           <motion.div
             className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg ${isOpen
-                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                : 'bg-emerald-50 text-emerald-600 border border-emerald-100'
+              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              : 'bg-emerald-50 text-emerald-600 border border-emerald-100'
               }`}
             animate={isOpen ? { scale: [1, 1.1, 1] } : {}}
             transition={{ duration: 2, repeat: Infinity }}
@@ -330,8 +330,8 @@ function FAQCard({ question, answer, isOpen, onClick, index }) {
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.4, type: "spring" }}
                 className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${isOpen
-                    ? 'bg-emerald-500/20 text-emerald-400'
-                    : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100'
+                  ? 'bg-emerald-500/20 text-emerald-400'
+                  : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100'
                   }`}
               >
                 <ChevronDown size={20} />
@@ -653,127 +653,6 @@ export default function ContactPage() {
         </motion.div>
       </div>
 
-      {/* === SERVICES SECTION === */}
-      <div className="relative bg-[#0A261D] overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 opacity-[0.08] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
-        <motion.div
-          className="absolute top-[-30%] right-[-20%] w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[120px]"
-          animate={{ scale: [1, 1.2, 1], rotate: [0, 45, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-[-20%] left-[-15%] w-[500px] h-[500px] bg-teal-500/15 rounded-full blur-[100px]"
-          animate={{ scale: [1.1, 1, 1.1] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <div className="container mx-auto px-6 lg:px-12 py-24 relative z-10">
-          {/* Header */}
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <motion.div
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/20 mb-6"
-              whileHover={{ scale: 1.05 }}
-            >
-              <motion.div
-                className="w-2 h-2 rounded-full bg-emerald-400"
-                animate={{ scale: [1, 1.5, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              <span className="text-sm font-bold text-white uppercase tracking-wider">What We Offer</span>
-            </motion.div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Our <span className="text-emerald-400 font-serif italic">Services</span></h2>
-            <p className="text-xl text-emerald-100/70 max-w-2xl mx-auto">Comprehensive workforce solutions tailored to your business needs</p>
-          </motion.div>
-
-          {/* Services Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {[
-              { icon: <Users size={28} />, title: "Staffing Solutions", desc: "End-to-end recruitment and staffing services across all industries and experience levels.", color: "#34d399" },
-              { icon: <Shield size={28} />, title: "Compliance & Payroll", desc: "100% statutory compliance and accurate payroll processing for peace of mind.", color: "#14b8a6" },
-              { icon: <Headset size={28} />, title: "BPO Services", desc: "AI-enabled contact centers and back-office solutions for operational excellence.", color: "#2dd4bf" },
-              { icon: <Award size={28} />, title: "HRMS Technology", desc: "Cloud-based HR management system with dedicated databases and security.", color: "#10b981" },
-              { icon: <TrendingUp size={28} />, title: "Contract Staffing", desc: "Flexible workforce solutions with seamless onboarding and offboarding.", color: "#34d399" },
-              { icon: <Target size={28} />, title: "RPO Services", desc: "Recruitment process outsourcing for high-volume and specialized hiring.", color: "#14b8a6" },
-            ].map((service, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40, rotateX: -10 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6, type: "spring" }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="relative p-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur border border-white/10 group overflow-hidden cursor-pointer"
-              >
-                {/* Shimmer */}
-                <motion.div
-                  className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 4, repeat: Infinity, repeatDelay: 5 + i }}
-                />
-
-                {/* Glow on Hover */}
-                <motion.div
-                  className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: service.color }}
-                />
-
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <motion.div
-                    className="w-14 h-14 rounded-2xl mb-5 flex items-center justify-center text-white border border-white/20 relative"
-                    style={{ background: `linear-gradient(135deg, ${service.color}40, ${service.color}20)` }}
-                    whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                  >
-                    <motion.div
-                      className="absolute inset-0 rounded-2xl blur-md"
-                      style={{ background: service.color }}
-                      animate={{ opacity: [0.3, 0.5, 0.3] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                    <div className="relative z-10">{service.icon}</div>
-                  </motion.div>
-
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">{service.title}</h3>
-                  <p className="text-emerald-100/60 text-sm leading-relaxed">{service.desc}</p>
-
-                  {/* Arrow */}
-                  <motion.div
-                    className="mt-5 flex items-center gap-2 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                    initial={{ x: -10 }}
-                    whileHover={{ x: 0 }}
-                  >
-                    <span className="text-sm font-semibold">Learn More</span>
-                    <ArrowRight size={16} />
-                  </motion.div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Floating Elements */}
-          <motion.div
-            className="absolute top-16 left-10 w-10 h-10 bg-white/10 backdrop-blur rounded-lg flex items-center justify-center text-emerald-400 border border-white/20"
-            animate={{ y: [0, -12, 0], rotate: [0, 15, 0] }}
-            transition={{ duration: 6, repeat: Infinity }}
-          >
-            <Sparkles size={18} />
-          </motion.div>
-          <motion.div
-            className="absolute bottom-20 right-16 w-12 h-12 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-emerald-400 border border-white/20"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-          >
-            <Zap size={20} />
-          </motion.div>
-        </div>
-      </div>
-
       {/* === CTA BANNER === */}
       <div className="container mx-auto px-6 lg:px-12 pb-24">
         <motion.div className="relative bg-[#0A261D] rounded-[2.5rem] p-12 lg:p-16 overflow-hidden" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -806,6 +685,6 @@ export default function ContactPage() {
       <motion.div className="absolute bottom-[30%] right-8 lg:right-12 w-12 h-12 bg-emerald-100 rounded-xl shadow-lg flex items-center justify-center text-emerald-600" animate={{ y: [0, -10, 0], x: [0, 5, 0] }} transition={{ duration: 6, repeat: Infinity }}>
         <Zap size={22} />
       </motion.div>
-    </section>
+    </section >
   );
 }
