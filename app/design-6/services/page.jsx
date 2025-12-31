@@ -1206,32 +1206,51 @@ function AIContactCentreSection() {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1, duration: 0.6 }}
                             whileHover={{ y: -10 }}
-                            className="group relative bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-500 border border-slate-100 overflow-hidden"
+                            className="group relative bg-white rounded-[2rem] p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/15 transition-all duration-500 border border-slate-100 overflow-hidden"
                         >
-                            {/* --- PREMIUM ANIMATED BACKGROUND --- */}
+                            {/* === PREMIUM ANIMATED BACKGROUND === */}
 
                             {/* 1. Noise Texture Overlay (Subtle Grain) */}
-                            <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-multiply pointer-events-none" />
+                            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
 
-                            {/* 2. Abstract Blurred Blobs (Shift on Hover) */}
+                            {/* 2. Animated Blurred Blobs */}
                             <motion.div
-                                className="absolute -top-20 -right-20 w-48 h-48 bg-emerald-100/50 rounded-full blur-[60px]"
-                                animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-                                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                                className="absolute -top-20 -right-20 w-48 h-48 bg-emerald-100/60 rounded-full blur-[60px]"
+                                animate={{ scale: [1, 1.3, 1], x: [0, 10, 0], y: [0, 15, 0] }}
+                                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                             />
-                            <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-blue-100/50 rounded-full blur-[60px] group-hover:bg-emerald-100/60 transition-colors duration-500" />
+                            <motion.div
+                                className="absolute -bottom-20 -left-20 w-48 h-48 bg-blue-100/40 rounded-full blur-[60px]"
+                                animate={{ scale: [1, 1.2, 1], x: [0, -10, 0], y: [0, -10, 0] }}
+                                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                            />
 
-                            {/* 3. Gradient Sheen on Hover */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-emerald-50/0 to-emerald-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                            {/* 3. Shimmer Line (Like Homepage Buttons) */}
+                            <div className="absolute inset-0 overflow-hidden rounded-[2rem] pointer-events-none">
+                                <motion.div
+                                    className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
+                                    animate={{ x: ['-200%', '200%'] }}
+                                    transition={{ duration: 4, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
+                                />
+                            </div>
 
+                            {/* 4. Active Status Indicator (Top Right) */}
+                            <div className="absolute top-6 right-6 flex items-center gap-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="text-[10px] font-mono font-bold text-emerald-600 uppercase tracking-widest">Active</span>
+                            </div>
 
                             <div className="flex-1 relative z-10">
-                                {/* Icon Container */}
-                                <div className="w-16 h-16 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                                    <div className="text-emerald-600">
+                                {/* Icon Container with Float */}
+                                <motion.div
+                                    className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-100 shadow-sm flex items-center justify-center mb-8"
+                                    animate={{ y: [0, -4, 0] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                                >
+                                    <div className="text-emerald-600 group-hover:scale-110 transition-transform duration-300">
                                         {cap.icon}
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors duration-300">{cap.title}</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
