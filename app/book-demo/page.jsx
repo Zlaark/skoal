@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Calendar,
@@ -18,28 +18,71 @@ import {
     Headset,
     Zap,
     Play,
-    Video
+    Video,
+    Star,
+    Award,
+    Target,
+    MessageCircle
 } from "lucide-react";
 
-// Feature Card
-function FeatureCard({ icon, title, description, delay }) {
+// Animated Counter Component
+function AnimatedCounter({ end, suffix = "" }) {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            let start = 0;
+            const duration = 2000;
+            const increment = end / (duration / 16);
+            const counter = setInterval(() => {
+                start += increment;
+                if (start >= end) {
+                    setCount(end);
+                    clearInterval(counter);
+                } else {
+                    setCount(Math.floor(start));
+                }
+            }, 16);
+            return () => clearInterval(counter);
+        }, 800);
+        return () => clearTimeout(timer);
+    }, [end]);
+
+    return <span>{count}{suffix}</span>;
+}
+
+// 3D Tilt Card Component
+function TiltCard({ children, className }) {
+    const [rotateX, setRotateX] = useState(0);
+    const [rotateY, setRotateY] = useState(0);
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        setRotateX((y - centerY) / 20);
+        setRotateY((centerX - x) / 20);
+    };
+
+    const handleMouseLeave = () => {
+        setRotateX(0);
+        setRotateY(0);
+    };
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay, duration: 0.5 }}
-            whileHover={{ y: -5, scale: 1.02 }}
-            className="relative p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur border border-white/10 group"
+            className={className}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+                transformStyle: 'preserve-3d'
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-            <motion.div
-                className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4"
-                whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-            >
-                {icon}
-            </motion.div>
-            <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
-            <p className="text-emerald-100/60 text-sm leading-relaxed">{description}</p>
+            {children}
         </motion.div>
     );
 }
@@ -55,6 +98,7 @@ export default function BookDemoPage() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [activeStep, setActiveStep] = useState(1);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -65,353 +109,455 @@ export default function BookDemoPage() {
         }, 2000);
     };
 
-    const features = [
-        { icon: <Users size={24} />, title: "Personalized Demo", description: "Get a customized walkthrough tailored to your business needs." },
-        { icon: <Shield size={24} />, title: "Compliance Overview", description: "See how we handle 100% statutory compliance across India & Middle East." },
-        { icon: <Headset size={24} />, title: "Live Q&A Session", description: "Ask questions and get real-time answers from our experts." },
-        { icon: <Zap size={24} />, title: "Quick Setup Guide", description: "Learn how fast you can get started with Skoal solutions." },
+    const benefits = [
+        { icon: <Users size={24} />, title: "Personalized Demo", desc: "Tailored to your business" },
+        { icon: <Shield size={24} />, title: "100% Compliance", desc: "India & Middle East" },
+        { icon: <Headset size={24} />, title: "Expert Guidance", desc: "Live Q&A session" },
+        { icon: <Zap size={24} />, title: "Quick Setup", desc: "Get started in days" },
     ];
 
     return (
-        <section className="relative min-h-screen bg-gradient-to-b from-[#0A261D] via-[#0d3326] to-[#0A261D] overflow-hidden">
-            {/* Background Effects */}
-            <div className="absolute inset-0 opacity-[0.06] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
+        <section className="relative min-h-screen bg-[#0A261D] overflow-hidden">
+            {/* === ANIMATED BACKGROUND === */}
+            <div className="absolute inset-0">
+                {/* Noise Texture */}
+                <div className="absolute inset-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-            {/* Animated Grid */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
-                backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
-                backgroundSize: '50px 50px'
-            }} />
-
-            {/* Gradient Blobs */}
-            <motion.div
-                className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[150px]"
-                animate={{ scale: [1, 1.2, 1], x: [0, 30, 0] }}
-                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-                className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-teal-500/15 rounded-full blur-[120px]"
-                animate={{ scale: [1.1, 1, 1.1] }}
-                transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-                className="absolute top-[40%] left-[20%] w-[300px] h-[300px] bg-emerald-400/10 rounded-full blur-[80px]"
-                animate={{ y: [0, 50, 0], scale: [1, 1.3, 1] }}
-                transition={{ duration: 12, repeat: Infinity }}
-            />
-
-            {/* Floating Particles */}
-            {[...Array(10)].map((_, i) => (
+                {/* Animated Mesh Gradient */}
                 <motion.div
-                    key={i}
-                    className="absolute w-1.5 h-1.5 bg-emerald-400/40 rounded-full"
-                    style={{ left: `${10 + i * 9}%`, top: `${15 + (i % 4) * 20}%` }}
-                    animate={{ y: [0, -40, 0], opacity: [0.2, 0.6, 0.2] }}
-                    transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
+                    className="absolute top-[-30%] right-[-20%] w-[800px] h-[800px] rounded-full"
+                    style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)' }}
+                    animate={{ scale: [1, 1.2, 1], x: [0, 50, 0], y: [0, -30, 0] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
                 />
-            ))}
-
-            <div className="container mx-auto px-6 lg:px-12 py-24 lg:py-32 relative z-10">
-                {/* Header */}
                 <motion.div
-                    className="text-center max-w-3xl mx-auto mb-16"
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                >
+                    className="absolute bottom-[-30%] left-[-20%] w-[700px] h-[700px] rounded-full"
+                    style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.25) 0%, transparent 70%)' }}
+                    animate={{ scale: [1.1, 1, 1.1], x: [0, -30, 0] }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute top-[40%] left-[40%] w-[400px] h-[400px] rounded-full"
+                    style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 70%)' }}
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 15, repeat: Infinity }}
+                />
+
+                {/* Animated Grid */}
+                <div className="absolute inset-0 opacity-[0.08]" style={{
+                    backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), 
+                                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+                    backgroundSize: '60px 60px'
+                }} />
+
+                {/* Floating Orbs */}
+                {[...Array(6)].map((_, i) => (
                     <motion.div
-                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/20 mb-6"
-                        whileHover={{ scale: 1.05 }}
+                        key={i}
+                        className="absolute w-2 h-2 bg-emerald-400/50 rounded-full"
+                        style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%` }}
+                        animate={{
+                            y: [0, -50, 0],
+                            opacity: [0.3, 0.7, 0.3],
+                            scale: [1, 1.5, 1]
+                        }}
+                        transition={{ duration: 5 + i, repeat: Infinity, delay: i * 0.5 }}
+                    />
+                ))}
+            </div>
+
+            {/* === MAIN CONTENT === */}
+            <div className="relative z-10 container mx-auto px-6 lg:px-12 py-32">
+
+                {/* Header Section */}
+                <motion.div
+                    className="text-center max-w-4xl mx-auto mb-20"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                >
+                    {/* Badge */}
+                    <motion.div
+                        className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 mb-8"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.3 }}
                     >
-                        <motion.div animate={{ rotate: 360 }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
-                            <Video size={18} className="text-emerald-400" />
+                        <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                        >
+                            <Calendar size={20} className="text-emerald-400" />
                         </motion.div>
-                        <span className="text-sm font-bold text-white uppercase tracking-widest">Book a Demo</span>
-                        <motion.div className="flex gap-1">
+                        <span className="text-emerald-300 font-bold text-sm uppercase tracking-widest">Schedule Your Demo</span>
+                        <div className="flex gap-1">
                             {[0, 1, 2].map(i => (
-                                <motion.span key={i} className="w-1.5 h-1.5 rounded-full bg-emerald-400" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }} />
+                                <motion.span
+                                    key={i}
+                                    className="w-2 h-2 rounded-full bg-emerald-400"
+                                    animate={{ scale: [1, 1.5, 1] }}
+                                    transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
+                                />
                             ))}
-                        </motion.div>
+                        </div>
                     </motion.div>
 
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6">
-                        See Skoal in <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-300 font-serif italic">Action</span>
-                    </h1>
-                    <p className="text-xl text-emerald-100/70 leading-relaxed">
-                        Schedule a personalized demo to discover how Skoal can transform your workforce management with our comprehensive solutions.
-                    </p>
+                    {/* Main Heading */}
+                    <motion.h1
+                        className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-8 leading-[0.95]"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                    >
+                        See Skoal in
+                        <br />
+                        <span className="relative inline-block">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-300 font-serif italic">
+                                Action
+                            </span>
+                            {/* Underline animation */}
+                            <motion.div
+                                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"
+                                initial={{ width: 0 }}
+                                animate={{ width: '100%' }}
+                                transition={{ delay: 1, duration: 0.8 }}
+                            />
+                        </span>
+                    </motion.h1>
+
+                    {/* Subheading */}
+                    <motion.p
+                        className="text-xl md:text-2xl text-emerald-100/60 max-w-2xl mx-auto leading-relaxed"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                    >
+                        Experience our comprehensive workforce solutions with a personalized walkthrough from our experts.
+                    </motion.p>
                 </motion.div>
 
-                {/* Main Grid */}
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start max-w-6xl mx-auto">
+                {/* Main Grid - Form + Features */}
+                <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 max-w-7xl mx-auto items-start">
 
-                    {/* Left: Form */}
+                    {/* LEFT: Premium Form Card */}
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                    >
-                        <div className="relative bg-white rounded-[2rem] p-8 lg:p-10 shadow-2xl overflow-hidden">
-                            {/* Top Accent */}
-                            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500" />
-
-                            {/* Shimmer */}
-                            <motion.div
-                                className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-emerald-50/40 to-transparent skew-x-12 pointer-events-none"
-                                animate={{ x: ['-200%', '200%'] }}
-                                transition={{ duration: 4, repeat: Infinity, repeatDelay: 5 }}
-                            />
-
-                            {isSubmitted ? (
-                                <motion.div
-                                    className="text-center py-16"
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                >
-                                    <motion.div
-                                        className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6"
-                                        animate={{ scale: [1, 1.1, 1] }}
-                                        transition={{ duration: 1.5, repeat: Infinity }}
-                                    >
-                                        <CheckCircle2 size={48} className="text-emerald-600" />
-                                    </motion.div>
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-3">Demo Request Received!</h3>
-                                    <p className="text-slate-500 mb-6 max-w-sm mx-auto">Our team will contact you within 24 hours to schedule your personalized demo.</p>
-                                    <button
-                                        onClick={() => setIsSubmitted(false)}
-                                        className="px-6 py-3 bg-emerald-600 text-white rounded-full font-bold hover:bg-emerald-700 transition-colors"
-                                    >
-                                        Book Another Demo
-                                    </button>
-                                </motion.div>
-                            ) : (
-                                <form onSubmit={handleSubmit} className="relative z-10 space-y-5">
-                                    <div className="flex items-center gap-4 mb-6">
-                                        <motion.div
-                                            className="w-14 h-14 rounded-2xl bg-[#0A261D] flex items-center justify-center text-white"
-                                            whileHover={{ rotate: [0, -10, 10, 0] }}
-                                        >
-                                            <Calendar size={26} />
-                                        </motion.div>
-                                        <div>
-                                            <h2 className="text-2xl font-bold text-slate-900">Schedule Your Demo</h2>
-                                            <p className="text-sm text-slate-400">Fill out the form below</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid sm:grid-cols-2 gap-4">
-                                        <div>
-                                            <label className="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Full Name *</label>
-                                            <div className="relative">
-                                                <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    value={formData.name}
-                                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all bg-slate-50/50"
-                                                    placeholder="John Doe"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Work Email *</label>
-                                            <div className="relative">
-                                                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                <input
-                                                    type="email"
-                                                    required
-                                                    value={formData.email}
-                                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all bg-slate-50/50"
-                                                    placeholder="you@company.com"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid sm:grid-cols-2 gap-4">
-                                        <div>
-                                            <label className="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Company *</label>
-                                            <div className="relative">
-                                                <Building2 size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    value={formData.company}
-                                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all bg-slate-50/50"
-                                                    placeholder="Company Name"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Phone</label>
-                                            <div className="relative">
-                                                <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                <input
-                                                    type="tel"
-                                                    value={formData.phone}
-                                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all bg-slate-50/50"
-                                                    placeholder="+91 XXXXXXXXXX"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Number of Employees</label>
-                                        <select
-                                            value={formData.employees}
-                                            onChange={(e) => setFormData({ ...formData, employees: e.target.value })}
-                                            className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all bg-slate-50/50 text-slate-700"
-                                        >
-                                            <option value="">Select range</option>
-                                            <option value="1-50">1-50 employees</option>
-                                            <option value="51-200">51-200 employees</option>
-                                            <option value="201-500">201-500 employees</option>
-                                            <option value="501-1000">501-1000 employees</option>
-                                            <option value="1000+">1000+ employees</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">What are you looking for?</label>
-                                        <textarea
-                                            rows={3}
-                                            value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all resize-none bg-slate-50/50"
-                                            placeholder="Tell us about your needs..."
-                                        />
-                                    </div>
-
-                                    <motion.button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        whileHover={{ scale: 1.02, y: -2 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="w-full py-4 bg-[#0A261D] text-white rounded-full font-bold text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all disabled:opacity-70 relative overflow-hidden"
-                                    >
-                                        <motion.div
-                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
-                                            animate={{ x: ['-200%', '200%'] }}
-                                            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                                        />
-                                        {isSubmitting ? (
-                                            <>
-                                                <motion.div
-                                                    className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                                                    animate={{ rotate: 360 }}
-                                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                                />
-                                                Scheduling...
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Calendar size={20} />
-                                                Book My Demo
-                                                <ArrowRight size={18} />
-                                            </>
-                                        )}
-                                    </motion.button>
-                                </form>
-                            )}
-                        </div>
-                    </motion.div>
-
-                    {/* Right: Features + Info */}
-                    <motion.div
-                        className="space-y-8"
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        className="lg:col-span-7"
+                        initial={{ opacity: 0, x: -60, rotateY: -5 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
                         transition={{ duration: 0.8, delay: 0.5 }}
                     >
-                        {/* Video Preview Card */}
-                        <motion.div
-                            className="relative rounded-2xl overflow-hidden aspect-video bg-gradient-to-br from-[#0d3326] to-[#0A261D] border border-white/10 group cursor-pointer"
-                            whileHover={{ scale: 1.02 }}
-                        >
-                            <div className="absolute inset-0 flex items-center justify-center">
+                        <TiltCard className="relative">
+                            {/* Glowing Border */}
+                            <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/50 via-teal-500/30 to-emerald-500/50 rounded-[2rem] blur-sm" />
+
+                            <div className="relative bg-white rounded-[2rem] p-8 lg:p-12 shadow-2xl overflow-hidden">
+                                {/* Animated Top Border */}
                                 <motion.div
-                                    className="w-20 h-20 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"
-                                    animate={{ scale: [1, 1.1, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
+                                    className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500"
+                                    animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+                                    transition={{ duration: 5, repeat: Infinity }}
+                                    style={{ backgroundSize: '200% 100%' }}
+                                />
+
+                                {/* Shimmer Effect */}
+                                <motion.div
+                                    className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-emerald-50/30 to-transparent skew-x-12 pointer-events-none"
+                                    animate={{ x: ['-200%', '200%'] }}
+                                    transition={{ duration: 4, repeat: Infinity, repeatDelay: 6 }}
+                                />
+
+                                {/* Corner Accents */}
+                                <div className="absolute top-4 right-4 w-20 h-20 border-t-2 border-r-2 border-emerald-200/30 rounded-tr-2xl" />
+                                <div className="absolute bottom-4 left-4 w-20 h-20 border-b-2 border-l-2 border-emerald-200/30 rounded-bl-2xl" />
+
+                                {isSubmitted ? (
+                                    <motion.div
+                                        className="text-center py-12"
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                    >
+                                        <motion.div
+                                            className="relative w-28 h-28 mx-auto mb-8"
+                                            initial={{ scale: 0, rotate: -180 }}
+                                            animate={{ scale: 1, rotate: 0 }}
+                                            transition={{ type: "spring", stiffness: 100 }}
+                                        >
+                                            <motion.div
+                                                className="absolute inset-0 bg-emerald-100 rounded-full"
+                                                animate={{ scale: [1, 1.2, 1] }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                            />
+                                            <div className="relative w-full h-full bg-emerald-50 rounded-full flex items-center justify-center">
+                                                <CheckCircle2 size={56} className="text-emerald-600" />
+                                            </div>
+                                        </motion.div>
+                                        <h3 className="text-3xl font-bold text-slate-900 mb-4">You're All Set!</h3>
+                                        <p className="text-slate-500 mb-8 text-lg max-w-md mx-auto">Our team will reach out within 24 hours to schedule your personalized demo.</p>
+                                        <motion.button
+                                            onClick={() => setIsSubmitted(false)}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="px-8 py-4 bg-[#0A261D] text-white rounded-full font-bold text-lg hover:bg-emerald-800 transition-colors"
+                                        >
+                                            Book Another Demo
+                                        </motion.button>
+                                    </motion.div>
+                                ) : (
+                                    <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+                                        {/* Form Header */}
+                                        <div className="flex items-center gap-5 mb-8">
+                                            <motion.div
+                                                className="relative w-16 h-16 rounded-2xl bg-[#0A261D] flex items-center justify-center"
+                                                whileHover={{ rotate: [0, -10, 10, 0] }}
+                                            >
+                                                <motion.div
+                                                    className="absolute inset-0 bg-emerald-500/30 rounded-2xl blur-lg"
+                                                    animate={{ scale: [1, 1.3, 1] }}
+                                                    transition={{ duration: 2, repeat: Infinity }}
+                                                />
+                                                <Calendar size={28} className="text-white relative z-10" />
+                                            </motion.div>
+                                            <div>
+                                                <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">Book Your Demo</h2>
+                                                <p className="text-slate-400">Takes less than 2 minutes</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Form Fields */}
+                                        <div className="grid sm:grid-cols-2 gap-5">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Full Name *</label>
+                                                <div className="relative group">
+                                                    <User size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        value={formData.name}
+                                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-800"
+                                                        placeholder="John Doe"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Work Email *</label>
+                                                <div className="relative group">
+                                                    <Mail size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
+                                                    <input
+                                                        type="email"
+                                                        required
+                                                        value={formData.email}
+                                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-800"
+                                                        placeholder="you@company.com"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid sm:grid-cols-2 gap-5">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Company *</label>
+                                                <div className="relative group">
+                                                    <Building2 size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        value={formData.company}
+                                                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                                        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-800"
+                                                        placeholder="Company Name"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Team Size</label>
+                                                <select
+                                                    value={formData.employees}
+                                                    onChange={(e) => setFormData({ ...formData, employees: e.target.value })}
+                                                    className="w-full px-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-700"
+                                                >
+                                                    <option value="">Select range</option>
+                                                    <option value="1-50">1-50 employees</option>
+                                                    <option value="51-200">51-200 employees</option>
+                                                    <option value="201-500">201-500 employees</option>
+                                                    <option value="500+">500+ employees</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">How can we help?</label>
+                                            <textarea
+                                                rows={3}
+                                                value={formData.message}
+                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                                className="w-full px-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all resize-none bg-slate-50/50 focus:bg-white text-slate-800"
+                                                placeholder="Tell us about your workforce challenges..."
+                                            />
+                                        </div>
+
+                                        {/* Submit Button */}
+                                        <motion.button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            whileHover={{ scale: 1.02, y: -2 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            className="w-full py-5 bg-[#0A261D] text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:shadow-emerald-900/30 transition-all disabled:opacity-70 relative overflow-hidden group"
+                                        >
+                                            <motion.div
+                                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
+                                                animate={{ x: ['-200%', '200%'] }}
+                                                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                                            />
+                                            {isSubmitting ? (
+                                                <>
+                                                    <motion.div
+                                                        className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full"
+                                                        animate={{ rotate: 360 }}
+                                                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                                    />
+                                                    <span>Scheduling...</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="relative z-10">Schedule My Demo</span>
+                                                    <motion.div
+                                                        animate={{ x: [0, 5, 0] }}
+                                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                                    >
+                                                        <ArrowRight size={22} />
+                                                    </motion.div>
+                                                </>
+                                            )}
+                                        </motion.button>
+
+                                        {/* Trust Line */}
+                                        <div className="flex items-center justify-center gap-2 text-sm text-slate-400 pt-2">
+                                            <Shield size={16} className="text-emerald-500" />
+                                            <span>Your data is secure & confidential</span>
+                                        </div>
+                                    </form>
+                                )}
+                            </div>
+                        </TiltCard>
+                    </motion.div>
+
+                    {/* RIGHT: Features & Stats */}
+                    <motion.div
+                        className="lg:col-span-5 space-y-8"
+                        initial={{ opacity: 0, x: 60 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
+                    >
+                        {/* Benefits List */}
+                        <div className="space-y-4">
+                            {benefits.map((benefit, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, x: 30 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.8 + i * 0.1 }}
+                                    whileHover={{ x: 10, scale: 1.02 }}
+                                    className="flex items-center gap-5 p-5 rounded-2xl bg-white/5 backdrop-blur border border-white/10 group cursor-pointer"
                                 >
                                     <motion.div
-                                        whileHover={{ scale: 1.2 }}
-                                        className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl"
+                                        className="w-14 h-14 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 relative"
+                                        whileHover={{ rotate: 10 }}
                                     >
-                                        <Play size={28} className="text-[#0A261D] ml-1" />
+                                        <motion.div
+                                            className="absolute inset-0 bg-emerald-400/30 rounded-xl blur-md"
+                                            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+                                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                                        />
+                                        <div className="relative z-10">{benefit.icon}</div>
                                     </motion.div>
+                                    <div className="flex-1">
+                                        <h4 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">{benefit.title}</h4>
+                                        <p className="text-emerald-100/50 text-sm">{benefit.desc}</p>
+                                    </div>
+                                    <ArrowRight size={18} className="text-emerald-400/50 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                                 </motion.div>
-                            </div>
-                            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                                <span className="text-white/80 text-sm font-medium">Watch Product Demo</span>
-                                <span className="text-white/60 text-xs">2:45</span>
-                            </div>
-                            {/* Decorative corners */}
-                            <div className="absolute top-3 left-3 w-8 h-8 border-l-2 border-t-2 border-emerald-500/40 rounded-tl-lg" />
-                            <div className="absolute bottom-3 right-3 w-8 h-8 border-r-2 border-b-2 border-emerald-500/40 rounded-br-lg" />
-                        </motion.div>
-
-                        {/* What You'll Get */}
-                        <div>
-                            <h3 className="text-xl font-bold text-white mb-6">What You'll Get</h3>
-                            <div className="grid grid-cols-2 gap-4">
-                                {features.map((feature, i) => (
-                                    <FeatureCard
-                                        key={i}
-                                        icon={feature.icon}
-                                        title={feature.title}
-                                        description={feature.description}
-                                        delay={0.6 + i * 0.1}
-                                    />
-                                ))}
-                            </div>
+                            ))}
                         </div>
 
-                        {/* Trust Indicators */}
+                        {/* Stats Card */}
                         <motion.div
-                            className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
+                            className="p-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur border border-white/10 relative overflow-hidden"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: 1 }}
                         >
-                            <div className="flex items-center gap-4 flex-wrap justify-between">
+                            <motion.div
+                                className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12"
+                                animate={{ x: ['-200%', '200%'] }}
+                                transition={{ duration: 5, repeat: Infinity, repeatDelay: 5 }}
+                            />
+
+                            <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                                <Star size={18} className="text-emerald-400" />
+                                Trusted Worldwide
+                            </h4>
+
+                            <div className="grid grid-cols-2 gap-6">
                                 {[
-                                    { value: "500+", label: "Clients" },
-                                    { value: "10+", label: "Years" },
-                                    { value: "99%", label: "Satisfaction" },
-                                    { value: "24/7", label: "Support" },
+                                    { value: 500, suffix: "+", label: "Happy Clients" },
+                                    { value: 10, suffix: "+", label: "Years Experience" },
+                                    { value: 99, suffix: "%", label: "Success Rate" },
+                                    { value: 24, suffix: "/7", label: "Support" },
                                 ].map((stat, i) => (
-                                    <div key={i} className="text-center">
-                                        <div className="text-2xl font-bold text-emerald-400">{stat.value}</div>
-                                        <div className="text-xs text-emerald-100/50 uppercase tracking-wider">{stat.label}</div>
-                                    </div>
+                                    <motion.div
+                                        key={i}
+                                        className="text-center"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 1 + i * 0.1 }}
+                                    >
+                                        <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
+                                            <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                                        </div>
+                                        <div className="text-sm text-emerald-100/50">{stat.label}</div>
+                                    </motion.div>
                                 ))}
+                            </div>
+                        </motion.div>
+
+                        {/* Quick Contact */}
+                        <motion.div
+                            className="flex items-center gap-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20"
+                            whileHover={{ scale: 1.02 }}
+                        >
+                            <motion.div
+                                className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400"
+                                animate={{ rotate: [0, 10, -10, 0] }}
+                                transition={{ duration: 3, repeat: Infinity }}
+                            >
+                                <MessageCircle size={22} />
+                            </motion.div>
+                            <div className="flex-1">
+                                <p className="text-white font-medium">Need help right away?</p>
+                                <a href="mailto:info@skoalsolutions.com" className="text-emerald-400 text-sm hover:underline">info@skoalsolutions.com</a>
                             </div>
                         </motion.div>
                     </motion.div>
                 </div>
             </div>
 
-            {/* Floating Accents */}
+            {/* Floating Decorative Elements */}
             <motion.div
-                className="absolute top-32 right-12 w-14 h-14 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center text-emerald-400 border border-white/20"
-                animate={{ y: [0, -15, 0], rotate: [0, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity }}
+                className="absolute top-32 right-20 w-16 h-16 bg-white/5 backdrop-blur-sm rounded-2xl flex items-center justify-center text-emerald-400 border border-white/10"
+                animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+                transition={{ duration: 6, repeat: Infinity }}
             >
-                <Globe size={24} />
+                <Globe size={28} />
             </motion.div>
             <motion.div
-                className="absolute bottom-32 left-12 w-12 h-12 bg-emerald-500/20 backdrop-blur rounded-xl flex items-center justify-center text-emerald-400 border border-white/20"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+                className="absolute bottom-40 left-20 w-14 h-14 bg-emerald-500/10 backdrop-blur-sm rounded-xl flex items-center justify-center text-emerald-400 border border-white/10"
+                animate={{ y: [0, 15, 0] }}
+                transition={{ duration: 5, repeat: Infinity, delay: 1 }}
             >
-                <Sparkles size={20} />
+                <Sparkles size={24} />
             </motion.div>
         </section>
     );
