@@ -12,7 +12,7 @@ import Magnetic from "./Magnetic";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const isLightMode = pathname === "/design-2" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about";
+  const isLightMode = pathname === "/design-2" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about" || pathname === "/book-demo";
   const isDesign4 = pathname === "/design-4";
   const isHome = pathname === "/";
   const textColorClass = (isDesign4 || isHome) ? "text-white" : "text-slate-900";
@@ -136,14 +136,16 @@ const Navbar = () => {
                 : "pl-2 border-l border-white/10"
               }`}>
               <Magnetic>
-                <button className={`hidden md:flex px-5 py-2 text-sm font-bold rounded-full hover:bg-[#00dc82] transition-colors items-center gap-2 shadow-lg hover:shadow-[#00dc82]/20 cursor-pointer ${isLightMode
-                  ? "bg-black text-white"
-                  : "bg-white text-black"
-                  }`}>
+                <a
+                  href="/book-demo"
+                  className={`hidden md:flex px-5 py-2 text-sm font-bold rounded-full hover:bg-[#00dc82] transition-colors items-center gap-2 shadow-lg hover:shadow-[#00dc82]/20 cursor-pointer ${isLightMode
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
+                    }`}>
                   <span>Book Demo</span>
                   <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isLightMode ? "bg-white" : "bg-black"
                     }`} />
-                </button>
+                </a>
               </Magnetic>
             </motion.div>
 
