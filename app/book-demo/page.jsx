@@ -127,18 +127,98 @@ export default function BookDemoPage() {
                     backgroundSize: '60px 60px'
                 }} />
 
-                {/* Floating Orbs */}
-                {[...Array(6)].map((_, i) => (
+                {/* Orbit Rings - Centered */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                    {[300, 450, 600].map((size, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute border border-emerald-500/10 rounded-full"
+                            style={{
+                                width: size,
+                                height: size,
+                                top: -size / 2,
+                                left: -size / 2
+                            }}
+                            animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
+                            transition={{ duration: 30 + i * 10, repeat: Infinity, ease: "linear" }}
+                        >
+                            {/* Orbiting dot */}
+                            <motion.div
+                                className="absolute w-3 h-3 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"
+                                style={{ top: -6, left: '50%', marginLeft: -6 }}
+                                animate={{ scale: [1, 1.5, 1] }}
+                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
+                            />
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Scanning Line Effect */}
+                <motion.div
+                    className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"
+                    animate={{ y: [0, 1000, 0] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* Floating Orbs - More of them */}
+                {[...Array(12)].map((_, i) => (
                     <motion.div
                         key={i}
-                        className="absolute w-2 h-2 bg-emerald-400/50 rounded-full"
-                        style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%` }}
+                        className={`absolute rounded-full ${i % 3 === 0 ? 'w-3 h-3 bg-emerald-400/40' : 'w-2 h-2 bg-teal-400/30'}`}
+                        style={{
+                            left: `${8 + i * 7}%`,
+                            top: `${15 + (i % 5) * 18}%`
+                        }}
                         animate={{
-                            y: [0, -50, 0],
-                            opacity: [0.3, 0.7, 0.3],
+                            y: [0, -60, 0],
+                            x: [0, i % 2 === 0 ? 20 : -20, 0],
+                            opacity: [0.2, 0.8, 0.2],
                             scale: [1, 1.5, 1]
                         }}
-                        transition={{ duration: 5 + i, repeat: Infinity, delay: i * 0.5 }}
+                        transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
+                    />
+                ))}
+
+                {/* Animated Connection Lines */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
+                    <motion.line
+                        x1="10%" y1="20%" x2="30%" y2="60%"
+                        stroke="url(#lineGradient)" strokeWidth="1"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: [0, 1, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, delay: 0 }}
+                    />
+                    <motion.line
+                        x1="70%" y1="15%" x2="85%" y2="50%"
+                        stroke="url(#lineGradient)" strokeWidth="1"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: [0, 1, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, delay: 1 }}
+                    />
+                    <motion.line
+                        x1="20%" y1="80%" x2="50%" y2="70%"
+                        stroke="url(#lineGradient)" strokeWidth="1"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: [0, 1, 0] }}
+                        transition={{ duration: 4.5, repeat: Infinity, delay: 2 }}
+                    />
+                    <defs>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="transparent" />
+                            <stop offset="50%" stopColor="#34d399" />
+                            <stop offset="100%" stopColor="transparent" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+
+                {/* Pulse Rings from center */}
+                {[1, 2, 3].map((ring) => (
+                    <motion.div
+                        key={ring}
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-emerald-500/20 rounded-full pointer-events-none"
+                        style={{ width: 200, height: 200 }}
+                        animate={{ scale: [1, 4, 4], opacity: [0.5, 0, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, delay: ring * 1.2 }}
                     />
                 ))}
             </div>
@@ -527,14 +607,68 @@ export default function BookDemoPage() {
                 animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
                 transition={{ duration: 6, repeat: Infinity }}
             >
-                <Globe size={28} />
+                <motion.div
+                    className="absolute inset-0 bg-emerald-400/20 rounded-2xl blur-lg"
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                />
+                <Globe size={28} className="relative z-10" />
             </motion.div>
+
             <motion.div
                 className="absolute bottom-40 left-20 w-14 h-14 bg-emerald-500/10 backdrop-blur-sm rounded-xl flex items-center justify-center text-emerald-400 border border-white/10"
-                animate={{ y: [0, 15, 0] }}
+                animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
                 transition={{ duration: 5, repeat: Infinity, delay: 1 }}
             >
                 <Sparkles size={24} />
+            </motion.div>
+
+            {/* Additional floating elements */}
+            <motion.div
+                className="absolute top-[45%] right-10 w-12 h-12 bg-teal-500/10 backdrop-blur-sm rounded-full flex items-center justify-center text-teal-400 border border-white/10"
+                animate={{ y: [0, -12, 0], x: [0, 5, 0] }}
+                transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+            >
+                <Clock size={20} />
+            </motion.div>
+
+            <motion.div
+                className="absolute bottom-[30%] right-24 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/10"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, delay: 2 }}
+            >
+                <span className="text-emerald-300 text-sm font-semibold flex items-center gap-2">
+                    <motion.span
+                        className="w-2 h-2 bg-green-400 rounded-full"
+                        animate={{ scale: [1, 1.5, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                    />
+                    Live Demo Available
+                </span>
+            </motion.div>
+
+            <motion.div
+                className="absolute top-[60%] left-10 w-10 h-10 bg-white/5 backdrop-blur-sm rounded-lg flex items-center justify-center text-emerald-400 border border-white/10"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+                <Target size={18} />
+            </motion.div>
+
+            <motion.div
+                className="absolute top-24 left-[40%] px-5 py-2.5 bg-emerald-500/15 backdrop-blur-sm rounded-full border border-emerald-500/20"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5 }}
+            >
+                <motion.span
+                    className="text-white text-sm font-medium flex items-center gap-2"
+                    animate={{ opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                >
+                    <Award size={16} className="text-emerald-400" />
+                    Trusted by 500+ Companies
+                </motion.span>
             </motion.div>
         </section>
     );
