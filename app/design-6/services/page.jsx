@@ -1122,46 +1122,45 @@ function RecruitmentSection() {
     );
 }
 
-// AI-Enabled Contact Centre Section
+// AI-Enabled Contact Centre Section - Redesigned (Metric Cards)
 function AIContactCentreSection() {
     const aiCapabilities = [
         {
             icon: <Bot size={28} />,
             title: "AI-Powered Outbound",
-            desc: "Intelligent automated calling systems",
-            stat: "3x",
+            desc: "Intelligent automated calling systems that adapt to customer responses.",
+            value: "3",
+            suffix: "x",
             statLabel: "Connect Rate"
         },
         {
             icon: <Mic size={28} />,
             title: "IVR Solutions",
-            desc: "Smart call routing and self-service",
-            stat: "40%",
+            desc: "Smart call routing and self-service for faster resolution.",
+            value: "40",
+            suffix: "%",
             statLabel: "Call Reduction"
         },
         {
             icon: <Radio size={28} />,
             title: "Voice Campaigns",
-            desc: "Pre-recorded voice blasts at scale",
-            stat: "10K+",
+            desc: "Pre-recorded voice blasts at scale for massive reach.",
+            value: "10",
+            suffix: "K+",
             statLabel: "Calls/Hour"
         },
         {
             icon: <Zap size={28} />,
             title: "Predictive Dialers",
-            desc: "Filter busies & voicemails automatically",
-            stat: "85%",
+            desc: "Filter busies & voicemails automatically for max efficiency.",
+            value: "85",
+            suffix: "%",
             statLabel: "Efficiency"
         }
     ];
 
     return (
-        <section className="py-32 px-6 lg:px-12 bg-white relative overflow-hidden">
-            {/* Background */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-20 left-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-50 to-emerald-50 rounded-full blur-[120px] opacity-50" />
-            </div>
-
+        <section className="py-32 px-6 lg:px-12 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
             <div className="container mx-auto max-w-7xl relative z-10">
                 {/* Header */}
                 <div className="text-center max-w-3xl mx-auto mb-20">
@@ -1171,47 +1170,65 @@ function AIContactCentreSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="text-emerald-600 font-bold tracking-widest text-xs uppercase mb-4 block">
-                            Next-Gen Intelligence
-                        </span>
+                        <div className="flex justify-center mb-6">
+                            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-slate-800 text-sm font-semibold">
+                                <span className="relative flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                                </span>
+                                Skoal Solutions Pvt. Ltd.
+                            </span>
+                        </div>
+
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
-                            AI-Enabled <span className="text-emerald-700 font-serif italic">Contact Centre</span>
+                            AI-Enabled <span className="text-emerald-600 font-serif italic">Contact Centre</span>
                         </h2>
-                        <p className="text-xl text-slate-500 leading-relaxed">
+                        <p className="text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto">
                             As customer engagement evolves, Skoal integrates AI-driven solutions to improve efficiency and scale—without compromising compliance or experience.
                         </p>
                     </motion.div>
                 </div>
 
                 {/* Capabilities Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                     {aiCapabilities.map((cap, i) => (
                         <motion.div
                             key={i}
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: i * 0.15, duration: 0.7 }}
-                            whileHover={{ y: -10, boxShadow: "0 30px 60px -15px rgba(16, 185, 129, 0.2)" }}
-                            className="group relative bg-gradient-to-br from-slate-50 to-white rounded-[2rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/30 overflow-hidden"
+                            transition={{ delay: i * 0.1, duration: 0.6 }}
+                            whileHover={{ y: -10 }}
+                            className="group bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 border border-slate-100 flex flex-col h-full relative overflow-hidden"
                         >
-                            {/* Hover Gradient */}
+                            {/* Breathing Background Effect */}
                             <motion.div
-                                className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent"
+                                animate={{ opacity: [0, 0.5, 0] }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                             />
 
-                            <div className="relative z-10">
-                                <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-500 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                            <div className="flex-1 relative z-10">
+                                {/* Pulsing Icon */}
+                                <motion.div
+                                    className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-8 shadow-sm"
+                                    animate={{ scale: [1, 1.05, 1] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                                >
                                     {cap.icon}
-                                </div>
+                                </motion.div>
 
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">{cap.title}</h3>
-                                <p className="text-slate-500 text-sm mb-6">{cap.desc}</p>
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">{cap.title}</h3>
+                                <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                                    {cap.desc}
+                                </p>
+                            </div>
 
-                                <div className="pt-4 border-t border-slate-100">
-                                    <div className="text-3xl font-bold text-emerald-600 mb-1">{cap.stat}</div>
-                                    <div className="text-xs text-slate-400 uppercase tracking-wider">{cap.statLabel}</div>
+                            <div className="pt-6 border-t border-slate-100 relative z-10">
+                                <div className="text-4xl font-bold text-emerald-500 mb-2">
+                                    <Counter value={cap.value} suffix={cap.suffix} />
                                 </div>
+                                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{cap.statLabel}</div>
                             </div>
                         </motion.div>
                     ))}
