@@ -1123,6 +1123,7 @@ function RecruitmentSection() {
 }
 
 // AI-Enabled Contact Centre Section - Redesigned (Metric Cards)
+// AI-Enabled Contact Centre Section - Redesigned (Premium Noise & Blobs)
 function AIContactCentreSection() {
     const aiCapabilities = [
         {
@@ -1160,7 +1161,13 @@ function AIContactCentreSection() {
     ];
 
     return (
-        <section className="py-32 px-6 lg:px-12 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+        <section className="py-32 px-6 lg:px-12 bg-white relative overflow-hidden">
+            {/* Section Background Elements */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-emerald-50/50 rounded-full blur-[100px]" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-50/50 rounded-full blur-[100px]" />
+            </div>
+
             <div className="container mx-auto max-w-7xl relative z-10">
                 {/* Header */}
                 <div className="text-center max-w-3xl mx-auto mb-20">
@@ -1199,36 +1206,44 @@ function AIContactCentreSection() {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1, duration: 0.6 }}
                             whileHover={{ y: -10 }}
-                            className="group bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 border border-slate-100 flex flex-col h-full relative overflow-hidden"
+                            className="group relative bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-500 border border-slate-100 overflow-hidden"
                         >
-                            {/* Breathing Background Effect */}
+                            {/* --- PREMIUM ANIMATED BACKGROUND --- */}
+
+                            {/* 1. Noise Texture Overlay (Subtle Grain) */}
+                            <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-multiply pointer-events-none" />
+
+                            {/* 2. Abstract Blurred Blobs (Shift on Hover) */}
                             <motion.div
-                                className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent"
-                                animate={{ opacity: [0, 0.5, 0] }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                                className="absolute -top-20 -right-20 w-48 h-48 bg-emerald-100/50 rounded-full blur-[60px]"
+                                animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
+                                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                             />
+                            <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-blue-100/50 rounded-full blur-[60px] group-hover:bg-emerald-100/60 transition-colors duration-500" />
+
+                            {/* 3. Gradient Sheen on Hover */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-emerald-50/0 to-emerald-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
 
                             <div className="flex-1 relative z-10">
-                                {/* Pulsing Icon */}
-                                <motion.div
-                                    className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-8 shadow-sm"
-                                    animate={{ scale: [1, 1.05, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
-                                >
-                                    {cap.icon}
-                                </motion.div>
+                                {/* Icon Container */}
+                                <div className="w-16 h-16 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                                    <div className="text-emerald-600">
+                                        {cap.icon}
+                                    </div>
+                                </div>
 
-                                <h3 className="text-xl font-bold text-slate-900 mb-3">{cap.title}</h3>
+                                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors duration-300">{cap.title}</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
                                     {cap.desc}
                                 </p>
                             </div>
 
-                            <div className="pt-6 border-t border-slate-100 relative z-10">
+                            <div className="pt-6 border-t border-slate-100 relative z-10 group-hover:border-emerald-100 transition-colors duration-300">
                                 <div className="text-4xl font-bold text-emerald-500 mb-2">
                                     <Counter value={cap.value} suffix={cap.suffix} />
                                 </div>
-                                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{cap.statLabel}</div>
+                                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest group-hover:text-emerald-400 transition-colors duration-300">{cap.statLabel}</div>
                             </div>
                         </motion.div>
                     ))}
