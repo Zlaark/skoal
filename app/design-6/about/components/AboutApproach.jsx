@@ -47,8 +47,8 @@ const ApproachCard = ({ card, index }) => {
             initial={{ opacity: 0, y: 60, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ 
-                delay: index * 0.2, 
+            transition={{
+                delay: index * 0.2,
                 duration: 0.7,
                 ease: [0.21, 0.47, 0.32, 0.98]
             }}
@@ -115,15 +115,15 @@ const ApproachCard = ({ card, index }) => {
                     }}
                 />
                 {/* Sheen sweep on hover */}
-                <motion.div 
+                <motion.div
                     initial={{ x: "-100%" }}
                     animate={{ x: isHovered ? "200%" : "-100%" }}
-                    transition={{ 
-                        repeat: Infinity, 
-                        repeatType: "loop", 
-                        duration: 3.5, 
+                    transition={{
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        duration: 3.5,
                         ease: "linear",
-                        repeatDelay: 2 
+                        repeatDelay: 2
                     }}
                     className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{
@@ -138,7 +138,7 @@ const ApproachCard = ({ card, index }) => {
                 style={{
                     boxShadow: "0 4px 24px rgba(0, 0, 0, 0.06)"
                 }}
-                whileHover={{ 
+                whileHover={{
                     y: -8,
                     borderColor: "rgba(16, 185, 129, 0.3)",
                     boxShadow: "0 20px 40px rgba(16, 185, 129, 0.15), 0 0 0 1px rgba(16, 185, 129, 0.1)",
@@ -161,13 +161,13 @@ const ApproachCard = ({ card, index }) => {
                         {/* Icon Container - Premium Style */}
                         <motion.div
                             className="relative"
-                            whileHover={{ 
+                            whileHover={{
                                 scale: 1.08,
                                 rotate: [0, -5, 5, -5, 0],
                             }}
                             transition={{ duration: 0.5, ease: "easeInOut" }}
                         >
-                            <motion.div 
+                            <motion.div
                                 className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100/50 flex items-center justify-center shadow-sm"
                                 animate={isHovered ? {
                                     boxShadow: [
@@ -208,12 +208,12 @@ const ApproachCard = ({ card, index }) => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.2 + 0.3, duration: 0.5 }}
-                            whileHover={{ 
+                            whileHover={{
                                 scale: 1.05,
                                 backgroundColor: "rgba(16, 185, 129, 0.15)"
                             }}
                         >
-                            <motion.span 
+                            <motion.span
                                 className="text-[9px] font-bold uppercase tracking-[0.2em] text-emerald-600"
                                 animate={isHovered ? {
                                     letterSpacing: "0.25em"
@@ -229,7 +229,7 @@ const ApproachCard = ({ card, index }) => {
 
                     {/* Middle Section: Title & Description */}
                     <div className="flex-1 space-y-4 mb-8">
-                        <motion.h3 
+                        <motion.h3
                             className="text-3xl lg:text-4xl font-bold text-slate-900 leading-tight tracking-tight"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -238,7 +238,7 @@ const ApproachCard = ({ card, index }) => {
                         >
                             {card.title}
                         </motion.h3>
-                        <motion.p 
+                        <motion.p
                             className="text-slate-600 text-base leading-relaxed group-hover:text-slate-700 transition-colors duration-300"
                             initial={{ opacity: 0, y: 15 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -259,14 +259,14 @@ const ApproachCard = ({ card, index }) => {
                                     initial={{ opacity: 0, scale: 0.5 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
-                                    transition={{ 
-                                        delay: index * 0.2 + 0.7, 
+                                    transition={{
+                                        delay: index * 0.2 + 0.7,
                                         duration: 0.6,
                                         type: "spring",
                                         stiffness: 200,
                                         damping: 15
                                     }}
-                                    animate={isHovered ? { 
+                                    animate={isHovered ? {
                                         scale: [1, 1.08, 1],
                                         filter: [
                                             'drop-shadow(0 0 20px rgba(16, 185, 129, 0.3))',
@@ -276,11 +276,11 @@ const ApproachCard = ({ card, index }) => {
                                     } : {
                                         filter: 'drop-shadow(0 0 20px rgba(16, 185, 129, 0.1))'
                                     }}
-                                    // transition handled above, remove duplicate
+                                // transition handled above, remove duplicate
                                 >
                                     {card.stat}
                                 </motion.div>
-                                <motion.div 
+                                <motion.div
                                     className="flex items-center gap-2"
                                     initial={{ opacity: 0, x: -10 }}
                                     whileInView={{ opacity: 1, x: 0 }}
@@ -292,7 +292,7 @@ const ApproachCard = ({ card, index }) => {
                                     </span>
                                     <motion.div
                                         className="w-2 h-2 rounded-full bg-emerald-500"
-                                        animate={{ 
+                                        animate={{
                                             scale: [1, 1.4, 1],
                                             opacity: [0.5, 1, 0.5],
                                             boxShadow: [
@@ -312,13 +312,13 @@ const ApproachCard = ({ card, index }) => {
                                 initial={{ opacity: 0, scale: 0 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ 
-                                    delay: index * 0.2 + 0.9, 
+                                transition={{
+                                    delay: index * 0.2 + 0.9,
                                     duration: 0.5,
                                     type: "spring",
                                     stiffness: 200
                                 }}
-                                whileHover={{ 
+                                whileHover={{
                                     scale: 1.15,
                                     rotate: [0, -10, 10, 0],
                                     backgroundColor: "rgba(16, 185, 129, 0.2)",
@@ -328,29 +328,29 @@ const ApproachCard = ({ card, index }) => {
                                 whileTap={{ scale: 0.9 }}
                             >
                                 {/* Button Sheen */}
-                                <motion.div 
+                                <motion.div
                                     initial={{ x: "-100%" }}
                                     animate={{ x: "200%" }}
-                                    transition={{ 
-                                        repeat: Infinity, 
-                                        repeatType: "loop", 
-                                        duration: 3, 
+                                    transition={{
+                                        repeat: Infinity,
+                                        repeatType: "loop",
+                                        duration: 3,
                                         ease: "linear",
-                                        repeatDelay: 2 
+                                        repeatDelay: 2
                                     }}
                                     className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12"
                                 />
-                                
+
                                 <motion.div
-                                    animate={isHovered ? { 
+                                    animate={isHovered ? {
                                         x: [0, 4, 0],
                                         rotate: [0, 5, -5, 0]
                                     } : {}}
                                     transition={{ duration: 0.8, repeat: Infinity }}
                                 >
-                                    <ArrowRight 
-                                        size={22} 
-                                        className="text-emerald-600 group-hover/btn:text-emerald-700 transition-colors duration-300 relative z-10" 
+                                    <ArrowRight
+                                        size={22}
+                                        className="text-emerald-600 group-hover/btn:text-emerald-700 transition-colors duration-300 relative z-10"
                                         strokeWidth={2.5}
                                     />
                                 </motion.div>
@@ -370,12 +370,12 @@ const ApproachCard = ({ card, index }) => {
                                 initial={{ scaleX: 0, x: '-100%' }}
                                 whileInView={{ scaleX: 1, x: '0%' }}
                                 viewport={{ once: true }}
-                                transition={{ 
-                                    delay: index * 0.2 + 0.6, 
-                                    duration: 1.2, 
-                                    ease: "easeOut" 
+                                transition={{
+                                    delay: index * 0.2 + 0.6,
+                                    duration: 1.2,
+                                    ease: "easeOut"
                                 }}
-                                style={{ 
+                                style={{
                                     originX: 0,
                                     boxShadow: '0 0 10px rgba(16, 185, 129, 0.5)'
                                 }}
@@ -515,12 +515,12 @@ export default function AboutApproach() {
                                 <motion.div
                                     key={i}
                                     className="w-1 h-1 rounded-full bg-emerald-500"
-                                    animate={{ 
+                                    animate={{
                                         scale: [1, 1.5, 1],
                                         opacity: [0.5, 1, 0.5]
                                     }}
-                                    transition={{ 
-                                        duration: 1.5, 
+                                    transition={{
+                                        duration: 1.5,
                                         repeat: Infinity,
                                         delay: i * 0.2
                                     }}
@@ -540,8 +540,8 @@ export default function AboutApproach() {
                         <span className="block">What Sets Us</span>
                         <motion.span
                             className="block font-serif italic bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-clip-text text-transparent"
-                            animate={{ 
-                                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] 
+                            animate={{
+                                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
                             }}
                             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                             style={{ backgroundSize: "200% 200%" }}
@@ -565,8 +565,8 @@ export default function AboutApproach() {
                                 whileHover={{ scale: 1.05 }}
                             >
                                 scalable
-                                <motion.div
-                                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500"
+                                <motion.span
+                                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 block"
                                     initial={{ scaleX: 0 }}
                                     whileInView={{ scaleX: 1 }}
                                     viewport={{ once: true }}
@@ -578,8 +578,8 @@ export default function AboutApproach() {
                                 whileHover={{ scale: 1.05 }}
                             >
                                 compliant
-                                <motion.div
-                                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-emerald-500"
+                                <motion.span
+                                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-emerald-500 block"
                                     initial={{ scaleX: 0 }}
                                     whileInView={{ scaleX: 1 }}
                                     viewport={{ once: true }}
@@ -591,8 +591,8 @@ export default function AboutApproach() {
                                 whileHover={{ scale: 1.05 }}
                             >
                                 future-ready
-                                <motion.div
-                                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500"
+                                <motion.span
+                                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 block"
                                     initial={{ scaleX: 0 }}
                                     whileInView={{ scaleX: 1 }}
                                     viewport={{ once: true }}
@@ -631,7 +631,7 @@ export default function AboutApproach() {
                         />
                         <motion.div
                             className="w-2 h-2 rounded-full bg-emerald-500"
-                            animate={{ 
+                            animate={{
                                 scale: [1, 1.5, 1],
                                 opacity: [0.5, 1, 0.5]
                             }}

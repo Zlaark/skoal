@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 export default function ContactPage() {
@@ -8,6 +8,16 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState(null);
+  const [confetti, setConfetti] = useState(false);
+  const confettiRef = useRef(null);
+
+  // Clear confetti automatically
+  useEffect(() => {
+    if (confetti) {
+      const t = setTimeout(() => setConfetti(false), 1200);
+      return () => clearTimeout(t);
+    }
+  }, [confetti]);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -18,8 +28,10 @@ export default function ContactPage() {
       setLoading(false);
       setSubmitted(true);
       setForm({ name: "", email: "", message: "" });
-    }, 1000);
-  };
+      // small confetti burst
+      setConfetti(true);
+    }, 900);
+  }; 
 
   const container = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } };
 
@@ -71,7 +83,36 @@ export default function ContactPage() {
           <motion.div className="h-32 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 flex items-center justify-center text-slate-400 text-sm">Map / Illustration</motion.div>
         </motion.div>
         {/* Form Card */}
-        <motion.div variants={container} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="rounded-3xl p-10 bg-white shadow-2xl border border-emerald-100 flex flex-col justify-between">
+        <motion.div variants={container} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="relative rounded-3xl p-10 bg-white shadow-2xl border border-emerald-100 flex flex-col justify-between overflow-hidden">
+          {/* Confetti burst */}
+          {confetti && (
+            <div ref={confettiRef} className="absolute inset-0 pointer-events-none z-20">
+              {[...Array(18)].map((_, i) => {
+                const dir = (i % 2 === 0 ? 1 : -1) * (Math.random() * 120 + 60);
+                const x = Math.cos((i / 18) * Math.PI * 2) * (40 + Math.random() * 40);
+                const y = Math.sin((i / 18) * Math.PI * 2) * (40 + Math.random() * 40);
+                const color = i % 3 === 0 ? '#10b981' : i % 3 === 1 ? '#14b8a6' : '#34d399';
+                return (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                    animate={{ x: x + dir, y: y - Math.random() * 80 - 40, rotate: Math.random() * 360, opacity: 0 }}
+                    transition={{ duration: 1.1, ease: 'easeOut' }}
+                    style={{
+                      position: 'absolute',
+                      left: '50%',
+                      top: '50%',
+                      width: 8 + (i % 3) * 4,
+                      height: 8 + (i % 3) * 4,
+                      borderRadius: 4,
+                      background: color,
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                  />
+                );
+              })}
+            </div>
+          )} 
           <motion.h3 className="text-xl font-bold text-slate-900 mb-6 tracking-tight">Send us a message</motion.h3>
           {submitted ? (
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-10">
@@ -83,26 +124,26 @@ export default function ContactPage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <motion.div animate={focused === 'name' ? { boxShadow: '0 8px 32px rgba(16,185,129,0.10)' } : {}} transition={{ duration: 0.25 }} className="rounded-xl border border-slate-100 bg-white/80">
-                  <label className="block text-xs font-medium text-slate-500 px-4 pt-3">Name</label>
-                  <input name="name" value={form.name} onChange={handleChange} onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} placeholder="Your name" className="w-full px-4 py-3 bg-transparent rounded-b-xl outline-none" />
+                <motion.div animate={focused === 'name' ? { boxShadow: '0 10px 40px rgba(16,185,129,0.12)' } : {}} transition={{ duration: 0.25 }} className="relative rounded-xl border border-slate-100 bg-white/80 px-4 pt-4 pb-3">
+                  <motion.label animate={focused === 'name' || form.name ? { y: -10, scale: 0.85, color: '#059669' } : { y: 0, scale: 1, color: '#6b7280' }} transition={{ duration: 0.18 }} className="absolute left-4 top-3 text-xs font-medium">Name</motion.label>
+                  <input name="name" value={form.name} onChange={handleChange} onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} placeholder="Your name" className="w-full pt-6 pb-2 bg-transparent rounded-b-xl outline-none" />
                 </motion.div>
-                <motion.div animate={focused === 'email' ? { boxShadow: '0 8px 32px rgba(16,185,129,0.10)' } : {}} transition={{ duration: 0.25 }} className="rounded-xl border border-slate-100 bg-white/80">
-                  <label className="block text-xs font-medium text-slate-500 px-4 pt-3">Email</label>
-                  <input name="email" value={form.email} onChange={handleChange} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} placeholder="you@email.com" className="w-full px-4 py-3 bg-transparent rounded-b-xl outline-none" />
+
+                <motion.div animate={focused === 'email' ? { boxShadow: '0 10px 40px rgba(16,185,129,0.12)' } : {}} transition={{ duration: 0.25 }} className="relative rounded-xl border border-slate-100 bg-white/80 px-4 pt-4 pb-3">
+                  <motion.label animate={focused === 'email' || form.email ? { y: -10, scale: 0.85, color: '#059669' } : { y: 0, scale: 1, color: '#6b7280' }} transition={{ duration: 0.18 }} className="absolute left-4 top-3 text-xs font-medium">Email</motion.label>
+                  <input name="email" value={form.email} onChange={handleChange} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} placeholder="you@email.com" className="w-full pt-6 pb-2 bg-transparent rounded-b-xl outline-none" />
                 </motion.div>
-              </div>
-              <motion.div animate={focused === 'message' ? { boxShadow: '0 8px 32px rgba(16,185,129,0.10)' } : {}} transition={{ duration: 0.25 }} className="rounded-xl border border-slate-100 bg-white/80">
-                <label className="block text-xs font-medium text-slate-500 px-4 pt-3">Message</label>
-                <textarea name="message" value={form.message} onChange={handleChange} onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} placeholder="How can we help you?" rows={5} className="w-full px-4 py-3 bg-transparent rounded-b-xl outline-none resize-none" />
-              </motion.div>
+              </div> 
+              <motion.div animate={focused === 'message' ? { boxShadow: '0 10px 40px rgba(16,185,129,0.12)' } : {}} transition={{ duration: 0.25 }} className="relative rounded-xl border border-slate-100 bg-white/80 px-4 pt-4 pb-3">
+                <motion.label animate={focused === 'message' || form.message ? { y: -10, scale: 0.85, color: '#059669' } : { y: 0, scale: 1, color: '#6b7280' }} transition={{ duration: 0.18 }} className="absolute left-4 top-3 text-xs font-medium">Message</motion.label>
+                <textarea name="message" value={form.message} onChange={handleChange} onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} placeholder="How can we help you?" rows={5} className="w-full pt-6 pb-3 bg-transparent rounded-b-xl outline-none resize-none" />
+              </motion.div> 
               <div className="pt-3">
                 <motion.button
-                  whileHover={{ scale: 1.04, background: "linear-gradient(90deg,#10b981,#14b8a6)" }}
+                  whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-emerald-600 text-white font-bold shadow-lg transition-all text-lg"
-                  style={{ position: 'relative', overflow: 'hidden' }}
+                  className="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-emerald-600 text-white font-bold shadow-lg transition-all text-lg relative overflow-hidden"
                   disabled={loading}
                 >
                   <span className="relative z-10">{loading ? 'Sending...' : 'Send Message'}</span>
@@ -111,12 +152,21 @@ export default function ContactPage() {
                     transition={{ duration: 1, repeat: loading ? Infinity : 0 }}
                     className="inline-block relative z-10"
                   >⟳</motion.span>
-                  {/* Sheen effect */}
+
+                  {/* Sheen effect (visible on hover) */}
                   <motion.span
-                    initial={{ x: '-100%' }}
-                    animate={loading ? { x: ['-100%', '200%'] } : {}}
-                    transition={{ duration: 1.2, repeat: loading ? Infinity : 0, ease: 'linear' }}
+                    initial={{ x: '-120%' }}
+                    whileHover={{ x: '120%' }}
+                    transition={{ duration: 0.9, ease: 'easeInOut' }}
                     className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12 opacity-60"
+                  />
+
+                  {/* Hover ring */}
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 rounded-full border-2 border-emerald-300/20 pointer-events-none"
                   />
                 </motion.button>
               </div>
