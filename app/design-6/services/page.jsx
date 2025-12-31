@@ -842,28 +842,40 @@ function BPOSection() {
     );
 }
 
-// Technology-Led Payroll Control Section
+// Technology-Led Payroll Control Section - Redesigned V2
 function TechPayrollSection() {
     const techFeatures = [
         {
-            icon: <Monitor size={24} />,
+            icon: <Monitor size={28} />,
             title: "In-house HRMS Software",
-            desc: "Client-whitelisted platforms with dedicated databases"
+            desc: "Client-whitelisted platforms with dedicated databases",
+            color: "text-blue-500",
+            bg: "bg-blue-50",
+            border: "group-hover:border-blue-200"
         },
         {
-            icon: <Fingerprint size={24} />,
+            icon: <Fingerprint size={28} />,
             title: "Cloud-Based Biometric",
-            desc: "Real-time attendance tracking across all locations"
+            desc: "Real-time attendance tracking across all locations",
+            color: "text-emerald-500",
+            bg: "bg-emerald-50",
+            border: "group-hover:border-emerald-200"
         },
         {
-            icon: <BarChart2 size={24} />,
+            icon: <BarChart2 size={28} />,
             title: "Real-Time Dashboards",
-            desc: "Attendance and payroll visibility anytime, anywhere"
+            desc: "Attendance and payroll visibility anytime, anywhere",
+            color: "text-indigo-500",
+            bg: "bg-indigo-50",
+            border: "group-hover:border-indigo-200"
         },
         {
-            icon: <Lock size={24} />,
+            icon: <Lock size={28} />,
             title: "Data Security Protocols",
-            desc: "Role-based access and enterprise-grade security"
+            desc: "Role-based access and enterprise-grade security",
+            color: "text-teal-500",
+            bg: "bg-teal-50",
+            border: "group-hover:border-teal-200"
         }
     ];
 
@@ -879,23 +891,22 @@ function TechPayrollSection() {
     };
 
     const cardVariants = {
-        hidden: { opacity: 0, y: 40 },
+        hidden: { opacity: 0, y: 30, scale: 0.95 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: "easeOut" }
+            scale: 1,
+            transition: { duration: 0.5, ease: "easeOut" }
         }
     };
 
     return (
-        <section className="py-32 px-6 lg:px-12 bg-slate-50 relative overflow-hidden">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.3]"
-                style={{
-                    backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
-                    backgroundSize: '24px 24px'
-                }}
-            />
+        <section className="py-32 px-6 lg:px-12 relative overflow-hidden bg-gradient-to-b from-white to-slate-50">
+            {/* Ambient Background Glow */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[100px] -translate-y-1/2" />
+                <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-[100px] -translate-y-1/2" />
+            </div>
 
             <div className="container mx-auto max-w-7xl relative z-10">
                 {/* Header */}
@@ -906,11 +917,11 @@ function TechPayrollSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="text-emerald-600 font-bold tracking-widest text-xs uppercase mb-4 block">
+                        <span className="inline-block py-1 px-3 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 font-bold tracking-widest text-xs uppercase mb-6">
                             Technology Infrastructure
                         </span>
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
-                            Technology-Led <span className="text-emerald-700 font-serif italic">Payroll Control</span>
+                            Technology-Led <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 font-serif italic">Payroll Control</span>
                         </h2>
                         <p className="text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto">
                             To eliminate payroll leakages and improve workforce accountability, Skoal integrates cutting-edge technology at every level.
@@ -930,72 +941,39 @@ function TechPayrollSection() {
                         <motion.div
                             key={i}
                             variants={cardVariants}
-                            whileHover={{ y: -12 }}
-                            className="group relative bg-white rounded-[2rem] p-8 border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-500 cursor-default overflow-hidden"
+                            whileHover={{ y: -10 }}
+                            className={`group relative bg-white rounded-[2rem] p-8 border border-slate-100 shadow-lg shadow-slate-100/50 hover:shadow-2xl transition-all duration-300 overflow-hidden ${feature.border}`}
                         >
-                            {/* Interesting Animated Background - Mesh Gradient Effect */}
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                                <motion.div
-                                    className="absolute -top-[40%] -right-[40%] w-[80%] h-[80%] bg-gradient-to-br from-emerald-100/40 to-teal-100/40 rounded-full blur-[60px]"
-                                    animate={{
-                                        scale: [1, 1.2, 1],
-                                        rotate: [0, 90, 0],
-                                        x: [0, -30, 0],
-                                        y: [0, 50, 0],
-                                    }}
-                                    transition={{
-                                        duration: 15,
-                                        repeat: Infinity,
-                                        ease: "linear"
-                                    }}
-                                />
-                                <motion.div
-                                    className="absolute top-[20%] -left-[20%] w-[70%] h-[70%] bg-gradient-to-tr from-teal-50/50 to-emerald-50/50 rounded-full blur-[50px]"
-                                    animate={{
-                                        scale: [1.2, 1, 1.2],
-                                        rotate: [0, -60, 0],
-                                        x: [0, 40, 0],
-                                        y: [0, -30, 0],
-                                    }}
-                                    transition={{
-                                        duration: 12,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
-                                    }}
-                                />
-                                <motion.div
-                                    className="absolute -bottom-[30%] right-[10%] w-[60%] h-[60%] bg-emerald-50/60 rounded-full blur-[40px]"
-                                    animate={{
-                                        scale: [1, 1.3, 1],
-                                        x: [0, -20, 0],
-                                        y: [0, -40, 0],
-                                    }}
-                                    transition={{
-                                        duration: 10,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
-                                    }}
-                                />
-                            </div>
+                            {/* Hover Gradient Overlay */}
+                            <motion.div
+                                className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${feature.bg} to-white`}
+                            />
 
-                            {/* Consistent subtle background for non-hover state */}
-                            <div className="absolute inset-0 bg-slate-50/30 opacity-100 group-hover:opacity-0 transition-opacity duration-500" />
+                            {/* Decorative Circle */}
+                            <motion.div
+                                className="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-slate-50 group-hover:bg-white/50 transition-colors duration-300"
+                                whileHover={{ scale: 1.2 }}
+                            />
 
                             <div className="relative z-10">
+                                {/* Icon */}
                                 <motion.div
-                                    className="w-16 h-16 rounded-2xl bg-white border border-emerald-100 flex items-center justify-center text-emerald-600 mb-8 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:to-teal-600 group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-lg group-hover:shadow-emerald-200"
-                                    whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
-                                    transition={{ duration: 0.4 }}
+                                    className={`w-16 h-16 rounded-2xl ${feature.bg} flex items-center justify-center ${feature.color} mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300`}
                                 >
                                     {feature.icon}
                                 </motion.div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-900 transition-colors duration-300">
+
+                                <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">
                                     {feature.title}
                                 </h3>
-                                <p className="text-slate-500 text-sm leading-relaxed font-medium group-hover:text-slate-700 transition-colors duration-300">
+
+                                <p className="text-slate-500 text-sm leading-relaxed font-medium group-hover:text-slate-600 transition-colors duration-300">
                                     {feature.desc}
                                 </p>
                             </div>
+
+                            {/* Bottom Accent */}
+                            <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-${feature.color.split('-')[1]}-400 to-${feature.color.split('-')[1]}-600 w-0 group-hover:w-full transition-all duration-500`} />
                         </motion.div>
                     ))}
                 </motion.div>
@@ -1006,15 +984,26 @@ function TechPayrollSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.6 }}
-                    className="text-center max-w-3xl mx-auto"
+                    className="text-center max-w-4xl mx-auto"
                 >
                     <motion.div
-                        className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white border border-emerald-100 shadow-sm hover:shadow-md transition-shadow duration-300"
+                        className="relative inline-flex items-center gap-4 px-8 py-5 rounded-2xl bg-white border border-slate-100 shadow-xl shadow-emerald-900/5 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group cursor-pointer"
                         whileHover={{ scale: 1.02 }}
                     >
-                        <CheckCircle2 size={20} className="text-emerald-500" />
-                        <span className="text-slate-700 font-semibold text-sm md:text-base">
-                            Complete visibility and control over attendance, payroll, and compliance—anytime, anywhere.
+                        {/* Shimmer Effect */}
+                        <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                            <motion.div
+                                className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12"
+                                animate={{ x: ['-200%', '200%'] }}
+                                transition={{ duration: 3, repeat: Infinity, repeatDelay: 3 }}
+                            />
+                        </div>
+
+                        <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                            <CheckCircle2 size={20} className="text-emerald-600" />
+                        </div>
+                        <span className="text-slate-700 font-semibold text-sm md:text-lg leading-tight">
+                            Complete visibility and control over attendance, payroll, and compliance—<span className="text-emerald-700">anytime, anywhere.</span>
                         </span>
                     </motion.div>
                 </motion.div>
