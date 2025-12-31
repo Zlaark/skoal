@@ -653,24 +653,211 @@ export default function ContactPage() {
         </motion.div>
       </div>
 
-      {/* === CTA BANNER === */}
-      <div className="container mx-auto px-6 lg:px-12 pb-24">
-        <motion.div className="relative bg-[#0A261D] rounded-[2.5rem] p-12 lg:p-16 overflow-hidden" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-          <motion.div className="absolute top-[-40%] right-[-15%] w-[500px] h-[500px] bg-emerald-500/25 rounded-full blur-[100px]" animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 10, repeat: Infinity }} />
-          <motion.div className="absolute bottom-[-30%] left-[-10%] w-[400px] h-[400px] bg-teal-500/20 rounded-full blur-[80px]" animate={{ scale: [1.2, 1, 1.2] }} transition={{ duration: 12, repeat: Infinity }} />
+      {/* === PREMIUM CTA BANNER === */}
+      <div className="container mx-auto px-6 lg:px-12 py-24">
+        <motion.div
+          className="relative bg-gradient-to-br from-[#0A261D] via-[#0d3326] to-[#0A261D] rounded-[3rem] p-12 lg:p-20 overflow-hidden"
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, type: "spring" }}
+        >
+          {/* Noise Texture */}
+          <div className="absolute inset-0 opacity-[0.08] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
 
-          <div className="relative z-10 text-center max-w-2xl mx-auto">
-            <motion.div initial={{ scale: 0, rotate: -180 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ type: "spring", delay: 0.2 }} className="w-20 h-20 bg-white/10 backdrop-blur rounded-3xl flex items-center justify-center mx-auto mb-8">
-              <Headset size={36} className="text-white" />
-            </motion.div>
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Transform Your Workforce?</h3>
-            <p className="text-lg text-emerald-100/80 mb-8">Let's discuss how Skoal can help your business achieve operational excellence.</p>
-            <motion.a href="mailto:info@skoalsolutions.com" whileHover={{ scale: 1.05, y: -4 }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-3 px-10 py-5 bg-white text-[#0A261D] rounded-full font-bold text-lg shadow-2xl hover:shadow-[0_20px_60px_rgba(255,255,255,0.2)] transition-all">
-              Schedule a Call
-              <ArrowRight size={20} />
-            </motion.a>
+          {/* Animated Grid Background */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute inset-0" style={{
+              backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)',
+              backgroundSize: '40px 40px'
+            }} />
           </div>
+
+          {/* Animated Gradient Blobs */}
+          <motion.div
+            className="absolute top-[-50%] right-[-20%] w-[600px] h-[600px] bg-emerald-500/30 rounded-full blur-[120px]"
+            animate={{
+              scale: [1, 1.3, 1],
+              x: [0, 50, 0],
+              y: [0, -30, 0]
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[-40%] left-[-15%] w-[500px] h-[500px] bg-teal-500/25 rounded-full blur-[100px]"
+            animate={{
+              scale: [1.2, 1, 1.2],
+              x: [0, -30, 0]
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute top-[20%] left-[30%] w-[300px] h-[300px] bg-emerald-400/15 rounded-full blur-[80px]"
+            animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+
+          {/* Floating Particles */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1.5 h-1.5 bg-emerald-400/60 rounded-full"
+              style={{
+                left: `${15 + i * 10}%`,
+                top: `${20 + (i % 3) * 25}%`
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.8, 0.3],
+                scale: [1, 1.5, 1]
+              }}
+              transition={{ duration: 3 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
+            />
+          ))}
+
+          {/* Glowing Border Effect */}
+          <div className="absolute inset-0 rounded-[3rem] border border-emerald-500/20" />
+          <motion.div
+            className="absolute inset-0 rounded-[3rem] border-2 border-transparent"
+            style={{
+              background: 'linear-gradient(90deg, transparent, rgba(52,211,153,0.3), transparent) border-box',
+              WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+              WebkitMaskComposite: 'xor'
+            }}
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+
+          {/* Shimmer Sweep */}
+          <motion.div
+            className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 pointer-events-none"
+            animate={{ x: ['-200%', '200%'] }}
+            transition={{ duration: 5, repeat: Infinity, repeatDelay: 6, ease: "easeInOut" }}
+          />
+
+          {/* Content */}
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            {/* Animated Icon */}
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", delay: 0.3, stiffness: 100 }}
+              className="relative w-24 h-24 mx-auto mb-10"
+            >
+              {/* Glow Ring */}
+              <motion.div
+                className="absolute inset-0 rounded-3xl bg-emerald-400/30 blur-xl"
+                animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              {/* Icon Container */}
+              <div className="relative w-full h-full bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-sm rounded-3xl border border-white/20 flex items-center justify-center">
+                <motion.div
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                >
+                  <Headset size={42} className="text-white" />
+                </motion.div>
+              </div>
+              {/* Orbiting Dot */}
+              <motion.div
+                className="absolute w-3 h-3 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  transformOrigin: '0 0',
+                  marginLeft: '-6px',
+                  marginTop: '-50px'
+                }}
+              />
+            </motion.div>
+
+            {/* Title with Gradient */}
+            <motion.h3
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-300">Transform</span><br />
+              Your Workforce?
+            </motion.h3>
+
+            {/* Description */}
+            <motion.p
+              className="text-xl text-emerald-100/70 mb-10 max-w-xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
+              Let's discuss how Skoal can help your business achieve operational excellence with our comprehensive workforce solutions.
+            </motion.p>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              <motion.a
+                href="mailto:info@skoalsolutions.com"
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative inline-flex items-center gap-3 px-12 py-5 bg-white text-[#0A261D] rounded-full font-bold text-lg shadow-2xl hover:shadow-[0_25px_80px_rgba(255,255,255,0.25)] transition-all group overflow-hidden"
+              >
+                {/* Button Shimmer */}
+                <motion.div
+                  className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-emerald-100/50 to-transparent skew-x-12"
+                  animate={{ x: ['-200%', '200%'] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                />
+                <span className="relative z-10">Schedule a Call</span>
+                <motion.div
+                  className="relative z-10"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ArrowRight size={22} />
+                </motion.div>
+              </motion.a>
+            </motion.div>
+
+            {/* Trust Indicators */}
+            <motion.div
+              className="mt-12 flex items-center justify-center gap-8 flex-wrap"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8 }}
+            >
+              {[
+                { icon: <Shield size={18} />, text: "100% Compliant" },
+                { icon: <Clock size={18} />, text: "24/7 Support" },
+                { icon: <Users size={18} />, text: "500+ Clients" },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  className="flex items-center gap-2 text-emerald-200/60"
+                  whileHover={{ scale: 1.05, color: 'rgba(167, 243, 208, 1)' }}
+                >
+                  {item.icon}
+                  <span className="text-sm font-medium">{item.text}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Corner Accents */}
+          <div className="absolute top-6 left-6 w-16 h-16 border-l-2 border-t-2 border-emerald-500/30 rounded-tl-2xl" />
+          <div className="absolute bottom-6 right-6 w-16 h-16 border-r-2 border-b-2 border-emerald-500/30 rounded-br-2xl" />
         </motion.div>
       </div>
 
