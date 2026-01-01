@@ -107,7 +107,7 @@ const Navbar = () => {
             className={`relative z-10 flex items-center gap-1 rounded-full p-1.5 transition-colors duration-500 ${isScrolled
               ? "bg-transparent border-transparent"
               : isLightMode
-                ? "bg-white/50 border border-black/5 backdrop-blur-md"
+                ? "bg-white/90 border border-black/5 backdrop-blur-md"
                 : "bg-black/20 border border-white/5 backdrop-blur-md"
               }`}
           >

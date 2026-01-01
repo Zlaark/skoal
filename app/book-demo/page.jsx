@@ -1,69 +1,199 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { z } from "zod";
 import {
-    Calendar,
-    Clock,
-    User,
-    Mail,
-    Building2,
-    Phone,
     ArrowRight,
     CheckCircle2,
-    Sparkles,
-    Globe,
-    Users,
-    Shield,
-    Headset,
-    Zap,
-    Play,
-    Video,
-    Star,
-    Award,
-    Target,
-    MessageCircle
+    MoveRight,
+    Asterisk,
+    AlertCircle
 } from "lucide-react";
 
-// Animated Counter Component
-function AnimatedCounter({ end, suffix = "" }) {
-    const [count, setCount] = useState(0);
+/**
+ * THE KINETIC LEDGER (Book Demo Page)
+ * 
+ * Concept: "Modern Architectural / Editorial"
+ * - Layout: Asymmetrical Split (Sticky Left, Scroll Right).
+ * - Visual: "The Glass Prism" - Abstract 3D blocks representing structure.
+ * - Form: "The Ledger" - Numbered, underlined rows. Feels like a contract.
+ */
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            let start = 0;
-            const duration = 2000;
-            const increment = end / (duration / 16);
-            const counter = setInterval(() => {
-                start += increment;
-                if (start >= end) {
-                    setCount(end);
-                    clearInterval(counter);
-                } else {
-                    setCount(Math.floor(start));
-                }
-            }, 16);
-            return () => clearInterval(counter);
-        }, 800);
-        return () => clearTimeout(timer);
-    }, [end]);
+// --- VALIDATION SCHEMA ---
+const formSchema = z.object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Please enter a valid work email"),
+    company: z.string().min(2, "Company name is required"),
+    phone: z.string().min(6, "Please enter a valid phone number"),
+    employees: z.string().min(1, "Please select workforce size"),
+    message: z.string().min(10, "Please provide a bit more detail (10+ chars)")
+});
 
-    return <span>{count}{suffix}</span>;
+// --- 1. ARCHITECTURAL PRISM COMPONENT ---
+function GlassPrism() {
+    return (
+        <div className="relative w-64 h-64 lg:w-96 lg:h-96 perspective-1000">
+            <motion.div
+                className="w-full h-full preserve-3d relative"
+                animate={{ rotateX: [15, 25, 15], rotateY: [0, 360] }}
+                transition={{
+                    rotateX: { duration: 10, repeat: Infinity, ease: "easeInOut" },
+                    rotateY: { duration: 30, repeat: Infinity, ease: "linear" }
+                }}
+            >
+                {/* Prism Layer 1 (Base) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-slate-900/10 bg-emerald-50/20 backdrop-blur-sm transform-style-3d rotate-x-90 translate-z-20 shadow-[0_20px_50px_rgba(0,0,0,0.05)]" />
+
+                {/* Prism Layer 2 (Middle) */}
+                <motion.div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-slate-900/10 bg-white/40 backdrop-blur-md transform-style-3d"
+                    animate={{ translateZ: [40, 60, 40] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                {/* Prism Layer 3 (Top Float) */}
+                <motion.div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-emerald-500/20 bg-emerald-100/30 backdrop-blur-xl transform-style-3d"
+                    animate={{ translateZ: [80, 120, 80], rotateZ: [0, 45, 0] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                >
+                    {/* Inner Core */}
+                    <div className="absolute inset-4 border border-emerald-500/30 opacity-50" />
+                </motion.div>
+
+                {/* Orbiting Satellite (Data Point) */}
+                <motion.div
+                    className="absolute top-1/2 left-1/2 w-3 h-3 bg-emerald-600 rounded-full shadow-lg"
+                    animate={{ rotateY: 360 }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "100px 0px" }} // Orbital radius
+                />
+            </motion.div>
+        </div>
+    );
 }
 
-// Card Wrapper - simplified to not interfere with form inputs
-function CardWrapper({ children, className }) {
+// --- 2. LEDGER INPUT ROW (With Validation & Custom Select) ---
+function LedgerRow({ number, label, type = "text", value, onChange, placeholder, options, error }) {
+    const [isFocused, setIsFocused] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    // Handle Custom Select Selection
+    const handleSelect = (option) => {
+        onChange({ target: { value: option } }); // Mock event object
+        setIsDropdownOpen(false);
+        setIsFocused(false);
+    };
+
     return (
         <motion.div
-            className={className}
-            whileHover={{ y: -5 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            // Z-Index Fix: Increase z-index when focused or dropdown is open to float above subsequent rows
+            className={`group relative flex flex-col md:flex-row md:items-baseline gap-4 py-8 border-b transition-all duration-300 
+            ${error ? 'border-red-200 bg-red-50/10' : 'border-slate-100'} 
+            ${isFocused || isDropdownOpen ? 'bg-emerald-50/50 z-50 scale-[1.01] shadow-sm' : 'hover:bg-slate-50 z-0'}`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
         >
-            {children}
+            {/* Row Number */}
+            <div className="md:w-32 shrink-0 pl-6 md:pl-12 flex flex-col">
+                <span className={`text-xs font-bold tracking-widest transition-colors duration-300 ${error ? 'text-red-500' : ((isFocused || isDropdownOpen) ? 'text-emerald-600' : 'text-slate-400')}`}>
+                    {number}
+                </span>
+                {error && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-1 mt-2 text-red-500"
+                    >
+                        <AlertCircle size={10} />
+                        <span className="text-[10px] font-bold uppercase tracking-wider">{error}</span>
+                    </motion.div>
+                )}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 pr-6 md:pr-12 relative">
+                <label className={`block text-sm font-semibold uppercase tracking-wider mb-2 transition-colors duration-300 ${error ? 'text-red-800' : ((isFocused || isDropdownOpen) ? 'text-emerald-800' : 'text-slate-900')}`}>
+                    {label}
+                </label>
+
+                {type === "textarea" ? (
+                    <textarea
+                        rows={3}
+                        value={value}
+                        onChange={onChange}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        className="w-full bg-transparent text-xl md:text-2xl text-slate-800 placeholder-slate-300 outline-none resize-none px-0 transition-all duration-300 font-serif active:bg-transparent"
+                        placeholder={placeholder}
+                    />
+                ) : type === "select" ? (
+                    <div className="relative">
+                        {/* Custom Dropdown Trigger */}
+                        <div
+                            onClick={() => {
+                                setIsDropdownOpen(!isDropdownOpen);
+                                setIsFocused(!isDropdownOpen);
+                            }}
+                            className={`w-full bg-transparent text-xl md:text-2xl outline-none cursor-pointer flex items-center justify-between pb-2
+                            ${!value ? 'text-slate-300' : 'text-slate-800'} font-serif`}
+                        >
+                            {value || placeholder}
+                            <ArrowRight size={18} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-90 text-emerald-600' : 'text-slate-300'}`} />
+                        </div>
+
+                        {/* Custom Dropdown Options */}
+                        <AnimatePresence>
+                            {isDropdownOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                    className="absolute top-full left-0 right-0 bg-white border border-emerald-100 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden z-[100] mt-2 max-h-60 overflow-y-auto"
+                                >
+                                    {options.map(opt => (
+                                        <div
+                                            key={opt}
+                                            onClick={() => handleSelect(opt)}
+                                            className="px-6 py-4 hover:bg-emerald-50 cursor-pointer text-lg font-serif text-slate-700 hover:text-emerald-800 transition-colors border-b border-emerald-50 last:border-0"
+                                        >
+                                            {opt}
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Invisible Overlay to close dropdown */}
+                        {isDropdownOpen && <div className="fixed inset-0 z-40 bg-transparent" onClick={() => { setIsDropdownOpen(false); setIsFocused(false); }} />}
+                    </div>
+                ) : (
+                    <input
+                        type={type}
+                        value={value}
+                        onChange={onChange}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        className="w-full bg-transparent text-xl md:text-2xl text-slate-800 placeholder-slate-300 outline-none px-0 transition-all duration-300 font-serif"
+                        placeholder={placeholder}
+                    />
+                )}
+            </div>
+
+            {/* Active/Error Indicator Line */}
+            <motion.div
+                className={`absolute left-0 top-0 bottom-0 w-1 ${error ? 'bg-red-500' : 'bg-emerald-500'}`}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: (isFocused || isDropdownOpen || error) ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+            />
         </motion.div>
     );
 }
 
+// --- 3. MAIN PAGE COMPONENT ---
 export default function BookDemoPage() {
     const [formData, setFormData] = useState({
         name: "",
@@ -73,12 +203,31 @@ export default function BookDemoPage() {
         employees: "",
         message: ""
     });
+    const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [activeStep, setActiveStep] = useState(1);
+
+    // Scroll Progress Logic (Simplified Visual)
+    const [scrollProgress, setScrollProgress] = useState(0);
+
+    const validateForm = () => {
+        const result = formSchema.safeParse(formData);
+        if (!result.success) {
+            const formattedErrors = {};
+            result.error.issues.forEach(issue => {
+                formattedErrors[issue.path[0]] = issue.message;
+            });
+            setErrors(formattedErrors);
+            return false;
+        }
+        setErrors({});
+        return true;
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
+
         setIsSubmitting(true);
         setTimeout(() => {
             setIsSubmitting(false);
@@ -86,590 +235,203 @@ export default function BookDemoPage() {
         }, 2000);
     };
 
-    const benefits = [
-        { icon: <Users size={24} />, title: "Personalized Demo", desc: "Tailored to your business" },
-        { icon: <Shield size={24} />, title: "100% Compliance", desc: "India & Middle East" },
-        { icon: <Headset size={24} />, title: "Expert Guidance", desc: "Live Q&A session" },
-        { icon: <Zap size={24} />, title: "Quick Setup", desc: "Get started in days" },
-    ];
-
     return (
-        <section className="relative min-h-screen bg-[#0A261D] overflow-hidden">
-            {/* === ANIMATED BACKGROUND === */}
-            <div className="absolute inset-0">
-                {/* Noise Texture */}
-                <div className="absolute inset-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        <section className="relative min-h-screen bg-white">
 
-                {/* Animated Mesh Gradient */}
-                <motion.div
-                    className="absolute top-[-30%] right-[-20%] w-[800px] h-[800px] rounded-full"
-                    style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)' }}
-                    animate={{ scale: [1, 1.2, 1], x: [0, 50, 0], y: [0, -30, 0] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <motion.div
-                    className="absolute bottom-[-30%] left-[-20%] w-[700px] h-[700px] rounded-full"
-                    style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.25) 0%, transparent 70%)' }}
-                    animate={{ scale: [1.1, 1, 1.1], x: [0, -30, 0] }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <motion.div
-                    className="absolute top-[40%] left-[40%] w-[400px] h-[400px] rounded-full"
-                    style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 70%)' }}
-                    animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0.8, 0.5] }}
-                    transition={{ duration: 15, repeat: Infinity }}
-                />
+            <div className="flex flex-col lg:flex-row">
 
-                {/* Animated Grid */}
-                <div className="absolute inset-0 opacity-[0.08]" style={{
-                    backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), 
-                                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
-                    backgroundSize: '60px 60px'
-                }} />
+                {/* === LEFT COLUMN: STICKY BRAND VISUAL === */}
+                <div className="hidden lg:flex w-5/12 h-screen sticky top-0 flex-col justify-between p-16 bg-slate-50 border-r border-slate-100 overflow-hidden">
 
-                {/* Orbit Rings - Centered */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                    {[300, 450, 600].map((size, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute border border-emerald-500/10 rounded-full"
-                            style={{
-                                width: size,
-                                height: size,
-                                top: -size / 2,
-                                left: -size / 2
-                            }}
-                            animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-                            transition={{ duration: 30 + i * 10, repeat: Infinity, ease: "linear" }}
+                    {/* Top Branding */}
+                    <div>
+                        {/* Spacer for where logo used to be */}
+                        <div className="mb-12"></div>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-5xl font-bold text-slate-900 leading-[1.1] mb-6"
                         >
-                            {/* Orbiting dot */}
-                            <motion.div
-                                className="absolute w-3 h-3 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"
-                                style={{ top: -6, left: '50%', marginLeft: -6 }}
-                                animate={{ scale: [1, 1.5, 1] }}
-                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-                            />
-                        </motion.div>
-                    ))}
+                            Future-Proof <br />
+                            <span className="font-serif italic font-normal text-emerald-700">Workforce.</span>
+                        </motion.h1>
+
+                        <p className="text-slate-500 max-w-sm leading-relaxed">
+                            Designed for scale. Engineered for compliance. Experience the new standard in global hiring.
+                        </p>
+                    </div>
+
+                    {/* Center Visual */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                        <GlassPrism />
+                    </div>
+
+                    {/* Bottom Info */}
+                    <div className="flex gap-8 text-xs font-bold tracking-widest text-slate-400 uppercase">
+                        <span>Est 2015</span>
+                        <span>Dubai • Riyadh • Mumbai</span>
+                    </div>
                 </div>
 
-                {/* Scanning Line Effect */}
-                <motion.div
-                    className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"
-                    animate={{ y: [0, 1000, 0] }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                />
+                {/* === RIGHT COLUMN: THE LEDGER FORM === */}
+                <div className="w-full lg:w-7/12 min-h-screen bg-white relative">
 
-                {/* Floating Orbs - More of them */}
-                {[...Array(12)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className={`absolute rounded-full ${i % 3 === 0 ? 'w-3 h-3 bg-emerald-400/40' : 'w-2 h-2 bg-teal-400/30'}`}
-                        style={{
-                            left: `${8 + i * 7}%`,
-                            top: `${15 + (i % 5) * 18}%`
-                        }}
-                        animate={{
-                            y: [0, -60, 0],
-                            x: [0, i % 2 === 0 ? 20 : -20, 0],
-                            opacity: [0.2, 0.8, 0.2],
-                            scale: [1, 1.5, 1]
-                        }}
-                        transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
-                    />
-                ))}
+                    {/* Mobile Header (Visible only on small screens) */}
+                    <div className="lg:hidden p-8 pb-0">
+                        <h1 className="text-4xl font-bold text-slate-900 leading-tight mb-4">
+                            Book Your <br />
+                            <span className="font-serif italic text-emerald-600">Demo</span>
+                        </h1>
+                    </div>
 
-                {/* Animated Connection Lines */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
-                    <motion.line
-                        x1="10%" y1="20%" x2="30%" y2="60%"
-                        stroke="url(#lineGradient)" strokeWidth="1"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: [0, 1, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, delay: 0 }}
-                    />
-                    <motion.line
-                        x1="70%" y1="15%" x2="85%" y2="50%"
-                        stroke="url(#lineGradient)" strokeWidth="1"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: [0, 1, 0] }}
-                        transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-                    />
-                    <motion.line
-                        x1="20%" y1="80%" x2="50%" y2="70%"
-                        stroke="url(#lineGradient)" strokeWidth="1"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: [0, 1, 0] }}
-                        transition={{ duration: 4.5, repeat: Infinity, delay: 2 }}
-                    />
-                    <defs>
-                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="transparent" />
-                            <stop offset="50%" stopColor="#34d399" />
-                            <stop offset="100%" stopColor="transparent" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-
-                {/* Pulse Rings from center */}
-                {[1, 2, 3].map((ring) => (
-                    <motion.div
-                        key={ring}
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-emerald-500/20 rounded-full pointer-events-none"
-                        style={{ width: 200, height: 200 }}
-                        animate={{ scale: [1, 4, 4], opacity: [0.5, 0, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, delay: ring * 1.2 }}
-                    />
-                ))}
-            </div>
-
-            {/* === MAIN CONTENT === */}
-            <div className="relative z-10 container mx-auto px-6 lg:px-12 py-32">
-
-                {/* Header Section */}
-                <motion.div
-                    className="text-center max-w-4xl mx-auto mb-20"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                >
-                    {/* Badge */}
-                    <motion.div
-                        className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 mb-8"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                    >
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                        >
-                            <Calendar size={20} className="text-emerald-400" />
-                        </motion.div>
-                        <span className="text-emerald-300 font-bold text-sm uppercase tracking-widest">Schedule Your Demo</span>
-                        <div className="flex gap-1">
-                            {[0, 1, 2].map(i => (
-                                <motion.span
-                                    key={i}
-                                    className="w-2 h-2 rounded-full bg-emerald-400"
-                                    animate={{ scale: [1, 1.5, 1] }}
-                                    transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
-                                />
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Main Heading */}
-                    <motion.h1
-                        className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-8 leading-[0.95]"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                    >
-                        See Skoal in
-                        <br />
-                        <span className="relative inline-block">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-300 font-serif italic">
-                                Action
-                            </span>
-                            {/* Underline animation */}
+                    {isSubmitted ? (
+                        /* Success State */
+                        <div className="h-screen flex flex-col items-center justify-center text-center p-8">
                             <motion.div
-                                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"
-                                initial={{ width: 0 }}
-                                animate={{ width: '100%' }}
-                                transition={{ delay: 1, duration: 0.8 }}
-                            />
-                        </span>
-                    </motion.h1>
-
-                    {/* Subheading */}
-                    <motion.p
-                        className="text-xl md:text-2xl text-emerald-100/60 max-w-2xl mx-auto leading-relaxed"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6 }}
-                    >
-                        Experience our comprehensive workforce solutions with a personalized walkthrough from our experts.
-                    </motion.p>
-                </motion.div>
-
-                {/* Main Grid - Form + Features */}
-                <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 max-w-7xl mx-auto items-start">
-
-                    {/* LEFT: Premium Form Card */}
-                    <motion.div
-                        className="lg:col-span-7"
-                        initial={{ opacity: 0, x: -60, rotateY: -5 }}
-                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
-                    >
-                        <CardWrapper className="relative">
-                            {/* Glowing Border */}
-                            <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/50 via-teal-500/30 to-emerald-500/50 rounded-[2rem] blur-sm" />
-
-                            <div className="relative bg-white rounded-[2rem] p-8 lg:p-12 shadow-2xl overflow-hidden">
-                                {/* Animated Top Border */}
-                                <motion.div
-                                    className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500"
-                                    animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-                                    transition={{ duration: 5, repeat: Infinity }}
-                                    style={{ backgroundSize: '200% 100%' }}
-                                />
-
-                                {/* Shimmer Effect */}
-                                <motion.div
-                                    className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-emerald-50/30 to-transparent skew-x-12 pointer-events-none"
-                                    animate={{ x: ['-200%', '200%'] }}
-                                    transition={{ duration: 4, repeat: Infinity, repeatDelay: 6 }}
-                                />
-
-                                {/* Corner Accents */}
-                                <div className="absolute top-4 right-4 w-20 h-20 border-t-2 border-r-2 border-emerald-200/30 rounded-tr-2xl" />
-                                <div className="absolute bottom-4 left-4 w-20 h-20 border-b-2 border-l-2 border-emerald-200/30 rounded-bl-2xl" />
-
-                                {isSubmitted ? (
-                                    <motion.div
-                                        className="text-center py-12"
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                    >
-                                        <motion.div
-                                            className="relative w-28 h-28 mx-auto mb-8"
-                                            initial={{ scale: 0, rotate: -180 }}
-                                            animate={{ scale: 1, rotate: 0 }}
-                                            transition={{ type: "spring", stiffness: 100 }}
-                                        >
-                                            <motion.div
-                                                className="absolute inset-0 bg-emerald-100 rounded-full"
-                                                animate={{ scale: [1, 1.2, 1] }}
-                                                transition={{ duration: 2, repeat: Infinity }}
-                                            />
-                                            <div className="relative w-full h-full bg-emerald-50 rounded-full flex items-center justify-center">
-                                                <CheckCircle2 size={56} className="text-emerald-600" />
-                                            </div>
-                                        </motion.div>
-                                        <h3 className="text-3xl font-bold text-slate-900 mb-4">You're All Set!</h3>
-                                        <p className="text-slate-500 mb-8 text-lg max-w-md mx-auto">Our team will reach out within 24 hours to schedule your personalized demo.</p>
-                                        <motion.button
-                                            onClick={() => setIsSubmitted(false)}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="px-8 py-4 bg-[#0A261D] text-white rounded-full font-bold text-lg hover:bg-emerald-800 transition-colors"
-                                        >
-                                            Book Another Demo
-                                        </motion.button>
-                                    </motion.div>
-                                ) : (
-                                    <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
-                                        {/* Form Header */}
-                                        <div className="flex items-center gap-5 mb-8">
-                                            <motion.div
-                                                className="relative w-16 h-16 rounded-2xl bg-[#0A261D] flex items-center justify-center"
-                                                whileHover={{ rotate: [0, -10, 10, 0] }}
-                                            >
-                                                <motion.div
-                                                    className="absolute inset-0 bg-emerald-500/30 rounded-2xl blur-lg"
-                                                    animate={{ scale: [1, 1.3, 1] }}
-                                                    transition={{ duration: 2, repeat: Infinity }}
-                                                />
-                                                <Calendar size={28} className="text-white relative z-10" />
-                                            </motion.div>
-                                            <div>
-                                                <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">Book Your Demo</h2>
-                                                <p className="text-slate-400">Takes less than 2 minutes</p>
-                                            </div>
-                                        </div>
-
-                                        {/* Form Fields */}
-                                        <div className="grid sm:grid-cols-2 gap-5">
-                                            <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Full Name *</label>
-                                                <div className="relative group">
-                                                    <User size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
-                                                    <input
-                                                        type="text"
-                                                        required
-                                                        value={formData.name}
-                                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-800"
-                                                        placeholder="John Doe"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Work Email *</label>
-                                                <div className="relative group">
-                                                    <Mail size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
-                                                    <input
-                                                        type="email"
-                                                        required
-                                                        value={formData.email}
-                                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-800"
-                                                        placeholder="you@company.com"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="grid sm:grid-cols-2 gap-5">
-                                            <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Company *</label>
-                                                <div className="relative group">
-                                                    <Building2 size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
-                                                    <input
-                                                        type="text"
-                                                        required
-                                                        value={formData.company}
-                                                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                                        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-800"
-                                                        placeholder="Company Name"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Team Size</label>
-                                                <select
-                                                    value={formData.employees}
-                                                    onChange={(e) => setFormData({ ...formData, employees: e.target.value })}
-                                                    className="w-full px-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all bg-slate-50/50 focus:bg-white text-slate-700"
-                                                >
-                                                    <option value="">Select range</option>
-                                                    <option value="1-50">1-50 employees</option>
-                                                    <option value="51-200">51-200 employees</option>
-                                                    <option value="201-500">201-500 employees</option>
-                                                    <option value="500+">500+ employees</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">How can we help?</label>
-                                            <textarea
-                                                rows={3}
-                                                value={formData.message}
-                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                className="w-full px-4 py-4 rounded-xl border-2 border-slate-100 focus:border-emerald-500 outline-none transition-all resize-none bg-slate-50/50 focus:bg-white text-slate-800"
-                                                placeholder="Tell us about your workforce challenges..."
-                                            />
-                                        </div>
-
-                                        {/* Submit Button */}
-                                        <motion.button
-                                            type="submit"
-                                            disabled={isSubmitting}
-                                            whileHover={{ scale: 1.02, y: -2 }}
-                                            whileTap={{ scale: 0.98 }}
-                                            className="w-full py-5 bg-[#0A261D] text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:shadow-emerald-900/30 transition-all disabled:opacity-70 relative overflow-hidden group"
-                                        >
-                                            <motion.div
-                                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
-                                                animate={{ x: ['-200%', '200%'] }}
-                                                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
-                                            />
-                                            {isSubmitting ? (
-                                                <>
-                                                    <motion.div
-                                                        className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full"
-                                                        animate={{ rotate: 360 }}
-                                                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                                    />
-                                                    <span>Scheduling...</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <span className="relative z-10">Schedule My Demo</span>
-                                                    <motion.div
-                                                        animate={{ x: [0, 5, 0] }}
-                                                        transition={{ duration: 1.5, repeat: Infinity }}
-                                                    >
-                                                        <ArrowRight size={22} />
-                                                    </motion.div>
-                                                </>
-                                            )}
-                                        </motion.button>
-
-                                        {/* Trust Line */}
-                                        <div className="flex items-center justify-center gap-2 text-sm text-slate-400 pt-2">
-                                            <Shield size={16} className="text-emerald-500" />
-                                            <span>Your data is secure & confidential</span>
-                                        </div>
-                                    </form>
-                                )}
-                            </div>
-                        </CardWrapper>
-                    </motion.div>
-
-                    {/* RIGHT: Features & Stats */}
-                    <motion.div
-                        className="lg:col-span-5 space-y-8"
-                        initial={{ opacity: 0, x: 60 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.7 }}
-                    >
-                        {/* Benefits List */}
-                        <div className="space-y-4">
-                            {benefits.map((benefit, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, x: 30 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.8 + i * 0.1 }}
-                                    whileHover={{ x: 10, scale: 1.02 }}
-                                    className="flex items-center gap-5 p-5 rounded-2xl bg-white/5 backdrop-blur border border-white/10 group cursor-pointer"
-                                >
-                                    <motion.div
-                                        className="w-14 h-14 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 relative"
-                                        whileHover={{ rotate: 10 }}
-                                    >
-                                        <motion.div
-                                            className="absolute inset-0 bg-emerald-400/30 rounded-xl blur-md"
-                                            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                                        />
-                                        <div className="relative z-10">{benefit.icon}</div>
-                                    </motion.div>
-                                    <div className="flex-1">
-                                        <h4 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">{benefit.title}</h4>
-                                        <p className="text-emerald-100/50 text-sm">{benefit.desc}</p>
-                                    </div>
-                                    <ArrowRight size={18} className="text-emerald-400/50 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        {/* Stats Card */}
-                        <motion.div
-                            className="p-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur border border-white/10 relative overflow-hidden"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                        >
-                            <motion.div
-                                className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12"
-                                animate={{ x: ['-200%', '200%'] }}
-                                transition={{ duration: 5, repeat: Infinity, repeatDelay: 5 }}
-                            />
-
-                            <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                                <Star size={18} className="text-emerald-400" />
-                                Trusted Worldwide
-                            </h4>
-
-                            <div className="grid grid-cols-2 gap-6">
-                                {[
-                                    { value: 500, suffix: "+", label: "Happy Clients" },
-                                    { value: 10, suffix: "+", label: "Years Experience" },
-                                    { value: 99, suffix: "%", label: "Success Rate" },
-                                    { value: 24, suffix: "/7", label: "Support" },
-                                ].map((stat, i) => (
-                                    <motion.div
-                                        key={i}
-                                        className="text-center"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: 1 + i * 0.1 }}
-                                    >
-                                        <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
-                                            <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                                        </div>
-                                        <div className="text-sm text-emerald-100/50">{stat.label}</div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
-
-                        {/* Quick Contact */}
-                        <motion.div
-                            className="flex items-center gap-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20"
-                            whileHover={{ scale: 1.02 }}
-                        >
-                            <motion.div
-                                className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400"
-                                animate={{ rotate: [0, 10, -10, 0] }}
-                                transition={{ duration: 3, repeat: Infinity }}
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                className="w-24 h-24 rounded-full border-2 border-emerald-100 flex items-center justify-center mb-8 relative"
                             >
-                                <MessageCircle size={22} />
+                                <div className="absolute inset-2 bg-emerald-50 rounded-full animate-pulse" />
+                                <CheckCircle2 size={40} className="text-emerald-600 relative z-10" />
                             </motion.div>
-                            <div className="flex-1">
-                                <p className="text-white font-medium">Need help right away?</p>
-                                <a href="mailto:info@skoalsolutions.com" className="text-emerald-400 text-sm hover:underline">info@skoalsolutions.com</a>
+                            <h2 className="text-4xl font-serif text-slate-900 mb-4">Request Confirmed.</h2>
+                            <p className="text-slate-500 max-w-md">The ledger has been updated. Our team is reviewing your profile and will initiate contact shortly.</p>
+
+                            <button
+                                onClick={() => setIsSubmitted(false)}
+                                className="mt-12 text-xs font-bold tracking-widest uppercase text-slate-900 hover:text-emerald-600 underline underline-offset-4 transition-colors"
+                            >
+                                Start New Request
+                            </button>
+                        </div>
+                    ) : (
+                        /* The Ledger Form */
+                        <form onSubmit={handleSubmit} className="pb-32 lg:pt-32">
+
+                            <div className="px-6 md:px-12 mb-12 lg:mb-16">
+                                <div className="flex items-center gap-3 text-emerald-600 mb-4">
+                                    <Asterisk size={14} className="animate-spin-slow" />
+                                    <span className="text-xs font-bold tracking-widest uppercase">Consultation Request</span>
+                                </div>
+                                <h2 className="text-2xl md:text-3xl font-serif text-slate-900">
+                                    Tell us about your organization.
+                                </h2>
                             </div>
-                        </motion.div>
-                    </motion.div>
+
+                            <LedgerRow
+                                number="01"
+                                label="Full Name"
+                                placeholder="e.g. Alexander Smith"
+                                value={formData.name}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, name: e.target.value });
+                                    if (errors.name) setErrors({ ...errors, name: null });
+                                }}
+                                error={errors.name}
+                            />
+
+                            <LedgerRow
+                                number="02"
+                                label="Work Email"
+                                type="email"
+                                placeholder="e.g. alex@company.com"
+                                value={formData.email}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, email: e.target.value });
+                                    if (errors.email) setErrors({ ...errors, email: null });
+                                }}
+                                error={errors.email}
+                            />
+
+                            <LedgerRow
+                                number="03"
+                                label="Company"
+                                placeholder="e.g. Acme Industries"
+                                value={formData.company}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, company: e.target.value });
+                                    if (errors.company) setErrors({ ...errors, company: null });
+                                }}
+                                error={errors.company}
+                            />
+
+                            <LedgerRow
+                                number="04"
+                                label="Phone Number"
+                                type="tel"
+                                placeholder="e.g. +1 (555) 123-4567"
+                                value={formData.phone}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, phone: e.target.value });
+                                    if (errors.phone) setErrors({ ...errors, phone: null });
+                                }}
+                                error={errors.phone}
+                            />
+
+                            <LedgerRow
+                                number="05"
+                                label="Workforce Size"
+                                type="select"
+                                placeholder="Select scale..."
+                                value={formData.employees}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, employees: e.target.value });
+                                    if (errors.employees) setErrors({ ...errors, employees: null });
+                                }}
+                                error={errors.employees}
+                                options={[
+                                    "1 - 50 Employees",
+                                    "51 - 200 Employees",
+                                    "201 - 500 Employees",
+                                    "500+ Enterprise"
+                                ]}
+                            />
+
+                            <LedgerRow
+                                number="06"
+                                label="The Challenge"
+                                type="textarea"
+                                placeholder="Briefly describe your hiring goals..."
+                                value={formData.message}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, message: e.target.value });
+                                    if (errors.message) setErrors({ ...errors, message: null });
+                                }}
+                                error={errors.message}
+                            />
+
+                            {/* Submit Action */}
+                            <div className="px-6 md:px-12 pt-16">
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="group relative inline-flex items-center justify-between w-full md:w-auto md:min-w-[300px] bg-slate-900 text-white rounded-none px-8 py-6 overflow-hidden transition-all hover:bg-emerald-900 disabled:opacity-70 disabled:cursor-not-allowed"
+                                >
+                                    <span className="relative z-10 font-bold uppercase tracking-widest text-sm">
+                                        {isSubmitting ? "Processing..." : "Submit Request"}
+                                    </span>
+
+                                    <div className="relative z-10 flex items-center gap-2 group-hover:translate-x-2 transition-transform duration-300">
+                                        <MoveRight size={18} />
+                                    </div>
+
+                                    {/* Hover Fill Effect */}
+                                    <div className="absolute inset-0 bg-emerald-700 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                                </button>
+
+                                <p className="mt-8 text-xs text-slate-400 max-w-xs leading-relaxed">
+                                    By clicking submit, you agree to our Terms of Service. Your data is encrypted and secure.
+                                </p>
+                            </div>
+
+                        </form>
+                    )}
+
                 </div>
             </div>
-
-            {/* Floating Decorative Elements */}
-            <motion.div
-                className="absolute top-32 right-20 w-16 h-16 bg-white/5 backdrop-blur-sm rounded-2xl flex items-center justify-center text-emerald-400 border border-white/10"
-                animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
-                transition={{ duration: 6, repeat: Infinity }}
-            >
-                <motion.div
-                    className="absolute inset-0 bg-emerald-400/20 rounded-2xl blur-lg"
-                    animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                />
-                <Globe size={28} className="relative z-10" />
-            </motion.div>
-
-            <motion.div
-                className="absolute bottom-40 left-20 w-14 h-14 bg-emerald-500/10 backdrop-blur-sm rounded-xl flex items-center justify-center text-emerald-400 border border-white/10"
-                animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
-                transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-            >
-                <Sparkles size={24} />
-            </motion.div>
-
-            {/* Additional floating elements */}
-            <motion.div
-                className="absolute top-[45%] right-10 w-12 h-12 bg-teal-500/10 backdrop-blur-sm rounded-full flex items-center justify-center text-teal-400 border border-white/10"
-                animate={{ y: [0, -12, 0], x: [0, 5, 0] }}
-                transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
-            >
-                <Clock size={20} />
-            </motion.div>
-
-            <motion.div
-                className="absolute bottom-[30%] right-24 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/10"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 3, repeat: Infinity, delay: 2 }}
-            >
-                <span className="text-emerald-300 text-sm font-semibold flex items-center gap-2">
-                    <motion.span
-                        className="w-2 h-2 bg-green-400 rounded-full"
-                        animate={{ scale: [1, 1.5, 1] }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                    />
-                    Live Demo Available
-                </span>
-            </motion.div>
-
-            <motion.div
-                className="absolute top-[60%] left-10 w-10 h-10 bg-white/5 backdrop-blur-sm rounded-lg flex items-center justify-center text-emerald-400 border border-white/10"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            >
-                <Target size={18} />
-            </motion.div>
-
-            <motion.div
-                className="absolute top-24 left-[40%] px-5 py-2.5 bg-emerald-500/15 backdrop-blur-sm rounded-full border border-emerald-500/20"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5 }}
-            >
-                <motion.span
-                    className="text-white text-sm font-medium flex items-center gap-2"
-                    animate={{ opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
-                    <Award size={16} className="text-emerald-400" />
-                    Trusted by 500+ Companies
-                </motion.span>
-            </motion.div>
         </section>
     );
 }

@@ -1,179 +1,303 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, MapPin, Mail, CheckCircle2 } from "lucide-react";
-import createGlobe from "cobe";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, CheckCircle2, AlertCircle, Send } from "lucide-react";
+import { z } from "zod";
 
-export default function Contact() {
-  const [formState, setFormState] = useState("idle");
-  const canvasRef = useRef(null);
+// --- VALIDATION SCHEMA ---
+const formSchema = z.object({
+  name: z.string().min(2, "Name required"),
+  email: z.string().email("Invalid email"),
+  inquiry: z.enum(["general", "support", "sales", "partnership", "careers"]),
+  message: z.string().min(10, "Message too short")
+});
 
-  // --- GLOBE CONFIGURATION ---
-  useEffect(() => {
-    let phi = 0;
+// --- GLASS INPUT COMPONENT (Ported from Contact Page) ---
+function GlassInput({ label, type = "text", value, onChange, placeholder, error, options }) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    // Safety check for canvas ref
-    if (!canvasRef.current) return;
-
-    try {
-      // Detect screen size for responsive globe
-      const isMobile = window.innerWidth < 1024; // lg breakpoint
-      const globeSize = isMobile ? 600 : 1200; // Mobile: 600px, Desktop: 1200px
-
-      const globe = createGlobe(canvasRef.current, {
-        devicePixelRatio: 2,
-        width: globeSize,
-        height: globeSize,
-        phi: 0,
-        theta: 0,
-        dark: 0,
-        diffuse: 1.2,
-        mapSamples: 16000,
-        mapBrightness: 6,
-        baseColor: [1, 1, 1],
-        markerColor: [0.05, 0.7, 0.4],
-        glowColor: [0.8, 0.9, 1],
-        markers: [
-          { location: [37.7595, -122.4367], size: 0.03 },
-          { location: [40.7128, -74.0060], size: 0.1 },
-          { location: [51.5074, -0.1278], size: 0.05 },
-          { location: [1.3521, 103.8198], size: 0.08 },
-          { location: [28.6139, 77.2090], size: 0.1 },
-          { location: [25.2048, 55.2708], size: 0.05 },
-        ],
-        onRender: (state) => {
-          state.phi = phi;
-          phi += 0.003;
-        },
-      });
-
-      // Cleanup function
-      return () => {
-        globe.destroy();
-      };
-    } catch (e) {
-      console.error("Globe initialization failed:", e);
-    }
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormState("sending");
-    setTimeout(() => { setFormState("sent"); }, 2000);
+  // Handle Custom Select
+  const handleSelect = (optionValue) => {
+    onChange({ target: { value: optionValue } });
+    setIsDropdownOpen(false);
+    setIsFocused(false);
   };
 
   return (
-    <section className="relative py-24 bg-[#FAFAFA] text-slate-900 overflow-hidden min-h-screen flex items-center" id="contact">
+    <div className="space-y-1.5 group relative">
+      <div className="flex justify-between items-baseline">
+        <label className={`text-[10px] uppercase font-bold tracking-widest transition-colors duration-300 ${isFocused || isDropdownOpen ? 'text-emerald-700' : 'text-slate-400'}`}>
+          {label}
+        </label>
+      </div>
 
-      {/* Background Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.5] pointer-events-none"
-        style={{
-          backgroundImage: 'linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px)',
-          backgroundSize: '40px 40px'
-        }}
+      {type === "textarea" ? (
+        <textarea
+          rows={4}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          placeholder={placeholder}
+          className={`w-full bg-slate-50 border rounded-lg px-4 py-3 text-sm font-serif outline-none transition-all duration-300 resize-none text-slate-900 placeholder:text-slate-400
+                        ${error ? 'border-red-200 bg-red-50/10 text-red-900 placeholder:text-red-300' :
+              isFocused ? 'border-emerald-500/30 bg-white shadow-sm ring-1 ring-emerald-500/20' : 'border-slate-100 hover:bg-white hover:border-slate-200'}`}
+        />
+      ) : type === "select" ? (
+        <div className="relative">
+          {/* Trigger */}
+          <div
+            onClick={() => {
+              setIsDropdownOpen(!isDropdownOpen);
+              setIsFocused(!isDropdownOpen);
+            }}
+            className={`w-full bg-slate-50 border rounded-lg px-4 py-3 text-sm font-serif flex items-center justify-between cursor-pointer transition-all duration-300
+                            ${error ? 'border-red-200 bg-red-50/10 text-red-900' :
+                (isFocused || isDropdownOpen) ? 'border-emerald-500/30 bg-white shadow-sm ring-1 ring-emerald-500/20 text-slate-900' : 'border-slate-100 text-slate-700 hover:bg-white hover:border-slate-200'}
+                        `}
+          >
+            <span className={value ? "text-slate-900" : "text-slate-400"}>
+              {value ? options.find(o => o.value === value)?.label : placeholder}
+            </span>
+            <ArrowRight size={14} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-90 text-emerald-600' : 'text-slate-400'}`} />
+          </div>
+
+          {/* Dropdown Menu */}
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setIsDropdownOpen(false)} />
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-100 rounded-lg shadow-xl overflow-hidden z-50 py-1 max-h-60 overflow-y-auto"
+                >
+                  {options.map((opt) => (
+                    <div
+                      key={opt.value}
+                      onClick={() => handleSelect(opt.value)}
+                      className={`px-4 py-3 text-sm font-serif cursor-pointer transition-colors flex items-center justify-between group/opt
+                                            ${value === opt.value ? 'bg-emerald-50 text-emerald-900' : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'}
+                                        `}
+                    >
+                      {opt.label}
+                      {value === opt.value && <CheckCircle2 size={12} className="text-emerald-600" />}
+                    </div>
+                  ))}
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
+      ) : (
+        <input
+          type={type}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          placeholder={placeholder}
+          className={`w-full bg-slate-50 border rounded-lg px-4 py-3 text-sm font-serif outline-none transition-all duration-300 text-slate-900 placeholder:text-slate-400
+                        ${error ? 'border-red-200 bg-red-50/10 text-red-900 placeholder:text-red-300' :
+              isFocused ? 'border-emerald-500/30 bg-white shadow-sm ring-1 ring-emerald-500/20' : 'border-slate-100 hover:bg-white hover:border-slate-200'}`}
+        />
+      )}
+
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          className="text-[10px] font-bold text-red-500 flex items-center gap-1 pt-1"
+        >
+          <AlertCircle size={10} /> {error}
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
+// --- MAIN COMPONENT ---
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    inquiry: "",
+    message: ""
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const validate = () => {
+    const result = formSchema.safeParse(formData);
+    if (!result.success) {
+      const formatted = {};
+      result.error.issues.forEach(i => formatted[i.path[0]] = i.message);
+      setErrors(formatted);
+      return false;
+    }
+    setErrors({});
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }, 2000);
+  };
+
+  return (
+    <section className="relative py-32 bg-[#FAFAFA] text-slate-900 overflow-hidden" id="contact">
+
+      {/* Background Decor */}
+      <div className="absolute inset-0 opacity-[0.3]"
+        style={{ backgroundImage: 'linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px)', backgroundSize: '40px 40px' }}
       />
-      {/* Radial fade for the grid center */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAFA] via-transparent to-[#FAFAFA]" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="flex flex-col lg:flex-row lg:items-start gap-16 lg:gap-24">
 
-          {/* --- LEFT VISUAL (Globe) --- */}
-          <div className="relative h-[300px] lg:h-[600px] flex items-center justify-center order-2 lg:order-1 perspective-[1000px]">
-            <div className="relative w-full max-w-[300px] lg:max-w-[600px] aspect-square">
-              <canvas ref={canvasRef} style={{ width: '100%', height: '100%', maxWidth: '300px', maxHeight: '300px' }} className="lg:!max-w-[600px] lg:!max-h-[600px]" />
-            </div>
+          {/* --- LEFT: Editorial Header --- */}
+          <div className="w-full lg:w-5/12 pt-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-emerald-600 font-bold tracking-widest text-[10px] uppercase mb-4 block">
+                Get In Touch
+              </span>
+              <h2 className="text-5xl lg:text-7xl font-serif text-slate-900 leading-[0.9] mb-8">
+                Start the <br />
+                <span className="italic text-emerald-700 opacity-90">Conversation.</span>
+              </h2>
+              <p className="text-lg text-slate-500 font-light leading-relaxed max-w-sm border-l-2 border-emerald-500/20 pl-6 mb-12">
+                Ready to transform your global workforce strategy? Let's discuss how we can tailor our infrastructure to your needs.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 text-sm font-medium text-slate-600">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  <span>Response time: &lt; 24 Hours</span>
+                </div>
+                <div className="flex items-center gap-4 text-sm font-medium text-slate-600">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+                  <span>Direct Support Available</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
-          {/* --- RIGHT: GLASSMORPHISM CARD FORM --- */}
-          <div className="order-1 lg:order-2">
-            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          {/* --- RIGHT: Professional Form --- */}
+          <div className="w-full lg:w-7/12">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 relative group"
+            >
+              {/* Decorative Corner */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50/50 rounded-bl-full -z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-              {/* Header Title */}
-              <div className="mb-8 pl-4">
-                <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-2">
-                  Get in <span className="italic text-emerald-700">touch.</span>
-                </h2>
-                <p className="text-slate-500 font-light">We are ready to listen.</p>
-              </div>
-
-              {/* Glass Card Container */}
-              <div className="relative bg-white/70 backdrop-blur-xl border border-white/60 rounded-[2rem] p-10 shadow-2xl shadow-slate-200/50">
-
-                <form onSubmit={handleSubmit} className="space-y-8">
-
-                  {/* Name Input */}
-                  <div className="relative group">
-                    <input
-                      type="text"
-                      id="name"
-                      required
-                      placeholder=" "
-                      className="block py-3 w-full text-lg text-slate-900 bg-transparent border-0 border-b-[1.5px] border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors"
-                    />
-                    <label
-                      htmlFor="name"
-                      className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
+              <div className="relative z-10">
+                {isSubmitted ? (
+                  <div className="py-20 text-center">
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="inline-flex items-center justify-center w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full mb-6"
                     >
-                      Full Name
-                    </label>
-                  </div>
-
-                  {/* Email Input */}
-                  <div className="relative group">
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      placeholder=" "
-                      className="block py-3 w-full text-lg text-slate-900 bg-transparent border-0 border-b-[1.5px] border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors"
-                    />
-                    <label
-                      htmlFor="email"
-                      className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
-                    >
-                      Business Email
-                    </label>
-                  </div>
-
-                  {/* Message Input */}
-                  <div className="relative group">
-                    <textarea
-                      id="message"
-                      rows={2}
-                      required
-                      placeholder=" "
-                      className="block py-3 w-full text-lg text-slate-900 bg-transparent border-0 border-b-[1.5px] border-slate-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer transition-colors resize-none"
-                    />
-                    <label
-                      htmlFor="message"
-                      className="absolute text-sm text-slate-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 uppercase tracking-widest font-bold"
-                    >
-                      Requirements
-                    </label>
-                  </div>
-
-                  <div className="pt-4">
+                      <CheckCircle2 size={32} />
+                    </motion.div>
+                    <h3 className="text-3xl font-serif text-slate-900 mb-2">Request Received.</h3>
+                    <p className="text-slate-500 mb-8">Thank you for reaching out. We will be in touch shortly.</p>
                     <button
-                      disabled={formState !== "idle"}
-                      className="group w-full relative flex items-center justify-center gap-3 px-8 py-4 bg-[#0A261D] text-white rounded-xl overflow-hidden transition-all hover:shadow-xl hover:shadow-emerald-900/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                      onClick={() => setIsSubmitted(false)}
+                      className="text-xs font-bold uppercase tracking-widest text-slate-900 hover:text-emerald-700 underline underline-offset-4"
                     >
-                      <span className="relative z-10 font-bold tracking-widest text-xs uppercase">
-                        {formState === "idle" ? "Initiate Request" : "Transmitting..."}
-                      </span>
-                      <div className="relative z-10 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-emerald-500 transition-colors">
-                        {formState === "sent" ? <CheckCircle2 size={14} /> : <ArrowRight size={14} className="-rotate-45 group-hover:rotate-0 transition-transform duration-500" />}
-                      </div>
-
-                      {/* Shimmer */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                      Send Another
                     </button>
                   </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <GlassInput
+                        label="Full Name"
+                        placeholder="Jane Doe"
+                        value={formData.name}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: null });
+                        }}
+                        error={errors.name}
+                      />
+                      <GlassInput
+                        label="Work Email"
+                        type="email"
+                        placeholder="jane@company.com"
+                        value={formData.email}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: null });
+                        }}
+                        error={errors.email}
+                      />
+                    </div>
 
-                </form>
+                    <GlassInput
+                      label="Subject"
+                      type="select"
+                      placeholder="How can we help?"
+                      value={formData.inquiry}
+                      onChange={(e) => {
+                        setFormData({ ...formData, inquiry: e.target.value });
+                        if (errors.inquiry) setErrors({ ...errors, inquiry: null });
+                      }}
+                      error={errors.inquiry}
+                      options={[
+                        { value: "general", label: "General Inquiry" },
+                        { value: "sales", label: "Sales & Pricing" },
+                        { value: "partnership", label: "Partnership Opportunity" },
+                        { value: "careers", label: "Careers" }
+                      ]}
+                    />
+
+                    <GlassInput
+                      label="Message"
+                      type="textarea"
+                      placeholder="Tell us more about your requirements..."
+                      value={formData.message}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors({ ...errors, message: null });
+                      }}
+                      error={errors.message}
+                    />
+
+                    <div className="pt-4">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="group w-full bg-slate-900 text-white rounded-xl px-8 py-5 flex items-center justify-center gap-3 hover:bg-emerald-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+                      >
+                        <span className="font-bold uppercase tracking-widest text-xs">
+                          {isSubmitting ? "Transmitting..." : "Send Message"}
+                        </span>
+                        <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
-
             </motion.div>
           </div>
 

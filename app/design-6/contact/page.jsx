@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import {
   MapPin,
   Mail,
@@ -12,93 +12,118 @@ import {
   CheckCircle2,
   Building2,
   Clock,
-  Sparkles
+  Sparkles,
+  Zap,
+  Network
 } from "lucide-react";
 
-// Animated Globe Component
-function AnimatedGlobe() {
+/**
+ * THE GLOBAL NEXUS (Contact Page)
+ * 
+ * Concept: "Digital Command Center" - Light Mode Edition
+ * - Clean, airy, white/emerald theme.
+ * - "Data Sphere": A holographic globe that feels weightless.
+ * - "Glass Monolith": The form is a pristine frosted glass panel.
+ */
+
+// --- 1. THE DATA SPHERE COMPONENT ---
+function DataSphere() {
   return (
-    <div className="relative w-72 h-72 lg:w-96 lg:h-96">
-      {/* Outer Glow */}
-      <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-[60px] animate-pulse" />
+    <div className="relative w-80 h-80 lg:w-[500px] lg:h-[500px] perspective-1000">
 
-      {/* Globe Container */}
+      {/* Core Glow */}
+      <div className="absolute inset-0 bg-emerald-400/20 rounded-full blur-[80px] animate-pulse" />
+
+      {/* The Sphere Container */}
       <motion.div
-        className="relative w-full h-full rounded-full bg-gradient-to-br from-[#0A261D] to-emerald-900 border-2 border-emerald-500/30 shadow-2xl shadow-emerald-900/50 overflow-hidden"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        className="relative w-full h-full preserve-3d"
+        animate={{ rotateY: 360, rotateX: 15 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       >
-        {/* Latitude Lines */}
-        {[20, 40, 60, 80].map((top, i) => (
+        {/* Longitudinal Lines (Meridians) */}
+        {[...Array(6)].map((_, i) => (
           <div
-            key={i}
-            className="absolute left-0 right-0 h-[1px] bg-emerald-500/20"
-            style={{ top: `${top}%` }}
+            key={`long-${i}`}
+            className="absolute inset-0 rounded-full border border-emerald-500/30"
+            style={{
+              transform: `rotateY(${i * 30}deg)`
+            }}
           />
         ))}
 
-        {/* Longitude Lines */}
-        {[20, 40, 60, 80].map((left, i) => (
+        {/* Latitudinal Lines (Parallels) */}
+        {[...Array(5)].map((_, i) => (
           <div
-            key={i}
-            className="absolute top-0 bottom-0 w-[1px] bg-emerald-500/20"
-            style={{ left: `${left}%` }}
+            key={`lat-${i}`}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/20"
+            style={{
+              width: `${100 - (i * 15)}%`,
+              height: `${100 - (i * 15)}%`,
+              transform: `rotateX(90deg) translateZ(${i * 10}px)` // Mock 3D effect
+            }}
           />
         ))}
 
-        {/* Location Dots - India & Middle East */}
+        {/* Floating Data Nodes (Satellites) */}
         <motion.div
-          className="absolute w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"
-          style={{ top: "45%", left: "65%" }}
-          animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute top-0 left-1/2 w-4 h-4 bg-emerald-500 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.8)]"
+          animate={{ y: [0, 20, 0] }}
+          style={{ transform: 'translateX(-50%) translateZ(250px)' }}
         />
         <motion.div
-          className="absolute w-3 h-3 bg-teal-400 rounded-full shadow-lg shadow-teal-400/50"
-          style={{ top: "40%", left: "55%" }}
-          animate={{ scale: [1, 1.3, 1], opacity: [1, 0.6, 1] }}
-          transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+          className="absolute bottom-1/4 right-1/4 w-3 h-3 bg-teal-400 rounded-full shadow-[0_0_15px_rgba(45,212,191,0.8)]"
+          style={{ transform: 'translateZ(200px)' }}
         />
 
-        {/* Shine Effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+        {/* Inner Core */}
+        <div className="absolute inset-[20%] bg-linear-to-br from-emerald-100/50 to-teal-50/20 rounded-full backdrop-blur-sm" />
       </motion.div>
 
-      {/* Orbit Ring */}
+      {/* Orbital Ring 1 */}
       <motion.div
-        className="absolute inset-[-20px] border border-emerald-500/20 rounded-full"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-[-40px] border border-emerald-500/10 rounded-full border-dashed"
+        animate={{ rotateZ: -360, rotateX: 60 }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* Orbital Ring 2 */}
+      <motion.div
+        className="absolute inset-[-80px] border border-teal-500/10 rounded-full"
+        animate={{ rotateZ: 360, rotateX: -60 }}
+        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
       >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-emerald-400 rounded-full shadow-lg" />
+        <div className="absolute top-0 left-1/2 w-2 h-2 bg-teal-500/50 rounded-full" />
       </motion.div>
     </div>
   );
 }
 
-// Contact Info Card
-function ContactCard({ icon, title, value, href }) {
+// --- 2. CONTACT INFO CARD ---
+function NexusCard({ icon: Icon, title, value, href, delay }) {
   return (
     <motion.a
       href={href}
       target={href?.startsWith("http") ? "_blank" : undefined}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      className="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl hover:border-emerald-200 transition-all duration-300"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay, duration: 0.5 }}
+      className="group flex items-center gap-5 p-6 bg-white/60 backdrop-blur-md rounded-3xl border border-white/80 shadow-lg hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-200 transition-all duration-300 relative overflow-hidden"
     >
-      <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-100 transition-colors">
-        {icon}
+      {/* Hover Gradient Background */}
+      <div className="absolute inset-0 bg-linear-to-r from-emerald-50/0 via-emerald-50/50 to-emerald-50/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+
+      <div className="relative z-10 w-14 h-14 rounded-2xl bg-white shadow-sm border border-emerald-100 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform duration-300">
+        <Icon size={24} />
       </div>
-      <div>
-        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">{title}</div>
-        <div className="text-slate-900 font-semibold group-hover:text-emerald-700 transition-colors">{value}</div>
+      <div className="relative z-10">
+        <div className="text-xs font-bold text-emerald-600/60 uppercase tracking-widest mb-1">{title}</div>
+        <div className="text-lg font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">{value}</div>
       </div>
     </motion.a>
   );
 }
 
+// --- 3. MAIN PAGE COMPONENT ---
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -107,7 +132,6 @@ export default function ContactPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate submission
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -115,224 +139,186 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="relative min-h-screen bg-[#fafafa] overflow-hidden py-20 lg:py-32">
-      {/* === ANIMATED BACKGROUNDS === */}
+    <section className="relative min-h-screen bg-[#F0FDF4] overflow-hidden py-24 lg:py-32 selection:bg-emerald-200 selection:text-emerald-900">
 
-      {/* Noise Texture */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
-
-      {/* Animated Blobs */}
-      <motion.div
-        className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-emerald-100/50 rounded-full blur-[120px]"
-        animate={{ scale: [1, 1.3, 1], x: [0, 50, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-teal-100/40 rounded-full blur-[100px]"
-        animate={{ scale: [1.2, 1, 1.2], y: [0, -50, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      />
-
-      {/* Dot Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.4] pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
-          backgroundSize: '32px 32px'
-        }}
-      />
-
-      <div className="container mx-auto px-6 lg:px-12 relative z-10">
-        {/* Header */}
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-6">
-            <Sparkles size={16} className="text-emerald-600" />
-            <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">Get In Touch</span>
-          </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 tracking-tight mb-6">
-            Let's <span className="text-emerald-600 font-serif italic">Connect</span>
-          </h1>
-          <p className="text-xl text-slate-500 leading-relaxed">
-            Build a compliant, scalable, and future-ready workforce with Skoal Solutions.
-          </p>
-        </motion.div>
-
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left: Globe + Contact Info */}
-          <motion.div
-            className="flex flex-col items-center lg:items-start gap-12"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            {/* Animated Globe */}
-            <div className="flex justify-center w-full">
-              <AnimatedGlobe />
-            </div>
-
-            {/* Contact Cards */}
-            <div className="grid gap-4 w-full max-w-md">
-              <ContactCard
-                icon={<MapPin size={22} />}
-                title="Locations"
-                value="India | Middle East"
-              />
-              <ContactCard
-                icon={<Mail size={22} />}
-                title="Email"
-                value="info@skoalsolutions.com"
-                href="mailto:info@skoalsolutions.com"
-              />
-              <ContactCard
-                icon={<Phone size={22} />}
-                title="Phone"
-                value="+91-XXXXXXXXXX"
-                href="tel:+91XXXXXXXXXX"
-              />
-              <ContactCard
-                icon={<Clock size={22} />}
-                title="Business Hours"
-                value="Mon - Fri, 9 AM - 6 PM IST"
-              />
-            </div>
-          </motion.div>
-
-          {/* Right: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className="relative bg-white rounded-[2rem] p-8 lg:p-12 shadow-2xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
-              {/* Shimmer Effect */}
-              <div className="absolute inset-0 overflow-hidden rounded-[2rem] pointer-events-none">
-                <motion.div
-                  className="absolute inset-0 w-[300%] bg-gradient-to-r from-transparent via-emerald-50/50 to-transparent skew-x-12"
-                  animate={{ x: ['-300%', '300%'] }}
-                  transition={{ duration: 6, repeat: Infinity, repeatDelay: 4, ease: "easeInOut" }}
-                />
-              </div>
-
-              {/* Top Border Accent */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent" />
-
-              {isSubmitted ? (
-                /* Success State */
-                <motion.div
-                  className="text-center py-12"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                >
-                  <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 size={40} className="text-emerald-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">Message Sent!</h3>
-                  <p className="text-slate-500">We'll get back to you within 24 hours.</p>
-                </motion.div>
-              ) : (
-                /* Form */
-                <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
-                  <div className="flex items-center gap-3 mb-8">
-                    <div className="w-12 h-12 rounded-xl bg-[#0A261D] flex items-center justify-center text-white">
-                      <Send size={22} />
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold text-slate-900">Send us a message</h2>
-                      <p className="text-sm text-slate-400">We typically respond within 24 hours</p>
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all bg-slate-50 hover:bg-white"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Email</label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all bg-slate-50 hover:bg-white"
-                        placeholder="you@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Message</label>
-                    <textarea
-                      required
-                      rows={5}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all resize-none bg-slate-50 hover:bg-white"
-                      placeholder="How can we help you?"
-                    />
-                  </div>
-
-                  <motion.button
-                    type="submit"
-                    disabled={isSubmitting}
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 bg-[#0A261D] text-white rounded-full font-bold text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:shadow-emerald-900/30 transition-all disabled:opacity-70"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <motion.div
-                          className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                        <ArrowRight size={20} />
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-              )}
-            </div>
-          </motion.div>
-        </div>
+      {/* === THE NEURAL GRID BACKGROUND === */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Base Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.4]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}
+        />
+        {/* Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#F0FDF4_80%)]" />
       </div>
 
-      {/* Floating Accents */}
-      <motion.div
-        className="absolute top-20 right-10 lg:right-20 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-emerald-600 border border-slate-100"
-        animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Globe size={28} />
-      </motion.div>
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
 
-      <motion.div
-        className="absolute bottom-20 left-10 lg:left-20 px-5 py-3 bg-[#0A261D] rounded-full shadow-xl flex items-center gap-2 text-white"
-        animate={{ y: [0, 15, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      >
-        <Building2 size={18} />
-        <span className="text-sm font-bold">Skoal Solutions</span>
-      </motion.div>
+        {/* HEADER: COMMAND CENTER TITLE */}
+        <div className="text-center mb-20 md:mb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-emerald-100 shadow-sm mb-8"
+          >
+            <Network size={16} className="text-emerald-500" />
+            <span className="text-xs font-bold text-slate-500 tracking-widest uppercase">Global Nexus</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="text-6xl md:text-7xl lg:text-8xl font-bold text-slate-900 tracking-tight leading-[0.9]"
+          >
+            Initialize <br />
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 via-teal-500 to-emerald-600">Connection.</span>
+          </motion.h1>
+        </div>
+
+        {/* MAIN LAYOUT */}
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+
+          {/* LEFT COLUMN: THE DATA SPHERE (VISUAL) */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end order-2 lg:order-1">
+            <div className="relative">
+              <DataSphere />
+
+              {/* Floating Info Cards around the Sphere */}
+              <div className="absolute -left-12 top-20 hidden lg:block">
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-lg border border-emerald-100"
+                >
+                  <Globe className="text-emerald-500 mb-2" size={20} />
+                  <div className="text-xs font-bold text-slate-900">Global Reach</div>
+                  <div className="text-[10px] text-slate-500">Connecting 5 Regions</div>
+                </motion.div>
+              </div>
+
+              <div className="absolute -right-0 bottom-20 hidden lg:block">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-lg border border-emerald-100"
+                >
+                  <Building2 className="text-teal-500 mb-2" size={20} />
+                  <div className="text-xs font-bold text-slate-900">HQ: Dubai</div>
+                  <div className="text-[10px] text-slate-500">Operational Hub</div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Contact Links (Mobile/Tablet Friendly Layout) */}
+            <div className="w-full max-w-md space-y-4 mt-12 lg:mt-0 lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-full lg:pr-12">
+              {/* On Desktop these would be positioned differently, but keeping distinct for clarity */}
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: THE GLASS MONOLITH (FORM) */}
+          <div className="lg:col-span-7 order-1 lg:order-2">
+            <div className="grid lg:grid-cols-2 gap-8">
+
+              {/* Contact Details Column */}
+              <div className="space-y-4">
+                <NexusCard icon={MapPin} title="Headquarters" value="Dubai, UAE" delay={0.2} />
+                <NexusCard icon={Mail} title="Email Us" value="info@skoal.com" href="mailto:info@skoal.com" delay={0.3} />
+                <NexusCard icon={Phone} title="Call Us" value="+971 4 123 4567" href="tel:+97141234567" delay={0.4} />
+                <NexusCard icon={Clock} title="Working Hours" value="Mon-Fri, 9am-6pm" delay={0.5} />
+              </div>
+
+              {/* The Form Itself */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="relative bg-white/80 backdrop-blur-2xl rounded-[3rem] p-8 lg:p-10 shadow-2xl shadow-emerald-500/10 border border-white"
+              >
+                {/* Glossy Overlay */}
+                <div className="absolute inset-0 rounded-[3rem] bg-linear-to-b from-white/60 to-transparent pointer-events-none" />
+
+                {isSubmitted ? (
+                  <div className="h-full flex flex-col items-center justify-center text-center py-12 relative z-10">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mb-6"
+                    >
+                      <CheckCircle2 size={48} className="text-emerald-500" />
+                    </motion.div>
+                    <h3 className="text-3xl font-bold text-slate-900 mb-2">Transmission Received</h3>
+                    <p className="text-slate-500">Our team is analyzing your data request.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+                    <div className="mb-8">
+                      <h3 className="text-2xl font-bold text-slate-900">Send a Transmission</h3>
+                      <p className="text-slate-500 text-sm">Our neural network responds within 24 hours.</p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="group">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-4 mb-2 block group-focus-within:text-emerald-600 transition-colors">Identity</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none focus:bg-white focus:border-emerald-400 focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all font-medium text-slate-800"
+                          placeholder="John Doe"
+                        />
+                      </div>
+                      <div className="group">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-4 mb-2 block group-focus-within:text-emerald-600 transition-colors">Frequency (Email)</label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none focus:bg-white focus:border-emerald-400 focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all font-medium text-slate-800"
+                          placeholder="john@example.com"
+                        />
+                      </div>
+                      <div className="group">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-4 mb-2 block group-focus-within:text-emerald-600 transition-colors">Data Packet (Message)</label>
+                        <textarea
+                          required
+                          rows={4}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          className="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none focus:bg-white focus:border-emerald-400 focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all font-medium text-slate-800 resize-none"
+                          placeholder="Tell us about your mission..."
+                        />
+                      </div>
+                    </div>
+
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full py-5 rounded-2xl bg-emerald-600 text-white font-bold text-lg shadow-xl shadow-emerald-500/30 flex items-center justify-center gap-3 hover:bg-emerald-500 transition-colors"
+                    >
+                      {isSubmitting ? (
+                        <span className="animate-pulse">Uploading...</span>
+                      ) : (
+                        <>
+                          Initiate Uplink <Send size={20} />
+                        </>
+                      )}
+                    </motion.button>
+                  </form>
+                )}
+              </motion.div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }

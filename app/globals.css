@@ -20,6 +20,31 @@
   --animate-shine: shine 3s infinite linear;
 }
 
+/* === CUSTOM SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155; /* slate-700 */
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00dc82; /* emerald-500 */
+}
+
+/* Firefox Support */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
 @keyframes shine {
   0% {
     transform: translateX(-150%) skewX(-12deg);
