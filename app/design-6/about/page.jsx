@@ -5,8 +5,11 @@ import { useState } from "react";
 import AboutHero from "./components/AboutHero";
 import AboutMission from "./components/AboutMission";
 import AboutCapabilities from "./components/AboutCapabilities";
-import AboutStats from "./components/AboutStats";
+import AboutStory from "./components/AboutStory";
 import AboutApproach from "./components/AboutApproach";
+import AboutStats from "./components/AboutStats";
+import AboutTeam from "./components/AboutTeam";
+import AboutCTA from "./components/AboutCTA";
 import Footer from "../components/Footer";
 
 export default function AboutPage() {
@@ -51,6 +54,16 @@ export default function AboutPage() {
                         <AboutMission />
                     </motion.div>
 
+                    {/* Story Section */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <AboutStory />
+                    </motion.div>
+
                     {/* Capabilities Section */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -59,6 +72,16 @@ export default function AboutPage() {
                         transition={{ duration: 0.8 }}
                     >
                         <AboutCapabilities />
+                    </motion.div>
+
+                    {/* Approach Section */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <AboutApproach />
                     </motion.div>
 
                     {/* Stats Section */}
@@ -71,14 +94,24 @@ export default function AboutPage() {
                         <AboutStats />
                     </motion.div>
 
-                    {/* Approach Section */}
+                    {/* Team Section */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <AboutApproach />
+                        <AboutTeam />
+                    </motion.div>
+
+                    {/* Final CTA */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <AboutCTA />
                     </motion.div>
 
                     {/* Footer */}

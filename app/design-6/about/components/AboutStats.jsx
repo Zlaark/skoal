@@ -180,6 +180,66 @@ function AnimatedCounter({ value, suffix }) {
     return <span ref={ref}>{count}{suffix}</span>;
 }
 
+
+// THE SUPERNOVA BUTTON
+const SupernovaButton = () => {
+    return (
+        <motion.button
+            whileHover="hover"
+            initial="idle"
+            className="group relative px-10 py-5 rounded-full bg-white text-slate-950 font-bold text-lg tracking-wide overflow-visible transition-all duration-500 hover:scale-105"
+        >
+            {/* Hover Gradient Background (Absolute) */}
+            <motion.div
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400 opacity-0"
+                variants={{
+                    hover: { opacity: 1 }
+                }}
+                transition={{ duration: 0.3 }}
+            />
+
+            {/* Shockwave Rings */}
+            <div className="absolute inset-0 rounded-full -z-10 flex items-center justify-center">
+                {[0, 1, 2].map((i) => (
+                    <motion.div
+                        key={i}
+                        className="absolute inset-0 rounded-full border border-white/50"
+                        variants={{
+                            idle: { opacity: 0, scale: 1 },
+                            hover: {
+                                opacity: [0, 0.5, 0],
+                                scale: [1, 1.5 + (i * 0.2)],
+                                borderColor: ["rgba(255,255,255,0.5)", "rgba(16,185,129,0.5)"],
+                                transition: {
+                                    duration: 1.5,
+                                    repeat: Infinity,
+                                    delay: i * 0.2,
+                                    ease: "easeOut"
+                                }
+                            }
+                        }}
+                    />
+                ))}
+            </div>
+
+            {/* Content */}
+            <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
+                <Zap className="fill-current w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span>Let's Build Together</span>
+                <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </span>
+
+            {/* Idle Glow (White) */}
+            <div className="absolute inset-0 rounded-full bg-white blur-lg opacity-20 group-hover:opacity-0 transition-opacity" />
+
+            {/* Hover Glow (Colored) */}
+            <div className="absolute inset-0 rounded-full bg-emerald-400 blur-xl opacity-0 group-hover:opacity-40 transition-opacity" />
+
+        </motion.button>
+    );
+};
+
+
 const stats = [
     { icon: <Shield size={24} />, value: "100", suffix: "%", label: "Compliance Rate", sub: "Zero statutory violations" },
     { icon: <Globe size={24} />, value: "2", suffix: "+", label: "Regions Covered", sub: "India & Middle East" },
@@ -195,7 +255,6 @@ export default function AboutStats() {
     });
 
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-    const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100]);
 
     return (
         <section ref={containerRef} className="relative py-32 overflow-hidden" id="stats">
@@ -321,7 +380,7 @@ export default function AboutStats() {
                                 <div className="text-white font-medium text-sm mb-1">{stat.label}</div>
                                 <div className="text-emerald-400/50 text-xs">{stat.sub}</div>
 
-                                {/* Corner Arrow */}
+                                {/* Corner Accent */}
                                 <ArrowUpRight
                                     className="absolute top-4 right-4 text-emerald-500/20 group-hover:text-emerald-400 group-hover:rotate-45 transition-all duration-300"
                                     size={20}
@@ -351,33 +410,15 @@ export default function AboutStats() {
                     </motion.div>
                 </div>
 
-                {/* CTA */}
+                {/* CTA - SUPERNOVA BUTTON REPLACEMENT */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.6 }}
-                    className="mt-20 text-center"
+                    className="mt-20 flex justify-center"
                 >
-                    <motion.button
-                        whileHover={{ scale: 1.05, y: -3 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full font-semibold text-lg overflow-hidden"
-                    >
-                        <span className="relative z-10 flex items-center gap-3">
-                            <Zap size={20} />
-                            Let's Build Together
-                            <ArrowUpRight className="group-hover:rotate-45 transition-transform" size={20} />
-                        </span>
-
-                        {/* Shine Effect */}
-                        <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
-                        />
-
-                        {/* Glow */}
-                        <div className="absolute inset-0 rounded-full bg-emerald-500/50 blur-xl opacity-50 group-hover:opacity-80 transition-opacity" />
-                    </motion.button>
+                    <SupernovaButton />
                 </motion.div>
             </motion.div>
         </section>
