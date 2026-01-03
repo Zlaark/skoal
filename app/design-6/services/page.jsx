@@ -1357,59 +1357,115 @@ function TechPayrollSection() {
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
 
                     {/* LEFT COLUMN - STICKY VISUAL */}
-                    <div className="hidden lg:flex w-1/2 h-screen sticky top-0 items-center justify-center">
-                        <div className="relative w-full aspect-square max-w-[550px] bg-white rounded-[3rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] border border-slate-100 p-8 overflow-hidden">
-                            {/* Ambient Glow */}
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={`glow-${activeFeature}`}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-white to-white pointer-events-none"
-                                />
-                            </AnimatePresence>
+                    <div className="hidden lg:flex w-1/2 h-screen sticky top-0 items-center justify-center pointer-events-none">
+                        <div className="relative w-full aspect-square max-w-[550px]">
+                            {/* Outer Glow/Aura */}
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-br from-emerald-200/40 to-cyan-200/40 rounded-full blur-[80px]"
+                                animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+                                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                            />
 
-                            {/* Inner Content */}
-                            <div className="relative z-10 h-full flex flex-col items-center justify-center">
-                                <AnimatePresence mode="wait">
+                            {/* Main Card Container - Glassmorphism */}
+                            <motion.div
+                                className="relative w-full h-full bg-white/60 backdrop-blur-2xl rounded-[3rem] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.1)] p-8 overflow-hidden z-10"
+                                animate={{ y: [0, -15, 0] }}
+                                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                {/* === 1. BORDER BEAM ANIMATION === */}
+                                {/* Static Border */}
+                                <div className="absolute inset-0 rounded-[3rem] border border-white/40 pointer-events-none z-20" />
+
+                                {/* Rotating Border Gradient (The Beam) */}
+                                <div className="absolute inset-0 rounded-[3rem] overflow-hidden pointer-events-none z-20">
                                     <motion.div
-                                        key={activeFeature}
-                                        initial={{ y: 20, opacity: 0, scale: 0.95 }}
-                                        animate={{ y: 0, opacity: 1, scale: 1 }}
-                                        exit={{ y: -20, opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.4, ease: "easeOut" }}
-                                        className="text-center w-full"
-                                    >
-                                        {/* Icon Box */}
-                                        <div className="w-40 h-40 mx-auto mb-12 rounded-[2.5rem] bg-[#00C885] text-white flex items-center justify-center shadow-[0_20px_40px_-12px_rgba(0,200,133,0.3)]">
-                                            {activeFeature === 0 && <Monitor size={72} strokeWidth={1.5} />}
-                                            {activeFeature === 1 && <Fingerprint size={72} strokeWidth={1.5} />}
-                                            {activeFeature === 2 && <BarChart2 size={72} strokeWidth={1.5} />}
-                                            {activeFeature === 3 && <Lock size={72} strokeWidth={1.5} />}
-                                        </div>
+                                        className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#10b981_360deg)] opacity-100"
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                        style={{
+                                            maskImage: "linear-gradient(black, black), linear-gradient(black, black)",
+                                            maskClip: "content-box, border-box",
+                                            maskComposite: "exclude",
+                                            WebkitMaskImage: "linear-gradient(black, black), linear-gradient(black, black)",
+                                            WebkitMaskClip: "content-box, border-box",
+                                            WebkitMaskComposite: "xor",
+                                            padding: "3px" // Thickness of the beam
+                                        }}
+                                    />
+                                </div>
 
-                                        {/* Stats Row */}
-                                        <div className="flex justify-center gap-6">
-                                            {payrollFeatures[activeFeature].stats.map((stat, idx) => (
-                                                <div key={idx} className="bg-white px-6 py-4 rounded-2xl border border-slate-100 shadow-sm min-w-[140px]">
-                                                    <div className="text-2xl font-bold text-[#00C885] mb-1">
-                                                        {stat.value}
-                                                    </div>
-                                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                                                        {stat.label}
+                                {/* === 2. SURFACE SHIMMER EFFECT === */}
+                                <motion.div
+                                    className="absolute inset-0 z-10 pointer-events-none"
+                                    initial={{ x: "-100%" }}
+                                    animate={{ x: "200%" }}
+                                    transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+                                >
+                                    <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12" />
+                                </motion.div>
+                                {/* Internal Noise Texture */}
+                                <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+                                {/* Inner Content */}
+                                <div className="relative z-10 h-full flex flex-col items-center justify-center">
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={activeFeature}
+                                            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                            exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+                                            transition={{ duration: 0.5, ease: "circOut" }}
+                                            className="text-center w-full flex flex-col items-center"
+                                        >
+                                            {/* Icon Box - Premium 3D Look */}
+                                            <div className="relative mb-12 group">
+                                                <motion.div
+                                                    className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-[2.5rem] blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+                                                    animate={{ scale: [1, 1.2, 1] }}
+                                                    transition={{ duration: 4, repeat: Infinity }}
+                                                />
+                                                <div className="relative w-48 h-48 rounded-[2.5rem] bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-[0_20px_50px_-10px_rgba(16,185,129,0.4)] border border-white/20">
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent rounded-[2.5rem]" />
+                                                    <div className="text-white drop-shadow-md relative z-10">
+                                                        {activeFeature === 0 && <Monitor size={80} strokeWidth={1.5} />}
+                                                        {activeFeature === 1 && <Fingerprint size={80} strokeWidth={1.5} />}
+                                                        {activeFeature === 2 && <BarChart2 size={80} strokeWidth={1.5} />}
+                                                        {activeFeature === 3 && <Lock size={80} strokeWidth={1.5} />}
                                                     </div>
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </motion.div>
-                                </AnimatePresence>
-                            </div>
+                                            </div>
 
-                            {/* Decorative Circles */}
-                            <div className="absolute inset-0 border border-slate-100 rounded-[3rem] m-4 pointer-events-none" />
-                            <div className="absolute inset-0 border border-slate-50 rounded-[3rem] m-8 pointer-events-none" />
+                                            {/* Stats Row - Floating Cards */}
+                                            <div className="flex justify-center gap-6 w-full px-4">
+                                                {payrollFeatures[activeFeature].stats.map((stat, idx) => (
+                                                    <motion.div
+                                                        key={idx}
+                                                        className="flex-1 bg-white/80 backdrop-blur-md px-6 py-5 rounded-3xl border border-white shadow-xl shadow-slate-200/40 text-left relative overflow-hidden group"
+                                                        initial={{ opacity: 0, y: 30 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ delay: 0.1 + idx * 0.1, type: "spring", stiffness: 200, damping: 20 }}
+                                                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                                                    >
+                                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-emerald-50 to-transparent rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500" />
+
+                                                        <motion.div
+                                                            className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent mb-2 relative z-10"
+                                                            initial={{ scale: 0.5, opacity: 0 }}
+                                                            animate={{ scale: 1, opacity: 1 }}
+                                                            transition={{ delay: 0.3 + idx * 0.1, type: "spring" }}
+                                                        >
+                                                            {stat.value}
+                                                        </motion.div>
+                                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest relative z-10">
+                                                            {stat.label}
+                                                        </div>
+                                                    </motion.div>
+                                                ))}
+                                            </div>
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
 
@@ -1440,33 +1496,58 @@ function TechPayrollSection() {
                             {payrollFeatures.map((feature, index) => (
                                 <motion.div
                                     key={feature.id}
-                                    className="min-h-[50vh] flex items-center"
+                                    className="min-h-[50vh] flex items-center perspective-1000"
                                     onViewportEnter={() => setActiveFeature(index)}
                                     viewport={{ margin: "-50% 0px -50% 0px" }}
                                 >
-                                    <div className={`
-                                        group w-full p-10 rounded-[2.5rem] bg-white border transition-all duration-500
-                                        ${activeFeature === index
-                                            ? 'border-emerald-500 shadow-[0_25px_50px_-12px_rgba(0,200,133,0.15)] scale-100 opacity-100 ring-4 ring-emerald-50/50'
-                                            : 'border-slate-100 shadow-sm scale-95 opacity-50 grayscale-[0.5]'}
-                                    `}>
-                                        <div className="flex items-center justify-between mb-8">
-                                            <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold font-mono">
-                                                0{index + 1}
+                                    <motion.div
+                                        className={`
+                                            group w-full p-12 rounded-[3rem] transition-all duration-700 relative overflow-hidden backdrop-blur-xl border
+                                            ${activeFeature === index
+                                                ? 'bg-white/80 border-white/60 shadow-[0_40px_100px_-30px_rgba(16,185,129,0.3)] opacity-100'
+                                                : 'bg-white/40 border-white/20 shadow-none opacity-40 grayscale'}
+                                        `}
+                                        animate={activeFeature === index ? { x: 0, scale: 1 } : { x: 40, scale: 0.95 }}
+                                        transition={{ duration: 0.6, ease: "easeOut" }}
+                                    >
+                                        {/* Active Gradient Border Overlay */}
+                                        {activeFeature === index && (
+                                            <div className="absolute inset-0 rounded-[3rem] p-0.5 bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-400 [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]"
+                                                style={{ maskComposite: 'exclude', WebkitMaskComposite: 'xor' }}
+                                            />
+                                        )}
+
+                                        <div className="relative z-10">
+                                            <div className="flex items-center justify-between mb-8">
+                                                <div className={`
+                                                    w-14 h-14 rounded-2xl flex items-center justify-center font-bold font-mono text-xl transition-colors duration-500
+                                                    ${activeFeature === index ? 'bg-gradient-to-br from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30' : 'bg-slate-100 text-slate-400'}
+                                                `}>
+                                                    0{index + 1}
+                                                </div>
+                                                <div className={`
+                                                    text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-colors duration-500
+                                                    ${activeFeature === index ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'}
+                                                `}>
+                                                    {feature.subtitle}
+                                                </div>
                                             </div>
-                                            <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1.5 rounded-full">
-                                                {feature.subtitle}
-                                            </div>
+
+                                            <h3 className={`
+                                                text-3xl md:text-4xl font-bold mb-6 transition-colors duration-500
+                                                ${activeFeature === index ? 'text-slate-900' : 'text-slate-400'}
+                                            `}>
+                                                {feature.title}
+                                            </h3>
+
+                                            <p className={`
+                                                text-lg leading-relaxed transition-colors duration-500
+                                                ${activeFeature === index ? 'text-slate-600' : 'text-slate-400'}
+                                            `}>
+                                                {feature.desc}
+                                            </p>
                                         </div>
-
-                                        <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-[#00C885] transition-colors">
-                                            {feature.title}
-                                        </h3>
-
-                                        <p className="text-base md:text-lg text-slate-500 leading-relaxed">
-                                            {feature.desc}
-                                        </p>
-                                    </div>
+                                    </motion.div>
                                 </motion.div>
                             ))}
                         </div>
