@@ -1287,6 +1287,71 @@ function TechPayrollSection() {
 
     return (
         <section ref={ref} className="bg-[#FAFAFA] relative py-20 lg:py-32">
+            {/* Animated Background Elements - ENHANCED VISIBILITY */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {/* 1. Stronger Grid Pattern */}
+                <div className="absolute inset-0 opacity-[0.6]"
+                    style={{
+                        backgroundImage: 'radial-gradient(#94a3b8 1px, transparent 1px)',
+                        backgroundSize: '24px 24px'
+                    }}
+                />
+
+                {/* 2. Secondary Moving Grid (Subtle Parallax) */}
+                <motion.div
+                    className="absolute inset-0 opacity-[0.1]"
+                    style={{
+                        backgroundImage: 'linear-gradient(0deg, transparent 24%, #e2e8f0 25%, #e2e8f0 26%, transparent 27%, transparent 74%, #e2e8f0 75%, #e2e8f0 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, #e2e8f0 25%, #e2e8f0 26%, transparent 27%, transparent 74%, #e2e8f0 75%, #e2e8f0 76%, transparent 77%, transparent)',
+                        backgroundSize: '50px 50px'
+                    }}
+                    animate={{ backgroundPosition: ["0px 0px", "50px 50px"] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* 3. Floating Orbs - Increased Opacity & Saturation */}
+                <motion.div
+                    className="absolute -top-[10%] -right-[5%] w-[700px] h-[700px] bg-emerald-300/30 rounded-full blur-[80px] mix-blend-multiply"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 90, 0],
+                        opacity: [0.4, 0.7, 0.4]
+                    }}
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                />
+                <motion.div
+                    className="absolute top-[30%] -left-[10%] w-[600px] h-[600px] bg-teal-300/30 rounded-full blur-[80px] mix-blend-multiply"
+                    animate={{
+                        x: [0, 100, 0],
+                        y: [0, -50, 0],
+                        scale: [1, 1.3, 1]
+                    }}
+                    transition={{
+                        duration: 18,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+                <motion.div
+                    className="absolute bottom-[-10%] right-[10%] w-[500px] h-[500px] bg-cyan-300/30 rounded-full blur-[80px] mix-blend-multiply"
+                    animate={{
+                        scale: [1, 1.4, 1],
+                        opacity: [0.3, 0.6, 0.3],
+                        x: [0, -50, 0]
+                    }}
+                    transition={{
+                        duration: 12,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+
+                {/* 4. Active "Noise" Texture for Premium Feel */}
+                <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            </div>
 
             <div className="container mx-auto px-6 lg:px-12">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
