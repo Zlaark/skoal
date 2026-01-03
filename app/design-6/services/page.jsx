@@ -496,271 +496,216 @@ function Counter({ value, suffix = "" }) {
     return <span ref={ref}>{displayValue}{suffix}</span>;
 }
 
-// Premium Stats Section Component - Industry Level Design
+// Premium Stats Section - Bento Grid Aesthetic
 function StatsSection() {
-    const stats = [
+    // Unique data structure for Bento Grid
+    const bentoItems = [
         {
-            value: "30",
-            suffix: "+",
-            label: "years of experience",
-            icon: <Layers size={28} strokeWidth={1.5} />,
-            gradient: "from-emerald-400 to-teal-500",
-            delay: 0
+            id: "experience",
+            span: "col-span-1 md:col-span-2 lg:col-span-2",
+            type: "hero",
+            value: "30+",
+            label: "Years of Experience",
+            subtext: "Pioneering workforce solutions since 1995",
+            icon: <Layers size={32} strokeWidth={1.5} />,
+            gradient: "from-emerald-500 to-teal-400"
         },
         {
-            value: "180",
-            suffix: "+",
-            label: "countries worldwide",
-            icon: <Globe size={28} strokeWidth={1.5} />,
-            gradient: "from-teal-400 to-cyan-500",
-            delay: 0.1
+            id: "global",
+            span: "col-span-1 md:col-span-1 lg:col-span-1",
+            type: "standard",
+            value: "180+",
+            label: "Countries",
+            subtext: "Worldwide Presence",
+            icon: <Globe size={24} strokeWidth={1.5} />,
+            gradient: "from-teal-400 to-cyan-400"
         },
         {
+            id: "customers",
+            span: "col-span-1 md:col-span-3 lg:col-span-2",
+            type: "wide",
             value: "1,400",
-            suffix: "",
-            label: "global customers",
+            label: "Global Customers",
+            subtext: "Trusted by Fortune 500s",
             icon: <Users size={28} strokeWidth={1.5} />,
-            gradient: "from-cyan-400 to-emerald-500",
-            delay: 0.2
+            gradient: "from-blue-500 to-indigo-500"
         },
         {
-            value: "11",
-            suffix: "M+",
-            label: "employees served",
+            id: "employees",
+            span: "col-span-1 md:col-span-2 lg:col-span-2",
+            type: "card",
+            value: "11M+",
+            label: "Employees Served",
+            subtext: "Lifetime interactions",
             icon: <ShieldCheck size={28} strokeWidth={1.5} />,
-            gradient: "from-emerald-400 to-green-500",
-            delay: 0.3
+            gradient: "from-emerald-400 to-green-500"
         },
         {
-            value: "200",
-            suffix: "M+",
-            label: "annual employee interactions",
-            icon: <Activity size={28} strokeWidth={1.5} />,
-            gradient: "from-green-400 to-emerald-500",
-            delay: 0.4
+            id: "interactions",
+            span: "col-span-1 md:col-span-2 lg:col-span-3",
+            type: "hero-alt",
+            value: "200M+",
+            label: "Annual Interactions",
+            subtext: "High-frequency processing at scale",
+            icon: <Activity size={32} strokeWidth={1.5} />,
+            gradient: "from-indigo-400 to-purple-500"
         }
     ];
 
-    return (
-        <section className="relative py-32 overflow-hidden">
-            {/* Premium Gradient Mesh Background */}
-            <div className="absolute inset-0 bg-[#051812]">
-                {/* Animated Mesh Gradient */}
-                <div className="absolute inset-0">
-                    <motion.div
-                        animate={{
-                            background: [
-                                "radial-gradient(ellipse 80% 50% at 20% 40%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
-                                "radial-gradient(ellipse 80% 50% at 80% 60%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
-                                "radial-gradient(ellipse 80% 50% at 20% 40%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)"
-                            ]
-                        }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute inset-0"
-                    />
-                    <motion.div
-                        animate={{
-                            background: [
-                                "radial-gradient(ellipse 60% 40% at 70% 30%, rgba(20, 184, 166, 0.12) 0%, transparent 50%)",
-                                "radial-gradient(ellipse 60% 40% at 30% 70%, rgba(20, 184, 166, 0.12) 0%, transparent 50%)",
-                                "radial-gradient(ellipse 60% 40% at 70% 30%, rgba(20, 184, 166, 0.12) 0%, transparent 50%)"
-                            ]
-                        }}
-                        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                        className="absolute inset-0"
-                    />
-                </div>
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
 
-                {/* Subtle Grid Pattern */}
-                <div
-                    className="absolute inset-0 opacity-[0.03]"
-                    style={{
-                        backgroundImage: 'linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)',
-                        backgroundSize: '60px 60px'
-                    }}
+    const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+    return (
+        <section ref={containerRef} className="relative py-32 bg-[#020617] text-white overflow-hidden">
+            {/* === CINEMATIC BACKGROUND === */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* 1. Nebula Clouds */}
+                <motion.div
+                    className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-900/20 rounded-full blur-[120px]"
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-[100px]"
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                 />
 
-                {/* Floating Particles */}
-                {[...Array(12)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute w-1 h-1 rounded-full bg-emerald-400/40"
-                        style={{
-                            left: `${8 + (i * 8)}%`,
-                            top: `${20 + (i % 4) * 20}%`,
-                        }}
-                        animate={{
-                            y: [0, -30, 0],
-                            opacity: [0.2, 0.6, 0.2],
-                            scale: [1, 1.5, 1]
-                        }}
-                        transition={{
-                            duration: 4 + (i % 3),
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.3
-                        }}
-                    />
-                ))}
+                {/* 2. Enhanced Grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]" />
             </div>
-
-            {/* Top Accent Line */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
 
             <div className="container mx-auto max-w-7xl px-6 relative z-10">
-                {/* Section Header */}
+
+                {/* === HEADLINE === */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    transition={{ duration: 0.8 }}
+                    className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20"
                 >
-                    <motion.div
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
-                        whileHover={{ scale: 1.05, borderColor: "rgba(16, 185, 129, 0.3)" }}
-                    >
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                        >
-                            <Activity size={14} className="text-emerald-400" />
-                        </motion.div>
-                        <span className="text-xs font-bold text-emerald-300 tracking-[0.2em] uppercase">Live Metrics</span>
-                    </motion.div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-                        Powering Global <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400">Workforce</span>
-                    </h2>
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            Live Metrics
+                        </div>
+                        <h2 className="text-5xl md:text-7xl font-bold tracking-tight">
+                            Global <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Scale</span>
+                        </h2>
+                    </div>
+
+                    <div className="max-w-md text-lg text-slate-400 leading-relaxed text-right md:text-left">
+                        Our infrastructure handles millions of transactions daily with <span className="text-white font-semibold">zero downtime</span>.
+                    </div>
                 </motion.div>
 
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
-                    {stats.map((item, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{
-                                delay: item.delay,
-                                duration: 0.8,
-                                ease: [0.16, 1, 0.3, 1]
-                            }}
-                            whileHover={{ y: -12, scale: 1.02 }}
-                            className="group relative"
-                        >
-                            {/* Card Glow Effect */}
-                            <motion.div
-                                className={`absolute -inset-0.5 rounded-3xl bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500`}
-                            />
-
-                            {/* Main Card */}
-                            <div className="relative h-full bg-white/[0.03] backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-emerald-500/40 p-8 transition-all duration-500 overflow-hidden">
-                                {/* Card Inner Glow */}
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                />
-
-                                {/* Shimmer Effect */}
-                                <motion.div
-                                    className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                                    initial={{ x: "-100%" }}
-                                    whileHover={{ x: "200%" }}
-                                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                                    style={{
-                                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
-                                        transform: 'skewX(-20deg)'
-                                    }}
-                                />
-
-                                {/* Content */}
-                                <div className="relative z-10 flex flex-col items-center text-center">
-                                    {/* Icon Container */}
-                                    <motion.div
-                                        className={`relative mb-6 p-4 rounded-2xl bg-gradient-to-br ${item.gradient} shadow-lg`}
-                                        whileHover={{
-                                            rotate: [0, -10, 10, 0],
-                                            scale: 1.1
-                                        }}
-                                        transition={{ duration: 0.5 }}
-                                        style={{
-                                            boxShadow: `0 10px 40px -10px rgba(16, 185, 129, 0.4)`
-                                        }}
-                                    >
-                                        {/* Icon Pulse Ring */}
-                                        <motion.div
-                                            className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${item.gradient}`}
-                                            animate={{
-                                                scale: [1, 1.3, 1],
-                                                opacity: [0.5, 0, 0.5]
-                                            }}
-                                            transition={{ duration: 2, repeat: Infinity }}
-                                        />
-                                        <div className="relative text-white">
-                                            {item.icon}
-                                        </div>
-                                    </motion.div>
-
-                                    {/* Number */}
-                                    <div className="mb-3">
-                                        <motion.span
-                                            className="text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono"
-                                            style={{
-                                                textShadow: '0 0 40px rgba(16, 185, 129, 0.3)'
-                                            }}
-                                        >
-                                            <Counter value={item.value} suffix={item.suffix} />
-                                        </motion.span>
-                                    </div>
-
-                                    {/* Label */}
-                                    <p className="text-emerald-100/50 text-[11px] font-bold uppercase tracking-[0.15em] leading-relaxed max-w-[120px] group-hover:text-emerald-300 transition-colors duration-500">
-                                        {item.label}
-                                    </p>
-
-                                    {/* Bottom Accent */}
-                                    <motion.div
-                                        className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${item.gradient} rounded-b-3xl`}
-                                        initial={{ scaleX: 0 }}
-                                        whileInView={{ scaleX: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: item.delay + 0.5, duration: 0.8 }}
-                                        style={{ originX: 0 }}
-                                    />
-                                </div>
-                            </div>
-                        </motion.div>
+                {/* === BENTO GRID === */}
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    {bentoItems.map((item, i) => (
+                        <BentoCard key={item.id} item={item} index={i} />
                     ))}
                 </div>
-
-                {/* Bottom Decorative Element */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.8 }}
-                    className="flex items-center justify-center gap-4 mt-16"
-                >
-                    <div className="h-px w-24 bg-gradient-to-r from-transparent to-emerald-500/50" />
-                    <motion.div
-                        className="w-2 h-2 rounded-full bg-emerald-500"
-                        animate={{
-                            scale: [1, 1.5, 1],
-                            opacity: [0.5, 1, 0.5],
-                            boxShadow: [
-                                '0 0 0 0 rgba(16, 185, 129, 0.7)',
-                                '0 0 0 10px rgba(16, 185, 129, 0)',
-                                '0 0 0 0 rgba(16, 185, 129, 0.7)'
-                            ]
-                        }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                    />
-                    <div className="h-px w-24 bg-gradient-to-r from-emerald-500/50 to-transparent" />
-                </motion.div>
             </div>
-
-            {/* Bottom Accent Line */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
         </section>
+    );
+}
+
+// Sub-component for individual Bento Cards with varied styles
+function BentoCard({ item, index }) {
+    const isHero = item.type.includes('hero');
+    const [hovered, setHovered] = useState(false);
+
+    // Tilt Effect State
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const rotateX = useTransform(y, [-100, 100], [5, -5]);
+    const rotateY = useTransform(x, [-100, 100], [-5, 5]);
+
+    function handleMouseMove(e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        x.set(e.clientX - centerX);
+        y.set(e.clientY - centerY);
+    }
+
+    return (
+        <motion.div
+            className={`group relative rounded-[2.5rem] overflow-hidden bg-white/[0.03] backdrop-blur-md border border-white/5 ${item.span} min-h-[240px] md:min-h-[280px]`}
+            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => {
+                setHovered(false);
+                x.set(0);
+                y.set(0);
+            }}
+            style={{ perspective: 1000 }}
+        >
+            <motion.div
+                className="w-full h-full p-8 flex flex-col justify-between relative z-10"
+                style={{
+                    rotateX: isHero ? rotateX : 0,
+                    rotateY: isHero ? rotateY : 0,
+                    transition: "all 0.1s ease"
+                }}
+            >
+                {/* Header: Icon + Gradient Blob */}
+                <div className="flex justify-between items-start">
+                    <div className={`p-3 rounded-2xl bg-white/5 border border-white/10 text-white shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-500`}>
+                        {item.icon}
+                    </div>
+                    {isHero && (
+                        <ArrowUpRight className="text-white/20 group-hover:text-white/60 transition-colors" size={32} />
+                    )}
+                </div>
+
+                {/* Dynamic Background Gradient (On Hover) */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-gradient-to-br ${item.gradient}`} />
+
+                {/* "Glass" Reflection Shine */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-100%] group-hover:animate-shine" />
+                </div>
+
+                {/* Content */}
+                <div>
+                    {/* Giant Number Background (Parallax feel) */}
+                    <div className="absolute -right-4 -bottom-6 text-[180px] leading-none font-bold text-white/[0.02] select-none pointer-events-none group-hover:text-white/[0.04] transition-colors duration-500 font-serif">
+                        {item.value.replace(/[^0-9]/g, '').substring(0, 2)}
+                    </div>
+
+                    <div className="relative z-10">
+                        <motion.div
+                            className={`font-bold tracking-tighter text-white mb-1 ${isHero ? 'text-6xl md:text-7xl' : 'text-4xl md:text-5xl'}`}
+                            initial={{ opacity: 0.8 }}
+                            whileHover={{ scale: 1.05, originX: 0 }}
+                        >
+                            <Counter value={item.value} />
+                        </motion.div>
+                        <div className={`font-medium uppercase tracking-widest text-emerald-400 ${isHero ? 'text-sm' : 'text-xs'}`}>
+                            {item.label}
+                        </div>
+                        <div className="mt-2 text-slate-400 text-sm leading-snug max-w-[80%]">
+                            {item.subtext}
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </motion.div>
     );
 }
 
