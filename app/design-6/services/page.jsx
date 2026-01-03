@@ -803,217 +803,120 @@ function BentoCard({ item, index }) {
 
 // BPO Services Section - The Prism Revolver
 function BPOSection() {
-    const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"]
-    });
-
     const bpoServices = [
         {
             id: "support",
             title: "Customer Engagement",
-            subtitle: "360° Support Suite",
             description: "From voice to chat, we manage every touchpoint to boost retention and satisfaction.",
             stat: "24/7",
             label: "Availability",
-            icon: <Headset size={64} className="stroke-[1.5]" />,
-            color: "emerald"
+            tag: "360° SUPPORT",
+            icon: <Headset size={28} className="stroke-[1.5]" />
         },
         {
             id: "growth",
             title: "Revenue Growth",
-            subtitle: "Sales Acceleration",
             description: "Turn abandoned carts into conversions with strategic outbound campaigns.",
             stat: "3x",
             label: "ROI Boost",
-            icon: <TrendingUp size={64} className="stroke-[1.5]" />,
-            color: "blue"
+            tag: "SALES ACCEL",
+            icon: <TrendingUp size={28} className="stroke-[1.5]" />
         },
         {
             id: "quality",
             title: "Quality Assurance",
-            subtitle: "AI Monitoring",
             description: "Real-time scoring of every interaction to ensure compliance and quality.",
             stat: "99.9%",
             label: "Accuracy",
-            icon: <ShieldCheck size={64} className="stroke-[1.5]" />,
-            color: "purple"
+            tag: "AI MONITORING",
+            icon: <ShieldCheck size={28} className="stroke-[1.5]" />
         },
         {
             id: "analytics",
             title: "Data Intelligence",
-            subtitle: "Predictive Insights",
             description: "Transform raw interaction data into actionable business strategies.",
             stat: "500+",
             label: "Metrics",
-            icon: <BarChart3 size={64} className="stroke-[1.5]" />,
-            color: "sky"
+            tag: "PREDICTIVE",
+            icon: <BarChart3 size={28} className="stroke-[1.5]" />
         }
     ];
 
-    // Map scroll progress to the current active index (0 to 3)
-    const activeIndex = useTransform(scrollYProgress, [0, 1], [0, 4]); // 4 items
-    const rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]); // Full rotation
-
-    // We need an integer index for the right side panel
-    const [currentSlide, setCurrentSlide] = useState(0);
-
-    // Update state based on scroll
-    useMotionValueEvent(activeIndex, "change", (latest) => {
-        const index = Math.min(Math.floor(latest), 3);
-        if (index !== currentSlide) setCurrentSlide(index);
-    });
-
-    // Background color morph based on active service
-    const colors = {
-        emerald: "from-emerald-50 to-white",
-        blue: "from-blue-50 to-white",
-        purple: "from-purple-50 to-white",
-        sky: "from-sky-50 to-white"
-    };
-    const activeColor = bpoServices[currentSlide].color;
-
     return (
-        <section ref={containerRef} className="relative h-[400vh]">
-            <div className={`sticky top-0 h-screen w-full overflow-hidden bg-gradient-to-br ${colors[activeColor]} transition-colors duration-1000 ease-in-out`}>
+        <section className="relative py-24 lg:py-32 bg-[#FAFAFA] overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 opacity-[0.4]"
+                    style={{
+                        backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
+                        backgroundSize: '32px 32px'
+                    }}
+                />
+            </div>
 
-                {/* === AMBIENT STUDIO LIGHTING (Light Mode) === */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <motion.div
-                        initial={false}
-                        animate={{
-                            opacity: [0.5, 0.8, 0.5],
-                            scale: [1, 1.2, 1]
-                        }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                        className={`absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-${activeColor}-200/40 rounded-full blur-[120px] mix-blend-multiply`}
-                    />
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]" />
+            <div className="container mx-auto px-6 max-w-7xl relative z-10">
+                {/* Header */}
+                <div className="text-center mb-20">
+                    <div className="inline-block px-4 py-1.5 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-widest uppercase mb-6">
+                        BPO Services
+                    </div>
+                    <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 tracking-tight">
+                        Business Process <br className="hidden md:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 italic font-serif">Outsourcing</span>
+                    </h2>
+                    <p className="text-xl text-slate-500 max-w-2xl mx-auto">
+                        Seamlessly managing customer interactions across global markets with 99.9% accuracy.
+                    </p>
                 </div>
 
-                <div className="relative z-10 w-full h-full flex items-center justify-center max-w-7xl mx-auto px-6">
-
-                    {/* === LEFT: THE PRISM (3D ROTATING CORE) === */}
-                    <div className="w-full lg:w-1/2 flex items-center justify-center perspective-[1200px]">
+                {/* Cards Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {bpoServices.map((service, index) => (
                         <motion.div
-                            style={{ rotateX }}
-                            className="relative w-64 h-64 md:w-80 md:h-80 transform-style-3d shadow-2xl"
+                            key={service.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            className="group relative bg-white rounded-[2rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 hover:shadow-[0_20px_50px_-10px_rgba(16,185,129,0.15)] hover:border-emerald-500/30 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full"
                         >
-                            {/* CUBE FACES */}
-                            {/* Front (Item 0) */}
-                            <PrismFace
-                                rotateX={0}
-                                translateZ={160}
-                                service={bpoServices[0]}
-                                isActive={currentSlide === 0}
-                            />
-                            {/* Bottom (Item 1) - Rotated 90deg down */}
-                            <PrismFace
-                                rotateX={-90}
-                                translateZ={160}
-                                service={bpoServices[1]}
-                                isActive={currentSlide === 1}
-                            />
-                            {/* Back (Item 2) - Rotated 180deg */}
-                            <PrismFace
-                                rotateX={-180}
-                                translateZ={160}
-                                service={bpoServices[2]}
-                                isActive={currentSlide === 2}
-                            />
-                            {/* Top (Item 3) - Rotated 270deg (or -270) */}
-                            <PrismFace
-                                rotateX={-270}
-                                translateZ={160}
-                                service={bpoServices[3]}
-                                isActive={currentSlide === 3}
-                            />
-
-                            {/* Inner Glow Core */}
-                            <div className="absolute inset-4 bg-white/50 rounded-3xl blur-xl animate-pulse" />
-                        </motion.div>
-                    </div>
-
-                    {/* === RIGHT: DETAIL PANEL (FADES) === */}
-                    <div className="hidden lg:flex w-1/2 flex-col justify-center pl-12">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={bpoServices[currentSlide].id}
-                                initial={{ opacity: 0, x: 50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -50 }}
-                                transition={{ duration: 0.5, ease: "circOut" }}
-                            >
-                                <div className="inline-flex items-center gap-3 mb-6">
-                                    <div className={`p-3 rounded-xl bg-${activeColor}-100 text-${activeColor}-600 ring-1 ring-${activeColor}-200`}>
-                                        {bpoServices[currentSlide].icon}
-                                    </div>
-                                    <span className={`text-sm font-bold tracking-widest uppercase text-${activeColor}-600`}>
-                                        {bpoServices[currentSlide].subtitle}
-                                    </span>
+                            {/* Top Row: Icon + Tag */}
+                            <div className="flex justify-between items-start mb-8">
+                                <div className="p-3.5 rounded-2xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-500">
+                                    {service.icon}
                                 </div>
+                                <div className="px-3 py-1 rounded-full bg-slate-100 text-[10px] font-bold tracking-wider text-slate-500 uppercase group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                                    {service.tag}
+                                </div>
+                            </div>
 
-                                <h3 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
-                                    {bpoServices[currentSlide].title}
+                            {/* Content */}
+                            <div className="mb-auto">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">
+                                    {service.title}
                                 </h3>
-
-                                <p className="text-xl text-slate-600 leading-relaxed mb-10 border-l-2 border-slate-200 pl-6">
-                                    {bpoServices[currentSlide].description}
+                                <p className="text-slate-500 leading-relaxed text-sm">
+                                    {service.description}
                                 </p>
+                            </div>
 
-                                <div className="grid grid-cols-2 gap-8">
-                                    <div>
-                                        <div className="text-4xl font-bold text-slate-900 mb-1">{bpoServices[currentSlide].stat}</div>
-                                        <div className="text-sm text-slate-500 uppercase tracking-wider">{bpoServices[currentSlide].label}</div>
-                                    </div>
+                            {/* Footer: Stat + Button */}
+                            <div className="mt-10 pt-6 border-t border-slate-100 flex items-center justify-between group-hover:border-emerald-100 transition-colors">
+                                <div>
+                                    <div className="text-3xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">{service.stat}</div>
+                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{service.label}</div>
                                 </div>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-                </div>
-
-                {/* === MOBILE OVERLAY === */}
-                <div className="absolute bottom-10 left-6 right-6 lg:hidden text-center z-20">
-                    <h3 className="text-3xl font-bold text-slate-900 mb-2">{bpoServices[currentSlide].title}</h3>
-                    <p className="text-sm text-slate-600">{bpoServices[currentSlide].subtitle}</p>
-                </div>
-
-                {/* === SCROLL INDICATOR === */}
-                <div className="absolute right-10 top-1/2 -translate-y-1/2 h-64 w-[2px] bg-slate-200 hidden lg:block">
-                    <motion.div
-                        style={{ height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]) }}
-                        className="w-full bg-slate-900 shadow-[0_0_10px_rgba(0,0,0,0.1)]"
-                    />
+                                <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:border-emerald-500 group-hover:text-white transition-all duration-300">
+                                    <ArrowUpRight size={18} />
+                                </button>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>
     );
 }
-
-function PrismFace({ rotateX, translateZ, service, isActive }) {
-    return (
-        <div
-            className={`absolute inset-0 bg-white rounded-3xl border ${isActive ? `border-${service.color}-500 shadow-[0_0_50px_rgba(var(--${service.color}-500),0.15)]` : 'border-slate-100'} flex items-center justify-center backface-hidden transition-all duration-500`}
-            style={{
-                transform: `rotateX(${rotateX}deg) translateZ(${translateZ}px)`
-            }}
-        >
-            <div className="text-center p-6 transform-style-3d">
-                <div className={`transition-all duration-500 ${isActive ? `scale-110 text-${service.color}-500` : 'scale-90 text-slate-400 blur-[1px]'}`}>
-                    {service.icon}
-                </div>
-            </div>
-
-            {/* Glass Shine */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-sky-50/50 to-transparent rounded-3xl pointer-events-none" />
-        </div>
-    );
-}
-
-
-
-// Technology-Led Payroll Control Section - Redesigned V5 (Professional Refinement)
 const payrollFeatures = [
     {
         id: "hrms",
