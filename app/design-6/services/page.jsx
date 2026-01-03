@@ -562,23 +562,23 @@ function StatsSection() {
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
     return (
-        <section ref={containerRef} className="relative py-32 bg-[#020617] text-white overflow-hidden">
+        <section ref={containerRef} className="relative py-32 bg-[#0A261D] text-white overflow-hidden">
             {/* === CINEMATIC BACKGROUND === */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* 1. Nebula Clouds */}
+                {/* 1. Nebula Clouds - Matched to Theme */}
                 <motion.div
-                    className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-900/20 rounded-full blur-[120px]"
+                    className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px]"
                     animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
                     transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <motion.div
-                    className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-[100px]"
+                    className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[100px]"
                     animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
                     transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                 />
 
                 {/* 2. Enhanced Grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.05)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]" />
             </div>
 
             <div className="container mx-auto max-w-7xl px-6 relative z-10">
@@ -641,7 +641,7 @@ function BentoCard({ item, index }) {
 
     return (
         <motion.div
-            className={`group relative rounded-[2.5rem] overflow-hidden bg-white/[0.03] backdrop-blur-md border border-white/5 ${item.span} min-h-[240px] md:min-h-[280px]`}
+            className={`group relative rounded-[2.5rem] ${item.span} min-h-[240px] md:min-h-[280px]`}
             initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-50px" }}
@@ -653,56 +653,101 @@ function BentoCard({ item, index }) {
                 x.set(0);
                 y.set(0);
             }}
-            style={{ perspective: 1000 }}
+            style={{
+                perspective: 1000,
+                transformStyle: "preserve-3d"
+            }}
         >
             <motion.div
-                className="w-full h-full p-8 flex flex-col justify-between relative z-10"
+                className="w-full h-full relative"
                 style={{
                     rotateX: isHero ? rotateX : 0,
                     rotateY: isHero ? rotateY : 0,
+                    transformStyle: "preserve-3d",
                     transition: "all 0.1s ease"
                 }}
             >
-                {/* Header: Icon + Gradient Blob */}
-                <div className="flex justify-between items-start">
-                    <div className={`p-3 rounded-2xl bg-white/5 border border-white/10 text-white shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-500`}>
-                        {item.icon}
+                {/* 1. Base Layer (Background) - Themed Dark Emerald */}
+                <div
+                    className="absolute inset-0 rounded-[2.5rem] bg-[#0F2F24]/80 backdrop-blur-md border border-emerald-500/20 shadow-xl overflow-hidden"
+                    style={{ transform: "translateZ(0px)" }}
+                >
+                    {/* === ALWAYS-ON ANIMATIONS === */}
+                    {/* A. Border Beam (Rotating Edge) */}
+                    <div className="absolute inset-0 -m-[1px] rounded-[2.5rem] overflow-hidden pointer-events-none">
+                        <div className="absolute inset-0 bg-[#0F2F24] m-[1px] rounded-[2.5rem] z-10" /> {/* Inner Mask */}
+                        <motion.div
+                            className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#10b981_360deg)] opacity-70"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                        />
                     </div>
-                    {isHero && (
-                        <ArrowUpRight className="text-white/20 group-hover:text-white/60 transition-colors" size={32} />
-                    )}
-                </div>
 
-                {/* Dynamic Background Gradient (On Hover) */}
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-gradient-to-br ${item.gradient}`} />
+                    {/* B. Roaming Spotlight (Ambient Energy) */}
+                    <motion.div
+                        className="absolute inset-0 bg-radial-gradient from-emerald-500/20 to-transparent blur-2xl opacity-40 z-10 pointer-events-none"
+                        animate={{
+                            x: ["-30%", "30%", "-30%"],
+                            y: ["-30%", "30%", "-30%"],
+                            scale: [1, 1.2, 1]
+                        }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                    />
 
-                {/* "Glass" Reflection Shine */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-100%] group-hover:animate-shine" />
-                </div>
+                    {/* Dynamic Background Gradient (On Hover) */}
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 bg-gradient-to-br ${item.gradient} z-20`} />
 
-                {/* Content */}
-                <div>
-                    {/* Giant Number Background (Parallax feel) */}
-                    <div className="absolute -right-4 -bottom-6 text-[180px] leading-none font-bold text-white/[0.02] select-none pointer-events-none group-hover:text-white/[0.04] transition-colors duration-500 font-serif">
+                    {/* Giant Number Background (Parallax Deep) */}
+                    <div
+                        className="absolute -right-4 -bottom-6 text-[180px] leading-none font-bold text-white/[0.03] select-none pointer-events-none font-serif z-0"
+                        style={{ transform: "translateZ(20px)" }}
+                    >
                         {item.value.replace(/[^0-9]/g, '').substring(0, 2)}
                     </div>
+                </div>
 
-                    <div className="relative z-10">
+                {/* 2. Content Layer (Floating) */}
+                <div
+                    className="relative z-20 w-full h-full p-8 flex flex-col justify-between"
+                    style={{ transform: "translateZ(50px)" }}
+                >
+                    {/* Header: Icon + Gradient Blob */}
+                    <div className="flex justify-between items-start">
+                        {/* Floating Icon Animation */}
+                        <motion.div
+                            className={`p-3 rounded-2xl bg-white/5 border border-white/10 text-white shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-500`}
+                            animate={{ y: [-3, 3, -3] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
+                        >
+                            {item.icon}
+                        </motion.div>
+                        {isHero && (
+                            <ArrowUpRight className="text-white/20 group-hover:text-white/60 transition-colors" size={32} />
+                        )}
+                    </div>
+
+                    {/* Content */}
+                    <div>
                         <motion.div
                             className={`font-bold tracking-tighter text-white mb-1 ${isHero ? 'text-6xl md:text-7xl' : 'text-4xl md:text-5xl'}`}
                             initial={{ opacity: 0.8 }}
                             whileHover={{ scale: 1.05, originX: 0 }}
+                            style={{ textShadow: "0 10px 30px rgba(0,0,0,0.5)" }}
                         >
                             <Counter value={item.value} />
                         </motion.div>
                         <div className={`font-medium uppercase tracking-widest text-emerald-400 ${isHero ? 'text-sm' : 'text-xs'}`}>
                             {item.label}
                         </div>
-                        <div className="mt-2 text-slate-400 text-sm leading-snug max-w-[80%]">
+                        <div className="mt-2 text-emerald-100/60 text-sm leading-snug max-w-[80%]">
                             {item.subtext}
                         </div>
                     </div>
+                </div>
+
+                {/* 3. Shine/Reflection Layer (Top Interaction) */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[2.5rem] overflow-hidden" style={{ transform: "translateZ(60px)" }}>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-100%] group-hover:animate-shine" />
                 </div>
             </motion.div>
         </motion.div>
