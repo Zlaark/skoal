@@ -1431,14 +1431,38 @@ function TechPayrollSection() {
                                             transition={{ duration: 0.5, ease: "circOut" }}
                                             className="text-center w-full flex flex-col items-center"
                                         >
-                                            {/* Icon Box - Premium 3D Look */}
+                                            {/* Icon Box - Premium 3D Look & Active Animations */}
                                             <div className="relative mb-12 group">
+                                                {/* 1. Radar Pulse Rings */}
+                                                <motion.div
+                                                    className="absolute inset-0 -m-8 border border-emerald-500/30 rounded-full"
+                                                    animate={{ scale: [0.8, 1.4], opacity: [0.5, 0], borderWidth: ["2px", "0px"] }}
+                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                                                />
+                                                <motion.div
+                                                    className="absolute inset-0 -m-8 border border-emerald-400/20 rounded-full"
+                                                    animate={{ scale: [0.8, 1.4], opacity: [0.5, 0], borderWidth: ["2px", "0px"] }}
+                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+                                                />
+
+                                                {/* 2. Outer Glow Blob */}
                                                 <motion.div
                                                     className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-[2.5rem] blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"
                                                     animate={{ scale: [1, 1.2, 1] }}
                                                     transition={{ duration: 4, repeat: Infinity }}
                                                 />
-                                                <div className="relative w-48 h-48 rounded-[2.5rem] bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-[0_20px_50px_-10px_rgba(16,185,129,0.4)] border border-white/20">
+
+                                                {/* 3. Orbiting Satellite */}
+                                                <motion.div
+                                                    className="absolute inset-0 -m-4 pointer-events-none"
+                                                    animate={{ rotate: 360 }}
+                                                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                                                >
+                                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_15px_#fff]" />
+                                                </motion.div>
+
+                                                {/* Main Icon Container */}
+                                                <div className="relative w-48 h-48 rounded-[2.5rem] bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-[0_20px_50px_-10px_rgba(16,185,129,0.4)] border border-white/20 z-10">
                                                     <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent rounded-[2.5rem]" />
                                                     <div className="text-white drop-shadow-md relative z-10">
                                                         {activeFeature === 0 && <Monitor size={80} strokeWidth={1.5} />}
@@ -1461,6 +1485,15 @@ function TechPayrollSection() {
                                                         whileHover={{ y: -5, transition: { duration: 0.2 }, backgroundColor: "rgba(255,255,255,0.15)" }}
                                                     >
                                                         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-emerald-400/20 to-transparent rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500" />
+
+                                                        {/* Animated Pulse Bar */}
+                                                        <div className="absolute bottom-0 left-0 h-1 bg-emerald-500/30 w-full overflow-hidden">
+                                                            <motion.div
+                                                                className="h-full bg-emerald-400/80 w-1/3 rounded-r-full"
+                                                                animate={{ x: ["-100%", "300%"] }}
+                                                                transition={{ duration: 2 + idx, repeat: Infinity, ease: "linear" }}
+                                                            />
+                                                        </div>
 
                                                         <motion.div
                                                             className="text-3xl font-bold text-white mb-2 relative z-10"
