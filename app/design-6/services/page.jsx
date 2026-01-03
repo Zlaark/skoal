@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, AnimatePresence } from "framer-motion";
 import {
     Calculator,
     ShieldCheck,
@@ -1194,171 +1194,188 @@ function BPOSection() {
     );
 }
 
-// Technology-Led Payroll Control Section - Redesigned V2
+// Technology-Led Payroll Control Section - Redesigned V5 (Professional Refinement)
+const payrollFeatures = [
+    {
+        id: "hrms",
+        title: "In-house HRMS Software",
+        subtitle: "PROPRIETARY PLATFORM",
+        desc: "We don't use 3rd party tools. We own the stack. Dedicated databases for every client ensure there is zero data pollution.",
+        stats: [
+            { label: "Uptime", value: "99.99%" },
+            { label: "Data Isolation", value: "100%" }
+        ],
+        icon: Monitor,
+        color: "emerald"
+    },
+    {
+        id: "biometric",
+        title: "Cloud-Based Biometric",
+        subtitle: "REAL-TIME SYNC",
+        desc: "Geo-fenced attendance captured via AI-driven biometric devices. Data hits our dashboard instantly.",
+        stats: [
+            { label: "Sync Latency", value: "< 2s" },
+            { label: "Accuracy", value: "100%" }
+        ],
+        icon: Fingerprint,
+        color: "emerald"
+    },
+    {
+        id: "dashboards",
+        title: "Real-Time Dashboards",
+        subtitle: "LIVE ANALYTICS",
+        desc: "View workforce costs, attendance trends, and compliance status in real-time. Make decisions faster.",
+        stats: [
+            { label: "Reports", value: "Unlimited" },
+            { label: "Visibility", value: "360°" }
+        ],
+        icon: BarChart2,
+        color: "emerald"
+    },
+    {
+        id: "security",
+        title: "Data Security Protocols",
+        subtitle: "ENTERPRISE GRADE",
+        desc: "ISO 27001 certified. Role-based access control. Encrypted at rest and in transit.",
+        stats: [
+            { label: "Encryption", value: "AES-256" },
+            { label: "Compliance", value: "ISO 27001" }
+        ],
+        icon: Lock,
+        color: "emerald"
+    }
+];
+
 function TechPayrollSection() {
-    const techFeatures = [
-        {
-            icon: <Monitor size={28} />,
-            title: "In-house HRMS Software",
-            desc: "Client-whitelisted platforms with dedicated databases",
-            color: "text-blue-500",
-            bg: "bg-blue-50",
-            border: "group-hover:border-blue-200"
-        },
-        {
-            icon: <Fingerprint size={28} />,
-            title: "Cloud-Based Biometric",
-            desc: "Real-time attendance tracking across all locations",
-            color: "text-emerald-500",
-            bg: "bg-emerald-50",
-            border: "group-hover:border-emerald-200"
-        },
-        {
-            icon: <BarChart2 size={28} />,
-            title: "Real-Time Dashboards",
-            desc: "Attendance and payroll visibility anytime, anywhere",
-            color: "text-indigo-500",
-            bg: "bg-indigo-50",
-            border: "group-hover:border-indigo-200"
-        },
-        {
-            icon: <Lock size={28} />,
-            title: "Data Security Protocols",
-            desc: "Role-based access and enterprise-grade security",
-            color: "text-teal-500",
-            bg: "bg-teal-50",
-            border: "group-hover:border-teal-200"
-        }
-    ];
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.2
-            }
-        }
-    };
-
-    const cardVariants = {
-        hidden: { opacity: 0, y: 30, scale: 0.95 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: { duration: 0.5, ease: "easeOut" }
-        }
-    };
+    const [activeFeature, setActiveFeature] = useState(0);
+    const ref = useRef(null);
 
     return (
-        <section className="py-32 px-6 lg:px-12 relative overflow-hidden bg-gradient-to-b from-white to-slate-50">
-            {/* Ambient Background Glow */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[100px] -translate-y-1/2" />
-                <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-[100px] -translate-y-1/2" />
-            </div>
+        <section ref={ref} className="bg-[#FAFAFA] relative py-20 lg:py-32">
 
-            <div className="container mx-auto max-w-7xl relative z-10">
-                {/* Header */}
-                <div className="text-center max-w-3xl mx-auto mb-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <span className="inline-block py-1 px-3 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 font-bold tracking-widest text-xs uppercase mb-6">
-                            Technology Infrastructure
-                        </span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
-                            Technology-Led <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 font-serif italic">Payroll Control</span>
-                        </h2>
-                        <p className="text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto">
-                            To eliminate payroll leakages and improve workforce accountability, Skoal integrates cutting-edge technology at every level.
-                        </p>
-                    </motion.div>
-                </div>
+            <div className="container mx-auto px-6 lg:px-12">
+                <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
 
-                {/* Features Grid */}
-                <motion.div
-                    className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-20"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
-                >
-                    {techFeatures.map((feature, i) => (
-                        <motion.div
-                            key={i}
-                            variants={cardVariants}
-                            whileHover={{ y: -10 }}
-                            className={`group relative bg-white rounded-[2rem] p-8 border border-slate-100 shadow-lg shadow-slate-100/50 hover:shadow-2xl transition-all duration-300 overflow-hidden ${feature.border}`}
-                        >
-                            {/* Hover Gradient Overlay */}
-                            <motion.div
-                                className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${feature.bg} to-white`}
-                            />
-
-                            {/* Decorative Circle */}
-                            <motion.div
-                                className="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-slate-50 group-hover:bg-white/50 transition-colors duration-300"
-                                whileHover={{ scale: 1.2 }}
-                            />
-
-                            <div className="relative z-10">
-                                {/* Icon */}
+                    {/* LEFT COLUMN - STICKY VISUAL */}
+                    <div className="hidden lg:flex w-1/2 h-screen sticky top-0 items-center justify-center">
+                        <div className="relative w-full aspect-square max-w-[550px] bg-white rounded-[3rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] border border-slate-100 p-8 overflow-hidden">
+                            {/* Ambient Glow */}
+                            <AnimatePresence mode="wait">
                                 <motion.div
-                                    className={`w-16 h-16 rounded-2xl ${feature.bg} flex items-center justify-center ${feature.color} mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300`}
-                                >
-                                    {feature.icon}
-                                </motion.div>
+                                    key={`glow-${activeFeature}`}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-white to-white pointer-events-none"
+                                />
+                            </AnimatePresence>
 
-                                <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">
-                                    {feature.title}
-                                </h3>
+                            {/* Inner Content */}
+                            <div className="relative z-10 h-full flex flex-col items-center justify-center">
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeFeature}
+                                        initial={{ y: 20, opacity: 0, scale: 0.95 }}
+                                        animate={{ y: 0, opacity: 1, scale: 1 }}
+                                        exit={{ y: -20, opacity: 0, scale: 0.95 }}
+                                        transition={{ duration: 0.4, ease: "easeOut" }}
+                                        className="text-center w-full"
+                                    >
+                                        {/* Icon Box */}
+                                        <div className="w-40 h-40 mx-auto mb-12 rounded-[2.5rem] bg-[#00C885] text-white flex items-center justify-center shadow-[0_20px_40px_-12px_rgba(0,200,133,0.3)]">
+                                            {activeFeature === 0 && <Monitor size={72} strokeWidth={1.5} />}
+                                            {activeFeature === 1 && <Fingerprint size={72} strokeWidth={1.5} />}
+                                            {activeFeature === 2 && <BarChart2 size={72} strokeWidth={1.5} />}
+                                            {activeFeature === 3 && <Lock size={72} strokeWidth={1.5} />}
+                                        </div>
 
-                                <p className="text-slate-500 text-sm leading-relaxed font-medium group-hover:text-slate-600 transition-colors duration-300">
-                                    {feature.desc}
-                                </p>
+                                        {/* Stats Row */}
+                                        <div className="flex justify-center gap-6">
+                                            {payrollFeatures[activeFeature].stats.map((stat, idx) => (
+                                                <div key={idx} className="bg-white px-6 py-4 rounded-2xl border border-slate-100 shadow-sm min-w-[140px]">
+                                                    <div className="text-2xl font-bold text-[#00C885] mb-1">
+                                                        {stat.value}
+                                                    </div>
+                                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                                        {stat.label}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
                             </div>
 
-                            {/* Bottom Accent */}
-                            <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-${feature.color.split('-')[1]}-400 to-${feature.color.split('-')[1]}-600 w-0 group-hover:w-full transition-all duration-500`} />
-                        </motion.div>
-                    ))}
-                </motion.div>
+                            {/* Decorative Circles */}
+                            <div className="absolute inset-0 border border-slate-100 rounded-[3rem] m-4 pointer-events-none" />
+                            <div className="absolute inset-0 border border-slate-50 rounded-[3rem] m-8 pointer-events-none" />
+                        </div>
+                    </div>
 
-                {/* Bottom Message */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 }}
-                    className="text-center max-w-4xl mx-auto"
-                >
-                    <motion.div
-                        className="relative inline-flex items-center gap-4 px-8 py-5 rounded-2xl bg-white border border-slate-100 shadow-xl shadow-emerald-900/5 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-300 group cursor-pointer"
-                        whileHover={{ scale: 1.02 }}
-                    >
-                        {/* Shimmer Effect */}
-                        <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                    {/* RIGHT COLUMN - SCROLL CONTENT */}
+                    <div className="w-full lg:w-1/2">
+                        {/* Section Header */}
+                        <div className="min-h-[40vh] flex flex-col justify-end mb-20 pt-20">
                             <motion.div
-                                className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12"
-                                animate={{ x: ['-200%', '200%'] }}
-                                transition={{ duration: 3, repeat: Infinity, repeatDelay: 3 }}
-                            />
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <span className="inline-block py-2 px-4 rounded-xl bg-emerald-50 text-emerald-600 font-bold tracking-widest text-xs uppercase mb-6">
+                                    Technology Infrastructure
+                                </span>
+                                <h2 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6">
+                                    Technology-Led <br />
+                                    <span className="text-[#00C885]">Payroll Control</span>
+                                </h2>
+                                <p className="text-lg text-slate-500 leading-relaxed font-light max-w-lg">
+                                    Eliminate leakages and improve accountability with our proprietary, integrated tech stack.
+                                </p>
+                            </motion.div>
                         </div>
 
-                        <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                            <CheckCircle2 size={20} className="text-emerald-600" />
+                        {/* Scrolling Feature Items */}
+                        <div className="flex flex-col gap-32">
+                            {payrollFeatures.map((feature, index) => (
+                                <motion.div
+                                    key={feature.id}
+                                    className="min-h-[50vh] flex items-center"
+                                    onViewportEnter={() => setActiveFeature(index)}
+                                    viewport={{ margin: "-50% 0px -50% 0px" }}
+                                >
+                                    <div className={`
+                                        group w-full p-10 rounded-[2.5rem] bg-white border transition-all duration-500
+                                        ${activeFeature === index
+                                            ? 'border-emerald-500 shadow-[0_25px_50px_-12px_rgba(0,200,133,0.15)] scale-100 opacity-100 ring-4 ring-emerald-50/50'
+                                            : 'border-slate-100 shadow-sm scale-95 opacity-50 grayscale-[0.5]'}
+                                    `}>
+                                        <div className="flex items-center justify-between mb-8">
+                                            <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold font-mono">
+                                                0{index + 1}
+                                            </div>
+                                            <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1.5 rounded-full">
+                                                {feature.subtitle}
+                                            </div>
+                                        </div>
+
+                                        <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-[#00C885] transition-colors">
+                                            {feature.title}
+                                        </h3>
+
+                                        <p className="text-base md:text-lg text-slate-500 leading-relaxed">
+                                            {feature.desc}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
-                        <span className="text-slate-700 font-semibold text-sm md:text-lg leading-tight">
-                            Complete visibility and control over attendance, payroll, and compliance—<span className="text-emerald-700">anytime, anywhere.</span>
-                        </span>
-                    </motion.div>
-                </motion.div>
+
+                        {/* Bottom Spacer */}
+                        <div className="h-[20vh]" />
+                    </div>
+
+                </div>
             </div>
         </section>
     );
