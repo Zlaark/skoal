@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useMotionTemplate, AnimatePresence } from "framer-motion";
 import {
     Calculator,
     ShieldCheck,
@@ -1865,6 +1865,107 @@ function AIContactCentreSection() {
     );
 }
 
+// Premium Crystal Card Component
+function CrystalCard({ service, index }) {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const [isHovered, setIsHovered] = useState(false);
+
+    function handleMouseMove(e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        x.set(e.clientX - rect.left);
+        y.set(e.clientY - rect.top);
+    }
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 50, rotateX: 10 }}
+            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: index * 0.15, type: "spring", stiffness: 50 }}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group relative h-[420px] rounded-[2.5rem] bg-white/[0.6] backdrop-blur-xl border border-white/40 overflow-hidden perspective-[1000px]"
+            style={{
+                boxShadow: "0 20px 40px -10px rgba(0,0,0,0.05)"
+            }}
+        >
+            {/* 1. Spotlight Effect */}
+            <motion.div
+                className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+                style={{
+                    background: useMotionTemplate`
+                        radial-gradient(
+                            600px circle at ${x}px ${y}px,
+                            rgba(16, 185, 129, 0.15),
+                            transparent 40%
+                        )
+                    `
+                }}
+            />
+
+            {/* 2. Glass Reflection */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-transparent to-white/40 opacity-50" />
+
+            {/* 3. Interior Grid Pattern (Revealed on Hover) */}
+            <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity duration-500 bg-[size:20px_20px] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)]" />
+
+            {/* Content Container */}
+            <div className="relative z-20 h-full p-8 flex flex-col justify-between">
+                <div>
+                    {/* Header */}
+                    <div className="flex justify-between items-start mb-8">
+                        {/* 3D Floating Icon */}
+                        <motion.div
+                            animate={{
+                                y: isHovered ? -10 : 0,
+                                rotateY: isHovered ? 180 : 0,
+                                scale: isHovered ? 1.1 : 1
+                            }}
+                            transition={{ duration: 0.5 }}
+                            className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white to-emerald-50 border border-white shadow-lg flex items-center justify-center text-emerald-600"
+                        >
+                            {service.icon}
+                        </motion.div>
+
+                        <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${isHovered ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
+                            {service.statLabel}
+                        </div>
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-emerald-900 transition-colors">
+                        {service.title}
+                    </h3>
+                    <p className="text-slate-500 text-sm leading-relaxed font-medium">
+                        {service.desc}
+                    </p>
+                </div>
+
+                {/* Footer Stat */}
+                <div className="relative">
+                    <div className="h-px w-full bg-slate-200 mb-6 group-hover:bg-emerald-200 transition-colors" />
+
+                    <div className="flex items-end justify-between">
+                        <div>
+                            <div className="text-4xl font-bold text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors duration-300">
+                                {service.stat}
+                            </div>
+                        </div>
+
+                        <motion.div
+                            animate={{ x: isHovered ? 5 : 0 }}
+                            className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-400 group-hover:text-emerald-600 group-hover:border-emerald-200 transition-colors"
+                        >
+                            <ArrowRight size={18} />
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
+
 export default function ServicesPage() {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({ target: containerRef });
@@ -2147,10 +2248,16 @@ export default function ServicesPage() {
                     </motion.div>
 
                     {/* The Grid Container - Moved to 4-column layout */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                        {servicesList.map((service, index) => (
-                            <AIServiceCard key={index} service={service} index={index} />
-                        ))}
+                    {/* The Grid Container - Crystal Layout */}
+                    <div className="relative">
+                        {/* Connecting Line Animation */}
+                        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-200/50 to-transparent hidden lg:block" />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10">
+                            {servicesList.map((service, index) => (
+                                <CrystalCard key={index} service={service} index={index} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
