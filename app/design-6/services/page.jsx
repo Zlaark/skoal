@@ -1404,9 +1404,23 @@ function TechPayrollSection() {
                                     animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
                                     transition={{ duration: 4, repeat: Infinity }}
                                 />
+                                {/* === SCROLLING TECH GRID BACKGROUND - HIGH VISIBILITY === */}
+                                <div className="absolute inset-0 z-0 opacity-50 pointer-events-none overflow-hidden rounded-[3rem]">
+                                    <motion.div
+                                        className="absolute inset-0"
+                                        style={{
+                                            backgroundImage: 'linear-gradient(rgba(16, 185, 129, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.2) 1px, transparent 1px)',
+                                            backgroundSize: '40px 40px'
+                                        }}
+                                        animate={{ y: [0, -40] }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                    />
+                                    <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0A261D]/40 to-[#0A261D]" />
+                                </div>
+
                                 <motion.div
-                                    className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px] pointer-events-none"
-                                    animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+                                    className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/20 rounded-full blur-[80px] pointer-events-none"
+                                    animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.7, 0.3] }}
                                     transition={{ duration: 5, repeat: Infinity, delay: 1 }}
                                 />
 
@@ -1431,9 +1445,28 @@ function TechPayrollSection() {
                                             transition={{ duration: 0.5, ease: "circOut" }}
                                             className="text-center w-full flex flex-col items-center"
                                         >
-                                            {/* Icon Box - Premium 3D Look & Active Animations */}
+                                            {/* Icon Box */}
                                             <div className="relative mb-12 group">
+                                                {/* --- CONNECTIVITY BEAMS (New) --- */}
+                                                {/* Vertical Beam */}
+                                                <div className="absolute left-1/2 -translate-x-1/2 top-full h-16 w-1 bg-gradient-to-b from-emerald-500/50 to-transparent">
+                                                    <motion.div
+                                                        className="w-full h-4 bg-emerald-400 blur-[2px]"
+                                                        animate={{ y: [0, 60], opacity: [0, 1, 0] }}
+                                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                                    />
+                                                </div>
+
+                                                {/* --- HOLOGRAPHIC PLATFORM (Brighter) --- */}
+                                                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-48 h-8 bg-emerald-400/40 rounded-[100%] blur-lg opacity-80" />
+                                                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-32 h-2 bg-white/50 rounded-[100%] blur-md" />
+
                                                 {/* 1. Radar Pulse Rings */}
+                                                <motion.div
+                                                    className="absolute inset-0 -m-8 border border-emerald-500/40 rounded-full"
+                                                    animate={{ scale: [0.8, 1.4], opacity: [0.6, 0], borderWidth: ["2px", "0px"] }}
+                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                                                />
                                                 <motion.div
                                                     className="absolute inset-0 -m-8 border border-emerald-500/30 rounded-full"
                                                     animate={{ scale: [0.8, 1.4], opacity: [0.5, 0], borderWidth: ["2px", "0px"] }}
