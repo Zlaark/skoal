@@ -34,259 +34,294 @@ import {
     Radio,
     Zap
 } from "lucide-react";
+import AIServiceCard from "./AIServiceCard";
 import Footer from "../components/Footer";
 
 // --- Components ---
 
-// Refined Service Card - Clean, Compact, Professional
-function PrecisionCard({ service, index }) {
+// Redesigned Service Card - Premium Enterprise Payroll Aesthetic
+function EnterpriseServiceCard({ service, index }) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: index * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="group h-full"
+            className="group relative h-full bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-500 cursor-default"
+            whileHover={{ y: -8 }}
         >
-            <motion.div
-                className="relative h-full p-6 lg:p-8 rounded-3xl bg-white border border-slate-100 shadow-lg shadow-slate-100/50 overflow-hidden cursor-pointer flex flex-col"
-                whileHover={{
-                    y: -8,
-                    boxShadow: '0 25px 50px -12px rgba(16, 185, 129, 0.15)',
-                    borderColor: 'rgba(16, 185, 129, 0.3)'
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            >
-                {/* Animated Grid Pattern - Always visible, subtle */}
-                <div
-                    className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                    style={{
-                        backgroundImage: 'linear-gradient(to right, #10b981 1px, transparent 1px), linear-gradient(to bottom, #10b981 1px, transparent 1px)',
-                        backgroundSize: '30px 30px'
-                    }}
-                />
+            {/* Soft Green Gradient Highlight Background (Fades in) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem]" />
 
-                {/* Animated Floating Orbs - Continuous animation */}
-                <motion.div
-                    className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br from-emerald-400/20 to-teal-400/10 blur-2xl pointer-events-none"
-                    animate={{
-                        x: [0, 15, 0],
-                        y: [0, -10, 0],
-                        scale: [1, 1.1, 1],
-                        opacity: isHovered ? 0.8 : 0.4
-                    }}
-                    transition={{
-                        duration: 6,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div
-                    className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-gradient-to-tr from-teal-400/15 to-emerald-400/10 blur-2xl pointer-events-none"
-                    animate={{
-                        x: [0, -10, 0],
-                        y: [0, 15, 0],
-                        scale: [1, 1.15, 1],
-                        opacity: isHovered ? 0.7 : 0.3
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 1
-                    }}
-                />
+            {/* Border Glow */}
+            <div className="absolute inset-0 rounded-[2rem] border border-emerald-500/0 group-hover:border-emerald-500/20 transition-colors duration-500 pointer-events-none" />
 
-                {/* Shimmer Sweep - Continuous subtle animation */}
-                <motion.div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent -skew-x-12"
-                        animate={{ x: ['-200%', '200%'] }}
-                        transition={{
-                            duration: 5,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            repeatDelay: 3
-                        }}
-                    />
-                </motion.div>
+            <div className="relative z-10 flex flex-col h-full justify-between">
+                <div>
+                    {/* Icon Container */}
+                    <div className="mb-6 inline-flex p-3 rounded-2xl bg-emerald-50/50 text-emerald-600 group-hover:bg-emerald-100 group-hover:scale-110 transition-all duration-300">
+                        {service.icon}
+                    </div>
 
-                {/* Floating Dots Animation */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[...Array(4)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute w-1 h-1 rounded-full bg-emerald-400/30"
-                            style={{
-                                left: `${20 + i * 20}%`,
-                                top: `${30 + (i % 2) * 40}%`
-                            }}
-                            animate={{
-                                y: [0, -15, 0],
-                                opacity: [0.2, 0.6, 0.2],
-                                scale: [0.8, 1.2, 0.8]
-                            }}
-                            transition={{
-                                duration: 3 + i * 0.5,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: i * 0.7
-                            }}
-                        />
-                    ))}
-                </div>
-
-                {/* Hover Enhanced Gradient */}
-                <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 via-transparent to-teal-50/40 pointer-events-none"
-                    animate={{ opacity: isHovered ? 1 : 0.15 }}
-                    transition={{ duration: 0.4 }}
-                />
-
-                {/* Enhanced Hover Particles */}
-                {isHovered && (
-                    <>
-                        <motion.div
-                            className="absolute top-1/4 left-1/4 w-24 h-24 rounded-full bg-emerald-400/15 blur-xl"
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1.5, opacity: 1 }}
-                            transition={{ duration: 0.5 }}
-                        />
-                        <motion.div
-                            className="absolute bottom-1/4 right-1/4 w-32 h-32 rounded-full bg-teal-400/15 blur-xl"
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1.5, opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                        />
-                    </>
-                )}
-
-                {/* Header */}
-                <div className="relative z-10 flex justify-between items-start mb-6">
-                    {/* Icon */}
-                    <motion.div
-                        className="relative"
-                        animate={{ rotate: isHovered ? [0, -5, 5, 0] : 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <motion.div
-                            className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-md"
-                            whileHover={{ scale: 1.1 }}
-                            animate={{
-                                boxShadow: isHovered
-                                    ? '0 12px 24px -6px rgba(16, 185, 129, 0.4)'
-                                    : '0 4px 12px -2px rgba(16, 185, 129, 0.2)'
-                            }}
-                        >
-                            {/* Shimmer */}
-                            <motion.div
-                                className="absolute inset-0 rounded-xl overflow-hidden"
-                                initial={{ opacity: 0 }}
-                            >
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12"
-                                    animate={isHovered ? { x: ['-100%', '200%'] } : {}}
-                                    transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-                                />
-                            </motion.div>
-                            <div className="relative text-white">{service.icon}</div>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Status Pill */}
-                    <motion.div
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-                        animate={{
-                            backgroundColor: isHovered ? 'rgba(16, 185, 129, 0.1)' : 'rgba(241, 245, 249, 1)',
-                            borderColor: isHovered ? 'rgba(16, 185, 129, 0.3)' : 'rgba(226, 232, 240, 1)'
-                        }}
-                        style={{ border: '1px solid' }}
-                    >
-                        <motion.span
-                            className="w-1.5 h-1.5 rounded-full"
-                            animate={{
-                                backgroundColor: isHovered ? '#10b981' : '#94a3b8',
-                                boxShadow: isHovered ? '0 0 8px #10b981' : 'none'
-                            }}
-                        />
-                        <span className={`text-[9px] font-bold tracking-wider uppercase ${isHovered ? 'text-emerald-600' : 'text-slate-400'}`}>
-                            {isHovered ? 'ACTIVE' : 'IDLE'}
-                        </span>
-                    </motion.div>
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10 flex-1">
-                    <motion.h3
-                        className="text-xl lg:text-2xl font-bold text-slate-900 mb-2 tracking-tight"
-                        animate={{ x: isHovered ? 3 : 0 }}
-                        transition={{ duration: 0.3 }}
-                    >
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-800 transition-colors">
                         {service.title}
-                    </motion.h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">
                         {service.desc}
                     </p>
                 </div>
 
-                {/* Divider with Animation */}
-                <div className="relative h-px my-5 bg-slate-100">
-                    <motion.div
-                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 to-teal-500"
-                        initial={{ width: 0 }}
-                        animate={{ width: isHovered ? '100%' : 0 }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                    />
-                </div>
+                {/* Bottom Section: Metric */}
+                <div>
+                    <div className="h-px w-full bg-slate-100 group-hover:bg-emerald-100/50 transition-colors mb-4" />
 
-                {/* Footer */}
-                <div className="relative z-10 flex items-end justify-between">
-                    <div>
-                        <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">
-                            {service.statLabel}
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 group-hover:text-emerald-600/70 transition-colors">
+                                {service.statLabel}
+                            </div>
+                            <div className="text-2xl font-bold text-slate-900 tracking-tight group-hover:text-emerald-700 transition-colors">
+                                {service.stat}
+                            </div>
                         </div>
+
+                        {/* Interactive Arrow */}
                         <motion.div
-                            className="text-4xl lg:text-5xl font-bold tracking-tight"
-                            animate={{
-                                color: isHovered ? '#047857' : '#0f172a'
-                            }}
-                            style={{
-                                textShadow: isHovered ? '0 0 30px rgba(16, 185, 129, 0.2)' : 'none'
-                            }}
+                            animate={{ x: isHovered ? 5 : 0, opacity: isHovered ? 1 : 0.5 }}
+                            className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600"
                         >
-                            {service.stat}
+                            <ArrowRight size={16} />
                         </motion.div>
                     </div>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
 
-                    {/* Arrow Button */}
-                    <motion.div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${isHovered
-                            ? 'bg-emerald-500 border-emerald-500 shadow-lg shadow-emerald-500/30'
-                            : 'bg-slate-50 border-slate-200'
-                            }`}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <ArrowRight
-                            size={16}
-                            className={`transition-all duration-300 ${isHovered ? 'text-white -rotate-45' : 'text-slate-400'
-                                }`}
-                        />
-                    </motion.div>
+// Redesigned Service Card - Strategic Grid Aesthetic (Linear/Stripe Style)
+function GridServiceCard({ service, index }) {
+    const [isHovered, setIsHovered] = useState(false);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    function handleMouseMove(event) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        x.set(event.clientX - rect.left);
+        y.set(event.clientY - rect.top);
+    }
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group relative h-full bg-white p-10 lg:p-14 overflow-hidden"
+        >
+            {/* Spotlight Gradient on Hover */}
+            <motion.div
+                className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                    background: useTransform(
+                        [x, y],
+                        ([latestX, latestY]) => `radial-gradient(800px circle at ${latestX}px ${latestY}px, rgba(16, 185, 129, 0.06), transparent 100%)`
+                    )
+                }}
+            />
+
+            {/* Top Border Gradient on Hover */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
+
+            <div className="relative z-10 flex flex-col h-full">
+                {/* Icon Area */}
+                <div className="mb-8 flex justify-between items-start">
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-emerald-600 group-hover:text-emerald-500 group-hover:bg-emerald-50/50 group-hover:border-emerald-100 transition-colors duration-300">
+                        {service.icon}
+                    </div>
+
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-300 group-hover:text-emerald-500 transition-colors">
+                        0{index + 1}
+                    </div>
                 </div>
 
-                {/* Bottom Accent Line */}
+                {/* Title */}
+                <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">
+                    {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-slate-500 leading-relaxed mb-8 flex-1 group-hover:text-slate-600">
+                    {service.desc}
+                </p>
+
+                {/* Bottom Stats Row */}
+                <div className="flex items-end justify-between pt-6 border-t border-slate-100 group-hover:border-emerald-100 transition-colors">
+                    <div>
+                        <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                            {service.statLabel}
+                        </div>
+                        <div className="text-3xl font-bold text-slate-900 tracking-tight">
+                            {service.stat}
+                        </div>
+                    </div>
+
+                    <motion.div
+                        animate={{ x: isHovered ? 5 : 0 }}
+                        className="text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                        <ArrowRight size={24} />
+                    </motion.div>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
+
+// Redesigned Service Card - Premium Light "Crystal" Aesthetic
+function PrecisionCard({ service, index }) {
+    const [isHovered, setIsHovered] = useState(false);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    function handleMouseMove(event) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        x.set(event.clientX - rect.left);
+        y.set(event.clientY - rect.top);
+    }
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: index * 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group h-full perspective-[1000px]"
+        >
+            <motion.div
+                className="relative h-full p-8 lg:p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col transition-all duration-500"
+                whileHover={{
+                    y: -12,
+                    boxShadow: "0 40px 80px -20px rgba(16, 185, 129, 0.15)",
+                    borderColor: "rgba(16, 185, 129, 0.2)"
+                }}
+            >
+                {/* === Dynamic Light Effects === */}
+
+                {/* Mouse Follower Gradient (Subtle Spotlight) */}
                 <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: isHovered ? 1 : 0 }}
-                    style={{ originX: 0.5 }}
-                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                        background: useTransform(
+                            [x, y],
+                            ([latestX, latestY]) => `radial-gradient(600px circle at ${latestX}px ${latestY}px, rgba(16, 185, 129, 0.03), transparent 40%)`
+                        )
+                    }}
                 />
+
+                {/* Animated Mesh Noise Background */}
+                <div className="absolute inset-0 opacity-[0.4] mix-blend-soft-light pointer-events-none">
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+                </div>
+
+                {/* Decorative Background Blob (Animated) */}
+                <motion.div
+                    className="absolute -top-32 -right-32 w-80 h-80 bg-gradient-to-br from-emerald-50/80 to-teal-50/50 rounded-full blur-[60px] pointer-events-none"
+                    animate={{
+                        scale: isHovered ? 1.2 : 1,
+                        x: isHovered ? -20 : 0,
+                        rotate: isHovered ? 20 : 0
+                    }}
+                    transition={{ duration: 0.8 }}
+                />
+
+                {/* === Card Content === */}
+
+                <div className="relative z-10 flex flex-col h-full">
+                    {/* Header Row */}
+                    <div className="flex justify-between items-start mb-8">
+                        {/* 3D Floating Icon Container */}
+                        <motion.div
+                            className="relative w-18 h-18"
+                            style={{ transformStyle: "preserve-3d" }}
+                            animate={{
+                                rotateX: isHovered ? 10 : 0,
+                                rotateY: isHovered ? 10 : 0,
+                                z: isHovered ? 20 : 0
+                            }}
+                        >
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-lg shadow-emerald-100/50 border border-emerald-50/50 flex items-center justify-center text-emerald-600 relative overflow-hidden group-hover:text-emerald-500 transition-colors">
+                                {/* Icon Inner Glow */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                {service.icon}
+                            </div>
+
+                            {/* Decorative Ring */}
+                            <motion.div
+                                className="absolute -inset-2 rounded-3xl border-2 border-emerald-500/10 pointer-events-none"
+                                animate={{
+                                    scale: isHovered ? 1.1 : 0.9,
+                                    rotate: isHovered ? 90 : 0,
+                                    opacity: isHovered ? 1 : 0
+                                }}
+                                transition={{ duration: 0.8, ease: "backOut" }}
+                            />
+                        </motion.div>
+
+                        {/* Status Indicator */}
+                        <div className="flex flex-col items-end">
+                            <div className="px-3 py-1 rounded-full bg-slate-50 border border-slate-100 group-hover:border-emerald-100 group-hover:bg-emerald-50/30 transition-colors duration-300 flex items-center gap-2">
+                                <span className={`w-1.5 h-1.5 rounded-full bg-emerald-500 ${isHovered ? 'animate-pulse' : ''}`} />
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-emerald-600 transition-colors">Active</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Text Content */}
+                    <div className="mb-8 flex-1">
+                        <motion.h3
+                            className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-emerald-900 transition-colors"
+                            style={{ transform: "translateZ(20px)" }}
+                        >
+                            {service.title}
+                        </motion.h3>
+                        <p className="text-slate-500 leading-relaxed group-hover:text-slate-600 transition-colors">
+                            {service.desc}
+                        </p>
+                    </div>
+
+                    {/* Footer Metrics */}
+                    <div className="pt-6 border-t border-slate-100 group-hover:border-emerald-100/50 transition-colors flex items-center justify-between">
+                        <div>
+                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">{service.statLabel}</div>
+                            <div className="text-4xl font-serif font-medium text-slate-900 group-hover:text-emerald-700 transition-colors">
+                                {service.stat}
+                            </div>
+                        </div>
+
+                        {/* Action Button */}
+                        <motion.div
+                            className="w-12 h-12 rounded-full bg-slate-50 group-hover:bg-emerald-500 flex items-center justify-center text-slate-400 group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-emerald-500/30"
+                            whileHover={{ scale: 1.1, rotate: -45 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <ArrowRight size={20} />
+                        </motion.div>
+                    </div>
+                </div>
             </motion.div>
         </motion.div>
     );
@@ -1854,22 +1889,31 @@ export default function ServicesPage() {
             </section>
 
             {/* --- WHAT WE DO SECTION --- */}
-            <section className="relative z-10 py-24">
-                <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20 overflow-hidden">
-                    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                        <motion.path
-                            d="M -100 200 Q 400 300 800 200 T 2000 200"
-                            fill="none"
-                            stroke="#10b981"
-                            strokeWidth="3"
-                            initial={{ pathLength: 0 }}
-                            whileInView={{ pathLength: 1 }}
-                            transition={{ duration: 2, ease: "easeInOut" }}
-                        />
-                    </svg>
+            <section className="relative z-10 py-32 bg-white overflow-hidden">
+                {/* === Ambient Light Background === */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <motion.div
+                        animate={{
+                            x: [0, 50, 0],
+                            y: [0, -30, 0],
+                            scale: [1, 1.1, 1],
+                        }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-emerald-50/60 via-teal-50/20 to-transparent rounded-full blur-[100px] opacity-70"
+                    />
+                    <motion.div
+                        animate={{
+                            x: [0, -50, 0],
+                            y: [0, 50, 0],
+                            scale: [1, 1.2, 1],
+                        }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                        className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-50/40 via-emerald-50/20 to-transparent rounded-full blur-[80px] opacity-70"
+                    />
                 </div>
 
                 <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
+                    {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -1877,17 +1921,29 @@ export default function ServicesPage() {
                         transition={{ duration: 0.8 }}
                         className="text-center mb-20 max-w-3xl mx-auto"
                     >
-                        <span className="text-emerald-600 font-bold tracking-widest text-xs uppercase mb-4 block">
-                            Our Services
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-                            We provide fully compliant payrolling services across <span className="text-emerald-700">India</span> and the <span className="text-emerald-700">Middle East.</span>
+                        <div className="inline-block mb-4">
+                            <span className="flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full text-emerald-700 text-xs font-bold uppercase tracking-widest shadow-sm">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                Core Services
+                            </span>
+                        </div>
+
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
+                            Precision Payrolling
+                            <span className="block mt-2 font-serif italic font-normal text-emerald-800">
+                                Global Standards
+                            </span>
                         </h2>
+
+                        <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-xl mx-auto">
+                            Seamlessly managing workforce compliance across <span className="font-semibold text-slate-800">India & Middle East</span> with 99.9% accuracy.
+                        </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+                    {/* The Grid Container - Moved to 4-column layout */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                         {servicesList.map((service, index) => (
-                            <PrecisionCard key={index} service={service} index={index} />
+                            <AIServiceCard key={index} service={service} index={index} />
                         ))}
                     </div>
                 </div>
