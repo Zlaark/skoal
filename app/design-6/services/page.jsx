@@ -565,7 +565,29 @@ function StatsSection() {
         <section ref={containerRef} className="relative py-32 bg-[#0A261D] text-white overflow-hidden">
             {/* === CINEMATIC BACKGROUND === */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* 1. Nebula Clouds - Matched to Theme */}
+                {/* 1. Abstract World Map / Data Field */}
+                <div
+                    className="absolute inset-0 opacity-20"
+                    style={{
+                        backgroundImage: 'radial-gradient(circle at center, #10b981 1.5px, transparent 1.5px)',
+                        backgroundSize: '40px 40px',
+                        maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)'
+                    }}
+                />
+
+                {/* 2. Pulsing "Connection" Beams */}
+                <motion.div
+                    className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"
+                    animate={{ opacity: [0.2, 0.5, 0.2] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal-500/20 to-transparent"
+                    animate={{ opacity: [0.1, 0.3, 0.1], scaleX: [0.9, 1.1, 0.9] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                />
+
+                {/* 3. Nebula Clouds */}
                 <motion.div
                     className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px]"
                     animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -576,9 +598,6 @@ function StatsSection() {
                     animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
                     transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                 />
-
-                {/* 2. Enhanced Grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.05)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]" />
             </div>
 
             <div className="container mx-auto max-w-7xl px-6 relative z-10">
@@ -591,13 +610,21 @@ function StatsSection() {
                     transition={{ duration: 0.8 }}
                     className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20"
                 >
-                    <div>
+                    <div className="relative">
+                        {/* Decorative Line */}
+                        <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "100px" }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                            className="h-1 bg-emerald-500 mb-6"
+                        />
+
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            Live Metrics
+                            Global Impact
                         </div>
                         <h2 className="text-5xl md:text-7xl font-bold tracking-tight">
                             Global <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Scale</span>
@@ -605,7 +632,7 @@ function StatsSection() {
                     </div>
 
                     <div className="max-w-md text-lg text-slate-400 leading-relaxed text-right md:text-left">
-                        Our infrastructure handles millions of transactions daily with <span className="text-white font-semibold">zero downtime</span>.
+                        Our infrastructure handles millions of transactions daily with <span className="text-white font-semibold">zero downtime</span>, powering enterprises across continents.
                     </div>
                 </motion.div>
 
@@ -633,10 +660,8 @@ function BentoCard({ item, index }) {
 
     function handleMouseMove(e) {
         const rect = e.currentTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        x.set(e.clientX - centerX);
-        y.set(e.clientY - centerY);
+        x.set(e.clientX - rect.left);
+        y.set(e.clientY - rect.top);
     }
 
     return (
@@ -650,7 +675,7 @@ function BentoCard({ item, index }) {
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => {
                 setHovered(false);
-                x.set(0);
+                x.set(0); // Reset for clean exit if needed, though often better to leave it
                 y.set(0);
             }}
             style={{
@@ -669,23 +694,34 @@ function BentoCard({ item, index }) {
             >
                 {/* 1. Base Layer (Background) - Themed Dark Emerald */}
                 <div
-                    className="absolute inset-0 rounded-[2.5rem] bg-[#0F2F24]/80 backdrop-blur-md border border-emerald-500/20 shadow-xl overflow-hidden"
+                    className="absolute inset-0 rounded-[2.5rem] bg-[#0F2F24]/80 backdrop-blur-xl border border-white/10 shadow-xl overflow-hidden"
                     style={{ transform: "translateZ(0px)" }}
                 >
                     {/* === ALWAYS-ON ANIMATIONS === */}
+
                     {/* A. Border Beam (Rotating Edge) */}
-                    <div className="absolute inset-0 -m-[1px] rounded-[2.5rem] overflow-hidden pointer-events-none">
-                        <div className="absolute inset-0 bg-[#0F2F24] m-[1px] rounded-[2.5rem] z-10" /> {/* Inner Mask */}
+                    <div className="absolute inset-0 -m-[1px] rounded-[2.5rem] overflow-hidden pointer-events-none z-20">
+                        {/* Mask to keep center clear */}
+                        <div className="absolute inset-[1px] bg-[#0F2F24]/0 rounded-[2.5rem] z-10" />
                         <motion.div
-                            className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#10b981_360deg)] opacity-70"
+                            className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#10b981_360deg)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                             animate={{ rotate: 360 }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                            style={{ filter: 'blur(2px)' }}
                         />
                     </div>
 
-                    {/* B. Roaming Spotlight (Ambient Energy) */}
+                    {/* B. Mouse Tracking Spotlight (Interactive) */}
                     <motion.div
-                        className="absolute inset-0 bg-radial-gradient from-emerald-500/20 to-transparent blur-2xl opacity-40 z-10 pointer-events-none"
+                        className="absolute inset-0 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                            background: useMotionTemplate`radial-gradient(500px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.15), transparent 80%)`
+                        }}
+                    />
+
+                    {/* C. Roaming Spotlight (Ambient Energy) - Backdrop */}
+                    <motion.div
+                        className="absolute inset-0 bg-radial-gradient from-emerald-500/20 to-transparent blur-2xl opacity-20 z-0 pointer-events-none"
                         animate={{
                             x: ["-30%", "30%", "-30%"],
                             y: ["-30%", "30%", "-30%"],
@@ -695,11 +731,11 @@ function BentoCard({ item, index }) {
                     />
 
                     {/* Dynamic Background Gradient (On Hover) */}
-                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 bg-gradient-to-br ${item.gradient} z-20`} />
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700 bg-gradient-to-br ${item.gradient} z-0 mix-blend-soft-light`} />
 
                     {/* Giant Number Background (Parallax Deep) */}
                     <div
-                        className="absolute -right-4 -bottom-6 text-[180px] leading-none font-bold text-white/[0.03] select-none pointer-events-none font-serif z-0"
+                        className="absolute -right-8 -bottom-10 text-[160px] leading-none font-bold text-white/[0.02] select-none pointer-events-none font-serif z-0 group-hover:text-white/[0.05] transition-colors duration-500"
                         style={{ transform: "translateZ(20px)" }}
                     >
                         {item.value.replace(/[^0-9]/g, '').substring(0, 2)}
@@ -709,45 +745,56 @@ function BentoCard({ item, index }) {
                 {/* 2. Content Layer (Floating) */}
                 <div
                     className="relative z-20 w-full h-full p-8 flex flex-col justify-between"
-                    style={{ transform: "translateZ(50px)" }}
+                    style={{ transform: "translateZ(40px)" }}
                 >
                     {/* Header: Icon + Gradient Blob */}
                     <div className="flex justify-between items-start">
                         {/* Floating Icon Animation */}
                         <motion.div
-                            className={`p-3 rounded-2xl bg-white/5 border border-white/10 text-white shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-500`}
-                            animate={{ y: [-3, 3, -3] }}
+                            className={`p-3.5 rounded-2xl bg-white/5 border border-white/10 text-emerald-400 shadow-lg backdrop-blur-sm group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white group-hover:border-emerald-400 transition-all duration-500`}
+                            animate={{ y: [-2, 2, -2] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
                         >
                             {item.icon}
                         </motion.div>
                         {isHero && (
-                            <ArrowUpRight className="text-white/20 group-hover:text-white/60 transition-colors" size={32} />
+                            <ArrowUpRight className="text-white/20 group-hover:text-white/60 transition-colors" size={28} />
                         )}
                     </div>
 
                     {/* Content */}
                     <div>
                         <motion.div
-                            className={`font-bold tracking-tighter text-white mb-1 ${isHero ? 'text-6xl md:text-7xl' : 'text-4xl md:text-5xl'}`}
-                            initial={{ opacity: 0.8 }}
-                            whileHover={{ scale: 1.05, originX: 0 }}
-                            style={{ textShadow: "0 10px 30px rgba(0,0,0,0.5)" }}
+                            className={`font-bold tracking-tighter text-white mb-2 ${isHero ? 'text-5xl md:text-6xl lg:text-7xl' : 'text-4xl md:text-5xl'}`}
+                            initial={{ opacity: 0.9 }}
+                            whileHover={{ scale: 1.02, originX: 0 }}
+                            style={{ textShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
                         >
                             <Counter value={item.value} />
                         </motion.div>
-                        <div className={`font-medium uppercase tracking-widest text-emerald-400 ${isHero ? 'text-sm' : 'text-xs'}`}>
+                        <div className={`font-medium uppercase tracking-widest text-emerald-400 mb-1 ${isHero ? 'text-sm' : 'text-xs'}`}>
                             {item.label}
                         </div>
-                        <div className="mt-2 text-emerald-100/60 text-sm leading-snug max-w-[80%]">
+                        <div className="text-emerald-100/50 text-sm leading-snug max-w-[90%] font-light">
                             {item.subtext}
                         </div>
                     </div>
                 </div>
 
                 {/* 3. Shine/Reflection Layer (Top Interaction) */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[2.5rem] overflow-hidden" style={{ transform: "translateZ(60px)" }}>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-100%] group-hover:animate-shine" />
+                <div className="absolute inset-0 pointer-events-none rounded-[2.5rem] overflow-hidden z-30" style={{ transform: "translateZ(60px)" }}>
+                    {/* Angled Shine with Framer Motion */}
+                    <AnimatePresence>
+                        {hovered && (
+                            <motion.div
+                                initial={{ x: "-100%", opacity: 0 }}
+                                animate={{ x: "200%", opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
+                            />
+                        )}
+                    </AnimatePresence>
                 </div>
             </motion.div>
         </motion.div>
