@@ -729,162 +729,464 @@ function StatsSection() {
     );
 }
 
-// Helper for BPO List Items - Enhanced Pill Style
-function BPOItem({ icon, title, isDark = false, index }) {
-    return (
-        <motion.li
-            className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 group/item cursor-default overflow-hidden relative
-                ${isDark
-                    ? 'bg-emerald-800/20 border-emerald-500/20 hover:bg-emerald-800/40' // Dark styles
-                    : 'bg-white border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-200'}`} // Light styles
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 + (index * 0.1), duration: 0.5 }}
-            whileHover={{ x: 5 }}
-        >
-            {/* Hover sheen effect */}
-            <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/item:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none"
-            />
-
-            <div className={`w-10 h-10 rounded-xl flex shrink-0 items-center justify-center transition-width duration-300 shadow-inner
-                ${isDark
-                    ? 'bg-emerald-900/50 text-emerald-400 group-hover/item:text-white group-hover/item:bg-emerald-600'
-                    : 'bg-emerald-50 text-emerald-600 group-hover/item:text-white group-hover/item:bg-emerald-500'}`}>
-                {icon}
-            </div>
-            <span className={`text-sm md:text-base font-semibold tracking-wide ${isDark ? 'text-emerald-50' : 'text-slate-700'}`}>{title}</span>
-        </motion.li>
-    );
-}
-
-// BPO Services Section - Redesigned V3 (Smaller + Animated)
+// BPO Services Section - Industries Style Horizontal Scroll
 function BPOSection() {
-    const cardVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.6,
-                when: "beforeChildren",
-                staggerChildren: 0.1
-            }
-        }
-    };
+    const containerRef = useRef(null);
 
-    const contentVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+    });
+
+    // Transform vertical scroll to horizontal card movement (like Industries)
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-110%"]);
+
+    const bpoServices = [
+        {
+            id: "support",
+            title: "Customer Support",
+            subtitle: "Engagement Suite",
+            description: "Complete customer engagement suite designed for retention. From email to voice, we cover every touchpoint with precision.",
+            stat: "24/7",
+            statLabel: "Availability",
+            icon: Headset,
+            gradient: "from-emerald-500/30 to-teal-400/30",
+        },
+        {
+            id: "growth",
+            title: "Revenue & Growth",
+            subtitle: "Sales Acceleration",
+            description: "Maximize lifetime value with strategic sales support. Turn abandoned carts into conversions and browsers into buyers.",
+            stat: "3x",
+            statLabel: "ROI Boost",
+            icon: TrendingUp,
+            gradient: "from-teal-500/30 to-cyan-400/30",
+        },
+        {
+            id: "quality",
+            title: "Quality Assurance",
+            subtitle: "Performance Monitoring",
+            description: "Real-time quality monitoring with AI-powered scoring. Every interaction is measured, analyzed, and optimized.",
+            stat: "99.9%",
+            statLabel: "Accuracy",
+            icon: ShieldCheck,
+            gradient: "from-blue-500/30 to-indigo-400/30",
+        },
+        {
+            id: "analytics",
+            title: "Deep Analytics",
+            subtitle: "Data Intelligence",
+            description: "Transform raw data into actionable insights. Custom dashboards and predictive analytics for informed decisions.",
+            stat: "500+",
+            statLabel: "Metrics",
+            icon: BarChart3,
+            gradient: "from-indigo-500/30 to-purple-400/30",
+        }
+    ];
+
+    // BPO Card Component (matching Industries card style)
+    const BPOCard = ({ card }) => {
+        const Icon = card.icon;
+        return (
+            <motion.div
+                className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] overflow-hidden rounded-[2rem] flex-shrink-0 bg-gradient-to-br from-[#0A1A15] to-[#051210] border border-emerald-500/20 transition-all duration-500"
+                whileHover={{
+                    y: -8,
+                    boxShadow: "0 30px 60px -12px rgba(16, 185, 129, 0.35)",
+                }}
+            >
+                {/* Animated Border Glow */}
+                <motion.div
+                    className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    style={{
+                        background: 'linear-gradient(135deg, transparent 40%, rgba(16, 185, 129, 0.3) 50%, rgba(6, 182, 212, 0.3) 60%, transparent 70%)',
+                        backgroundSize: '400% 400%',
+                    }}
+                    animate={{
+                        backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
+                    }}
+                    transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        ease: "linear",
+                    }}
+                />
+
+                {/* Dynamic Background Gradients */}
+                <motion.div
+                    className={`absolute inset-0 opacity-20 group-hover:opacity-50 transition-opacity duration-700 bg-gradient-to-br ${card.gradient}`}
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                {/* Noise Texture Overlay */}
+                <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+
+                {/* Abstract Shapes with Animation */}
+                <motion.div
+                    className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-emerald-500/30 to-cyan-500/20 rounded-full blur-[80px]"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-tr from-teal-500/20 to-cyan-400/15 rounded-full blur-[80px]"
+                    animate={{
+                        scale: [1, 1.15, 1],
+                        opacity: [0.2, 0.4, 0.2],
+                    }}
+                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                />
+
+                {/* Content Container */}
+                <div className="relative h-full p-8 md:p-10 flex flex-col justify-between z-10">
+                    {/* Top Section */}
+                    <div>
+                        {/* Icon & Subtitle Row */}
+                        <div className="flex items-center justify-between mb-6 group-hover:text-emerald-100 transition-colors duration-500">
+                            <motion.div
+                                className="p-3.5 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 group-hover:from-emerald-500/30 group-hover:to-cyan-500/20 group-hover:border-emerald-400/40 backdrop-blur-md transition-all duration-500"
+                                whileHover={{ scale: 1.1, rotate: 5 }}
+                            >
+                                <Icon size={26} className="text-emerald-400 group-hover:text-white transition-colors duration-500" strokeWidth={1.5} />
+                            </motion.div>
+                            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-300 md:text-emerald-400 group-hover:text-cyan-300 transition-colors duration-500">
+                                {card.subtitle}
+                            </span>
+                        </div>
+
+                        {/* Title & Desc */}
+                        <h3 className="text-3xl font-serif font-medium text-white mb-4 transition-colors duration-500 leading-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-emerald-100 group-hover:bg-clip-text">
+                            {card.title}
+                        </h3>
+                        <p className="text-emerald-100/90 text-[17px] leading-relaxed group-hover:text-emerald-100/80 transition-colors duration-500 font-light">
+                            {card.description}
+                        </p>
+                    </div>
+
+                    {/* Bottom Section */}
+                    <div className="pt-8 border-t border-white/5 group-hover:border-emerald-500/20 transition-colors duration-500">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <motion.div
+                                    className="text-4xl font-bold bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent tracking-tighter"
+                                    animate={{ opacity: [0.9, 1, 0.9] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                >
+                                    {card.stat}
+                                </motion.div>
+                                <div className="text-xs font-medium text-emerald-300/80 group-hover:text-cyan-300 transition-colors duration-500 mt-1 uppercase tracking-wider">
+                                    {card.statLabel}
+                                </div>
+                            </div>
+
+                            {/* Floating Action Button */}
+                            <motion.button
+                                className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500/20 to-cyan-500/10 border border-emerald-500/30 group-hover:from-emerald-500 group-hover:to-cyan-500 group-hover:border-transparent flex items-center justify-center transition-all duration-500"
+                                whileHover={{ scale: 1.15 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <ArrowRight size={20} className="text-emerald-400 group-hover:text-white transition-colors duration-500" />
+                            </motion.button>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        );
     };
 
     return (
-        <section className="py-24 px-6 lg:px-12 relative overflow-hidden bg-[#FAFAFA]">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-[0.4] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-multiply" />
+        <section ref={containerRef} className="relative h-[350vh] bg-gradient-to-b from-slate-50 via-white to-slate-50">
+            {/* Sticky Container */}
+            <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
 
-            <div className="container mx-auto max-w-6xl relative z-10">
-                {/* Header */}
-                <div className="text-center max-w-4xl mx-auto mb-16">
+                {/* === ANIMATED BACKGROUND LAYER === */}
+
+                {/* Gradient Mesh Background */}
+                <div className="absolute inset-0 z-0">
+                    {/* Primary gradient orbs */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <motion.div
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6"
-                            whileHover={{ scale: 1.05 }}
-                        >
-                            <span className="relative flex h-2.5 w-2.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
-                            </span>
-                            <span className="text-xs font-bold text-slate-600 tracking-widest uppercase">Skoal Solutions Pvt. Ltd.</span>
-                        </motion.div>
-
-                        <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
-                            Skoal <span className="bg-gradient-to-r from-emerald-600 to-teal-600 text-transparent bg-clip-text">BPO Services</span>
-                        </h2>
-                        <p className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-3xl mx-auto font-medium">
-                            Secure, scalable, and performance-driven solutions tailored for modern digital businesses.
-                        </p>
-                    </motion.div>
+                        className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-emerald-400/40 via-teal-300/25 to-transparent blur-[100px]"
+                        animate={{
+                            x: [0, 50, 0],
+                            y: [0, 30, 0],
+                            scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                    />
+                    <motion.div
+                        className="absolute bottom-[-30%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-tl from-cyan-400/30 via-emerald-300/20 to-transparent blur-[120px]"
+                        animate={{
+                            x: [0, -40, 0],
+                            y: [0, -50, 0],
+                            scale: [1, 1.15, 1],
+                        }}
+                        transition={{
+                            duration: 25,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                    />
+                    <motion.div
+                        className="absolute top-[30%] right-[20%] w-[40vw] h-[40vw] rounded-full bg-gradient-to-bl from-teal-300/25 via-cyan-200/15 to-transparent blur-[80px]"
+                        animate={{
+                            x: [0, -30, 0],
+                            y: [0, 40, 0],
+                        }}
+                        transition={{
+                            duration: 18,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                    />
                 </div>
 
-                {/* Cards Grid */}
-                <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+                {/* Animated Grid */}
+                <div className="absolute inset-0 z-0 opacity-[0.25]">
+                    <div
+                        className="absolute inset-0"
+                        style={{
+                            backgroundImage: `
+                                linear-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px),
+                                linear-gradient(90deg, rgba(16, 185, 129, 0.15) 1px, transparent 1px)
+                            `,
+                            backgroundSize: '60px 60px',
+                        }}
+                    />
+                    {/* Gradient fade on grid */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-transparent to-slate-50" />
+                </div>
 
-                    {/* Dark Card - Customer Support */}
+                {/* Floating Orbs / Particles */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                    {[...Array(8)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute rounded-full"
+                            style={{
+                                width: Math.random() * 8 + 4 + 'px',
+                                height: Math.random() * 8 + 4 + 'px',
+                                left: Math.random() * 100 + '%',
+                                top: Math.random() * 100 + '%',
+                                background: i % 2 === 0
+                                    ? 'radial-gradient(circle, rgba(16, 185, 129, 0.8) 0%, rgba(16, 185, 129, 0) 70%)'
+                                    : 'radial-gradient(circle, rgba(6, 182, 212, 0.8) 0%, rgba(6, 182, 212, 0) 70%)',
+                                boxShadow: i % 2 === 0
+                                    ? '0 0 20px rgba(16, 185, 129, 0.5)'
+                                    : '0 0 20px rgba(6, 182, 212, 0.5)',
+                            }}
+                            animate={{
+                                y: [0, -30 - Math.random() * 50, 0],
+                                x: [0, Math.random() * 30 - 15, 0],
+                                opacity: [0.4, 0.8, 0.4],
+                            }}
+                            transition={{
+                                duration: 8 + Math.random() * 6,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 0.5,
+                            }}
+                        />
+                    ))}
+                </div>
+
+                {/* Animated Accent Lines */}
+                <motion.div
+                    className="absolute top-0 left-[20%] w-[1px] h-full bg-gradient-to-b from-transparent via-emerald-500/40 to-transparent z-0"
+                    animate={{ opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute top-0 right-[30%] w-[1px] h-full bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent z-0"
+                    animate={{ opacity: [0.2, 0.5, 0.2] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                />
+
+                {/* Background Typography */}
+                <motion.div
+                    className="absolute top-16 left-10 md:left-16 xl:left-32 z-0 pointer-events-none"
+                    animate={{ opacity: [0.04, 0.08, 0.04] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                    <span className="text-[18vw] font-bold leading-none tracking-tighter bg-gradient-to-r from-emerald-500 to-cyan-400 bg-clip-text text-transparent">
+                        BPO
+                    </span>
+                </motion.div>
+
+                {/* Section Header - Left Side - CENTERED LAYOUT */}
+                <div className="absolute top-0 left-0 h-full w-full md:w-[45%] lg:w-[40%] flex items-center z-10 px-10 md:px-16 lg:px-24">
+                    <div className="max-w-lg">
+                        {/* Animated Badge */}
+                        <motion.div
+                            className="inline-flex items-center gap-3 mb-8 px-5 py-2.5 rounded-full bg-gradient-to-r from-emerald-100 to-teal-50 border border-emerald-200/80 shadow-sm"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <motion.div
+                                className="w-2.5 h-2.5 rounded-full bg-emerald-500"
+                                animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            />
+                            <span className="text-emerald-700 font-semibold uppercase tracking-[0.15em] text-xs">
+                                Skoal Solutions Pvt. Ltd.
+                            </span>
+                        </motion.div>
+
+                        {/* Main Title */}
+                        <motion.h2
+                            className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-slate-900 leading-[1] mb-3"
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.7, ease: "easeOut" }}
+                        >
+                            Skoal
+                        </motion.h2>
+
+                        {/* BPO Services Title with Underline */}
+                        <div className="relative mb-10">
+                            <motion.h2
+                                className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium italic leading-[1.1]"
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                            >
+                                <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
+                                    BPO Services
+                                </span>
+                            </motion.h2>
+                            {/* Animated underline */}
+                            <motion.div
+                                className="absolute -bottom-4 left-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full"
+                                initial={{ width: 0, opacity: 0 }}
+                                animate={{ width: "50%", opacity: 1 }}
+                                transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                            />
+                            <motion.div
+                                className="absolute -bottom-4 left-[53%] h-1 w-2 bg-emerald-300 rounded-full"
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.4, delay: 1 }}
+                            />
+                        </div>
+
+                        {/* Description */}
+                        <motion.p
+                            className="text-slate-600 text-lg md:text-xl leading-relaxed mb-10"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            Secure, scalable, and performance-driven solutions for modern digital businesses.
+                        </motion.p>
+
+                        {/* Stats Row */}
+                        <motion.div
+                            className="flex items-center gap-6 md:gap-8"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                        >
+                            <div className="text-center">
+                                <motion.div
+                                    className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent"
+                                    animate={{ scale: [1, 1.05, 1] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                >
+                                    24/7
+                                </motion.div>
+                                <div className="text-xs text-slate-500 uppercase tracking-wider mt-1 font-medium">Support</div>
+                            </div>
+                            <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
+                            <div className="text-center">
+                                <motion.div
+                                    className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent"
+                                    animate={{ scale: [1, 1.05, 1] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                                >
+                                    99.9%
+                                </motion.div>
+                                <div className="text-xs text-slate-500 uppercase tracking-wider mt-1 font-medium">Uptime</div>
+                            </div>
+                            <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
+                            <div className="text-center">
+                                <motion.div
+                                    className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-500 to-emerald-500 bg-clip-text text-transparent"
+                                    animate={{ scale: [1, 1.05, 1] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                >
+                                    50+
+                                </motion.div>
+                                <div className="text-xs text-slate-500 uppercase tracking-wider mt-1 font-medium">Clients</div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Progress Indicator - Top Right */}
+                <div className="absolute top-16 right-8 md:right-16 z-20 flex items-center gap-4">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-widest hidden md:block">Scroll to Explore</span>
+                    <div className="w-32 h-1.5 bg-slate-200 rounded-full overflow-hidden border border-slate-300/50">
+                        <motion.div
+                            className="h-full bg-gradient-to-r from-emerald-500 to-cyan-400 rounded-full shadow-lg shadow-emerald-500/50"
+                            style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
+                        />
+                    </div>
+                </div>
+
+                {/* Horizontal Scroll Track - Cards start from right side */}
+                <div className="w-full h-full absolute top-0 left-0 flex items-center z-20">
                     <motion.div
-                        variants={cardVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                        className="group relative rounded-[2.5rem] overflow-hidden bg-[#023122] shadow-2xl shadow-emerald-900/20"
+                        style={{ x }}
+                        className="flex gap-6 md:gap-8 pr-20 items-center will-change-transform"
                     >
-                        {/* Deep Green Gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#023122] to-[#012217]" />
+                        {/* Large spacer to push cards to the right side */}
+                        <div className="w-[45vw] md:w-[50vw] flex-shrink-0" />
 
-                        <div className="relative z-10 p-8 md:p-10 h-full flex flex-col">
+                        {bpoServices.map((card) => (
+                            <BPOCard card={card} key={card.id} />
+                        ))}
 
-                            {/* Icon */}
-                            <motion.div variants={contentVariants} className="w-16 h-16 rounded-2xl bg-emerald-900/40 border border-emerald-500/20 flex items-center justify-center mb-8 shadow-lg">
-                                <Headset size={32} className="text-emerald-400 stroke-[1.5px]" />
+                        {/* CTA / End Card */}
+                        <motion.div
+                            className="group relative h-[480px] w-[340px] md:w-[380px] overflow-hidden rounded-[2rem] flex-shrink-0 bg-gradient-to-br from-white to-slate-50 border border-emerald-200 shadow-lg shadow-slate-200/50 flex flex-col items-center justify-center text-center p-10 hover:border-emerald-400 transition-all duration-700"
+                            whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgba(16, 185, 129, 0.2)" }}
+                        >
+                            {/* Card background animation */}
+                            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-br from-emerald-100/50 to-cyan-100/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                            />
+
+                            <motion.div
+                                className="relative z-10 w-20 h-20 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 border border-emerald-200 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500"
+                                animate={{ boxShadow: ["0 0 30px rgba(16, 185, 129, 0.2)", "0 0 50px rgba(6, 182, 212, 0.3)", "0 0 30px rgba(16, 185, 129, 0.2)"] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <Globe size={36} className="text-emerald-600" strokeWidth={1.5} />
                             </motion.div>
+                            <h3 className="relative z-10 text-3xl font-serif font-medium text-slate-900 mb-4">
+                                Ready to Scale?
+                            </h3>
+                            <p className="relative z-10 text-slate-600 mb-8 max-w-xs mx-auto">
+                                Let's discuss how our BPO solutions can transform your operations.
+                            </p>
+                            <motion.button
+                                className="relative z-10 px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-full font-bold shadow-xl shadow-emerald-500/30 hover:shadow-cyan-500/40 transition-all duration-300 flex items-center gap-2"
+                                whileHover={{ scale: 1.05, paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
+                            >
+                                Get Started <ArrowRight size={18} />
+                            </motion.button>
+                        </motion.div>
 
-                            <motion.h3 variants={contentVariants} className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
-                                Customer Support
-                            </motion.h3>
-                            <motion.p variants={contentVariants} className="text-emerald-100/70 text-base md:text-lg mb-10 font-medium leading-relaxed">
-                                Complete customer engagement suite designed for retention.
-                            </motion.p>
-
-                            <motion.ul className="space-y-3 mt-auto">
-                                <BPOItem index={0} icon={<MessageSquare size={18} />} title="Email & ticket-based support" isDark={true} />
-                                <BPOItem index={1} icon={<MessageSquare size={18} />} title="Live chat & messaging platforms" isDark={true} />
-                                <BPOItem index={2} icon={<Phone size={18} />} title="Inbound voice support" isDark={true} />
-                                <BPOItem index={3} icon={<Users size={18} />} title="Outbound customer engagement" isDark={true} />
-                            </motion.ul>
-                        </div>
-                    </motion.div>
-
-                    {/* Light Card - Revenue & Growth */}
-                    <motion.div
-                        variants={cardVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                        className="group relative rounded-[2.5rem] overflow-hidden bg-white shadow-xl shadow-slate-200/60 border border-slate-100"
-                    >
-                        {/* Decoration: Bottom Right Vector Shape */}
-                        <div className="absolute bottom-0 right-0 w-full h-[30%] overflow-hidden pointer-events-none rounded-br-[2.5rem]">
-                            <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className="absolute bottom-0 w-[200%] h-full text-emerald-50 fill-current opacity-80" style={{ right: '-20%' }}>
-                                <path d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-                            </svg>
-                        </div>
-
-                        <div className="relative z-10 p-8 md:p-10 h-full flex flex-col">
-
-                            {/* Icon */}
-                            <motion.div variants={contentVariants} className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-8 shadow-sm">
-                                <TrendingUp size={32} className="text-emerald-600 stroke-[1.5px]" />
-                            </motion.div>
-
-                            <motion.h3 variants={contentVariants} className="text-3xl md:text-4xl font-bold text-slate-900 mb-3 tracking-tight">
-                                Revenue & Growth
-                            </motion.h3>
-                            <motion.p variants={contentVariants} className="text-slate-500 text-base md:text-lg mb-10 font-medium leading-relaxed">
-                                Maximize lifetime value with strategic sales support.
-                            </motion.p>
-
-                            <motion.ul className="space-y-3 mt-auto relative">
-                                <BPOItem index={0} icon={<ShoppingCart size={18} />} title="Cart abandonment calling" />
-                                <BPOItem index={1} icon={<ArrowUpRight size={18} />} title="Upsell and cross-sell campaigns" />
-                                <BPOItem index={2} icon={<BarChart3 size={18} />} title="Curated cohort outbound sales" />
-                            </motion.ul>
-                        </div>
+                        {/* End Spacer */}
+                        <div className="w-[50vw] flex-shrink-0" />
                     </motion.div>
                 </div>
             </div>
@@ -1359,7 +1661,7 @@ export default function ServicesPage() {
     ];
 
     return (
-        <main ref={containerRef} className="bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900 overflow-hidden">
+        <main ref={containerRef} className="bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
 
             {/* --- HERO SECTION --- */}
             <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 px-6 lg:px-12 overflow-hidden">
