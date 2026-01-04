@@ -148,7 +148,7 @@ const Navbar = () => {
             {/* Mobile Toggle */}
             <button
               aria-label="Open mobile menu"
-              className={`md:hidden p-2 rounded-full ml-2  bg-black/10`}
+              className={`md:hidden p-2 rounded-full ml-2 ${isLightMode ? "bg-black/10 text-slate-900" : "bg-white/10 text-white"}`}
               onClick={() => setMobileMenuOpen(true)}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>

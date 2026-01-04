@@ -68,7 +68,7 @@ function PrecisionCard({ module, index }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       // Updated Card Style: Cleaner, crisper, deeper shadows, white bg
-      className={`relative p-8 rounded-[2.5rem] bg-white border border-slate-200 shadow-xl shadow-slate-200/50 transition-all duration-500 h-full flex flex-col justify-between group overflow-hidden ${module.borderHover} hover:shadow-2xl hover:-translate-y-1`}
+      className={`relative p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] bg-white border border-slate-200 shadow-xl shadow-slate-200/50 transition-all duration-500 h-full flex flex-col justify-between group overflow-hidden ${module.borderHover} hover:shadow-2xl hover:-translate-y-1`}
     >
       {/* Active Indicator Pulse */}
       <div className="absolute top-6 right-6 flex items-center gap-2">
@@ -79,11 +79,11 @@ function PrecisionCard({ module, index }) {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 mb-10">
+      <div className="relative z-10 mb-6 md:mb-10">
         <div className={`w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 transition-colors duration-500 ${module.bgHover} ${module.color}`}>
           {module.icon}
         </div>
-        <h3 className="text-2xl font-serif font-medium text-slate-900 mb-2 group-hover:text-black transition-colors">
+        <h3 className="text-xl md:text-2xl font-serif font-medium text-slate-900 mb-2 group-hover:text-black transition-colors">
           {module.title}
         </h3>
         <p className="text-slate-500 text-sm leading-relaxed max-w-[90%] group-hover:text-slate-600 transition-colors">
@@ -98,7 +98,7 @@ function PrecisionCard({ module, index }) {
         </div>
         {/* Massive Stat Typography for Impact */}
         <div className="flex items-baseline justify-between">
-          <div className={`text-5xl lg:text-7xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900 transition-colors`}>
+          <div className={`text-4xl md:text-5xl lg:text-7xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900 transition-colors`}>
             {module.stat}
           </div>
           <ArrowUpRight className={`opacity-0 group-hover:opacity-100 transition-all duration-500 text-slate-400`} size={24} />
@@ -110,7 +110,7 @@ function PrecisionCard({ module, index }) {
 
 export default function Services() {
   return (
-    <section className="relative py-32 bg-slate-50 text-slate-900 border-t border-slate-200 overflow-hidden" id="services">
+    <section className="relative py-20 md:py-32 bg-slate-50 text-slate-900 border-t border-slate-200 overflow-hidden" id="services">
       {/* Background Technical Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.3]"
         style={{
@@ -173,7 +173,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6"
+            className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6"
           >
             We manage the <span className="font-serif italic text-emerald-700">complexity.</span>
           </motion.h2>
@@ -183,7 +183,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto"
           >
             You focus on growth. Our infrastructure handles the operational heavy lifting with military precision.
           </motion.p>
