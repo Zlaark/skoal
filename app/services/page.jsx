@@ -1087,7 +1087,7 @@ export default function ServicesPage() {
                 <div className="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-center relative z-10">
 
                     {/* LEFT: TEXT CONTENT */}
-                    <div className="max-w-2xl relative">
+                    <div className="max-w-2xl relative pr-6 md:pr-0">
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -1121,7 +1121,7 @@ export default function ServicesPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="flex items-center gap-4"
+                            className="flex flex-col md:flex-row items-start md:items-center gap-4"
                         >
                             <button className="group relative px-8 py-4 bg-slate-900 text-white rounded-full overflow-hidden transition-all hover:shadow-xl hover:shadow-slate-900/20 hover:-translate-y-1 cursor-pointer">
                                 <span className="relative z-10 flex items-center gap-2 font-semibold text-lg">
