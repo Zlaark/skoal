@@ -1923,33 +1923,8 @@ export default function ServicesPage() {
                 </div>
             </section>
 
-            {/* --- WHAT WE DO SECTION --- */}
-            <section className="relative z-10 py-32 bg-white overflow-hidden">
-                {/* === Ambient Light Background === */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <motion.div
-                        animate={{
-                            x: [0, 50, 0],
-                            y: [0, -30, 0],
-                            scale: [1, 1.1, 1],
-                        }}
-                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-emerald-50/60 via-teal-50/20 to-transparent rounded-full blur-[100px] opacity-70"
-                    />
-                    <motion.div
-                        animate={{
-                            x: [0, -50, 0],
-                            y: [0, 50, 0],
-                            scale: [1, 1.2, 1],
-                        }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                        className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-50/40 via-emerald-50/20 to-transparent rounded-full blur-[80px] opacity-70"
-                    />
-                </div>
-
-                {/* --- WHAT WE DO SECTION (Replaced with Stepper) --- */}
-                <PrecisionStepper />
-            </section>
+            {/* --- WHAT WE DO SECTION (Replaced with Stepper) --- */}
+            <PrecisionStepper />
 
             {/* --- STATS SECTION --- */}
             <StatsSection />
