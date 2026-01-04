@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import AIServiceCard from "./AIServiceCard";
 import TechPayrollSection from "./TechPayrollSection";
+import RecruitmentSection from "./RecruitmentSection";
 import Footer from "../components/Footer";
 import PrecisionStepper from "./PrecisionStepper";
 
@@ -958,115 +959,7 @@ const payrollFeatures = [
     }
 ];
 
-// Recruitment as Extension of Payroll Section
-function RecruitmentSection() {
-    const recruitmentCapabilities = [
-        { icon: <Users size={20} />, title: "High-volume blue-collar hiring" },
-        { icon: <Briefcase size={20} />, title: "White-collar and operational roles" },
-        { icon: <MapPin size={20} />, title: "Hyperlocal and referral-driven sourcing" },
-        { icon: <RefreshCcw size={20} />, title: "SLA-based fulfillment and replacement" }
-    ];
 
-    return (
-        <section className="py-32 px-6 lg:px-12 bg-[#0A261D] relative overflow-hidden" >
-            {/* Background Effects */}
-            < div className="absolute inset-0 pointer-events-none" >
-                <motion.div
-                    animate={{ opacity: [0.1, 0.2, 0.1], scale: [1, 1.2, 1] }}
-                    transition={{ duration: 10, repeat: Infinity }}
-                    className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[100px]"
-                />
-                <motion.div
-                    animate={{ opacity: [0.1, 0.15, 0.1], scale: [1.2, 1, 1.2] }}
-                    transition={{ duration: 12, repeat: Infinity, delay: 2 }}
-                    className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[80px]"
-                />
-            </div >
-
-            <div className="container mx-auto max-w-6xl relative z-10">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
-                    {/* Left Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <span className="text-emerald-400 font-bold tracking-widest text-xs uppercase mb-4 block">
-                            Integrated Workforce Sourcing
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
-                            Recruitment as an Extension of <span className="font-serif italic text-emerald-400">Payroll</span>
-                        </h2>
-                        <p className="text-emerald-100/70 text-lg leading-relaxed mb-8">
-                            As part of our payrolling services, Skoal also offers recruitment and workforce sourcing, ensuring speed without compromising compliance.
-                        </p>
-
-                        {/* Capabilities List */}
-                        <ul className="space-y-4 mb-10">
-                            {recruitmentCapabilities.map((item, i) => (
-                                <motion.li
-                                    key={i}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.2 + i * 0.1 }}
-                                    className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
-                                >
-                                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
-                                        {item.icon}
-                                    </div>
-                                    <span className="text-white font-medium">{item.title}</span>
-                                </motion.li>
-                            ))}
-                        </ul>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.6 }}
-                            className="flex items-center gap-3 text-emerald-300 text-sm"
-                        >
-                            <CheckCircle2 size={18} />
-                            <span>Faster onboarding, lower attrition, operational continuity</span>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Right Visual */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative"
-                    >
-                        <div className="relative bg-gradient-to-br from-emerald-900/50 to-teal-900/30 rounded-[3rem] p-12 border border-white/10 backdrop-blur-sm">
-                            <div className="grid grid-cols-2 gap-6">
-                                <div className="bg-white/10 rounded-2xl p-6 text-center border border-white/5">
-                                    <div className="text-4xl font-bold text-white mb-2">48hr</div>
-                                    <div className="text-xs text-emerald-300 uppercase tracking-wider">Avg. Deployment</div>
-                                </div>
-                                <div className="bg-white/10 rounded-2xl p-6 text-center border border-white/5">
-                                    <div className="text-4xl font-bold text-emerald-400 mb-2">SLA</div>
-                                    <div className="text-xs text-emerald-300 uppercase tracking-wider">Based Fulfillment</div>
-                                </div>
-                                <div className="bg-white/10 rounded-2xl p-6 text-center border border-white/5">
-                                    <div className="text-4xl font-bold text-white mb-2">100%</div>
-                                    <div className="text-xs text-emerald-300 uppercase tracking-wider">Compliance Check</div>
-                                </div>
-                                <div className="bg-emerald-500/20 rounded-2xl p-6 text-center border border-emerald-500/30">
-                                    <div className="text-4xl font-bold text-emerald-400 mb-2">↓30%</div>
-                                    <div className="text-xs text-emerald-300 uppercase tracking-wider">Attrition Rate</div>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </div>
-        </section >
-    );
-}
 
 // AI-Enabled Contact Centre Section - Redesigned (Metric Cards)
 // AI-Enabled Contact Centre Section - Redesigned (Premium Noise & Blobs)

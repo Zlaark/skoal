@@ -200,7 +200,7 @@ export default function Hero() {
                 <div className="text-xl md:text-2xl font-serif font-medium text-slate-900 leading-none mb-1 group-hover:text-emerald-700 transition-colors">
                   100%
                 </div>
-                <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
+                <div className="text-xs text-slate-600 font-bold uppercase tracking-wider">
                   Compliance
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default function Hero() {
                 <div className="text-xl md:text-2xl font-serif font-medium text-slate-900 leading-none mb-1 group-hover:text-blue-700 transition-colors">
                   Global
                 </div>
-                <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
+                <div className="text-xs text-slate-600 font-bold uppercase tracking-wider">
                   Coverage
                 </div>
               </div>

@@ -14,7 +14,7 @@ export default function Template({ children }) {
         - Animates them in a staggered wave pattern
         - Adds texture and depth instead of a flat blocking layer
       */}
-      <div className="fixed inset-0 z-[60] pointer-events-none flex flex-row h-full w-full">
+      <div className="fixed inset-0 z-60 pointer-events-none flex flex-row h-full w-full">
         {[...Array(columns)].map((_, i) => (
           <motion.div
             key={i}
@@ -39,7 +39,7 @@ export default function Template({ children }) {
             }}
           >
             {/* Subtle inner gradient/highlight for depth */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-20" />
+            <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent opacity-20" />
           </motion.div>
         ))}
       </div>

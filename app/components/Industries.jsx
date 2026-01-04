@@ -187,7 +187,7 @@ export default function Industries() {
 
         {/* Progress Indicator - Top Right */}
         <div className="absolute top-24 md:top-16 right-4 md:right-16 z-20 flex items-center gap-4">
-          <span className="text-xs font-bold text-slate-300 uppercase tracking-widest hidden md:block">Scroll to Explore</span>
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-widest hidden md:block">Scroll to Explore</span>
           <div className="w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-emerald-600 rounded-full"
