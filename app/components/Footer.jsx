@@ -36,9 +36,24 @@ export default function Footer() {
 
           {/* Links Columns */}
           <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
-            <FooterColumn title="Platform" links={["Global Payroll", "Compliance", "Benefits", "Contractors"]} />
-            <FooterColumn title="Company" links={["About Us", "Careers", "Press", "Contact"]} />
-            <FooterColumn title="Resources" links={["Blog", "Case Studies", "Help Center", "API Docs"]} />
+            <FooterColumn
+              title="Platform"
+              links={[
+                { label: "Global Payroll", href: "/services" },
+                { label: "Compliance", href: "/services" },
+                { label: "Benefits", href: "/services" },
+                { label: "Contractors", href: "/services" }
+              ]}
+            />
+            <FooterColumn
+              title="Company"
+              links={[
+                { label: "About Us", href: "/about" },
+                { label: "Careers", href: "/about" },
+                { label: "Press", href: "/about" },
+                { label: "Contact", href: "/contact" }
+              ]}
+            />
           </div>
 
         </div>
@@ -90,9 +105,9 @@ function FooterColumn({ title, links }) {
       <h4 className="text-white font-medium mb-6">{title}</h4>
       <ul className="space-y-4">
         {links.map((link) => (
-          <li key={link}>
-            <a href="#" className="text-emerald-200/60 hover:text-white transition-colors text-sm">
-              {link}
+          <li key={link.label}>
+            <a href={link.href} className="text-emerald-200/60 hover:text-white transition-colors text-sm">
+              {link.label}
             </a>
           </li>
         ))}

@@ -75,24 +75,24 @@ const StickyCard = ({ item, index, progress, range, targetScale }) => {
         <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
             <motion.div
                 style={{ scale, top: `calc(10% + ${index * 25}px)` }} // Stacking offset
-                className="relative w-full max-w-5xl aspect-[1.8/1] rounded-[3rem] overflow-hidden origin-top shadow-2xl"
+                className="relative w-full max-w-5xl aspect-[4/5] md:aspect-[1.8/1] rounded-[2rem] md:rounded-[3rem] overflow-hidden origin-top shadow-2xl"
             >
                 {/* Visual Card Container */}
-                <div className={`relative w-full h-full p-12 lg:p-20 flex flex-col justify-between border ${item.theme.border} ${item.theme.bg} ${item.theme.glow} shadow-xl backdrop-blur-3xl`}>
+                <div className={`relative w-full h-full p-8 md:p-12 lg:p-20 flex flex-col justify-between border ${item.theme.border} ${item.theme.bg} ${item.theme.glow} shadow-xl backdrop-blur-3xl`}>
 
                     {/* Background Texture & Icon */}
                     <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
-                        <item.bgIcon className="absolute -right-20 -bottom-40 w-[600px] h-[600px] stroke-1" />
+                        <item.bgIcon className="absolute -right-20 -bottom-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] stroke-1" />
                     </div>
 
                     {/* Top Row */}
                     <div className="flex justify-between items-start z-10">
                         <div>
-                            <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6 ${item.theme.main}`}>
-                                <item.icon size={16} />
-                                <span className="text-xs font-bold tracking-[0.2em] uppercase">{item.subtitle}</span>
+                            <div className={`inline-flex items-center gap-3 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 md:mb-6 ${item.theme.main}`}>
+                                <item.icon size={14} className="md:w-4 md:h-4" />
+                                <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase">{item.subtitle}</span>
                             </div>
-                            <h3 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] max-w-2xl">
+                            <h3 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] max-w-2xl">
                                 {item.title}
                             </h3>
                         </div>
@@ -109,7 +109,7 @@ const StickyCard = ({ item, index, progress, range, targetScale }) => {
                     </div>
 
                     {/* Bottom Row */}
-                    <div className="flex justify-between items-end z-10 pt-10">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end z-10 pt-6 md:pt-10 gap-6">
                         <p className="text-xl md:text-2xl text-slate-300 leading-relaxed max-w-xl font-medium">
                             {item.description}
                         </p>
