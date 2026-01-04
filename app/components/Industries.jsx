@@ -224,9 +224,9 @@ export default function Industries() {
               <p className="relative z-10 text-slate-500 mb-8 max-w-xs mx-auto">
                 We build custom workforce solutions for unique operational challenges.
               </p>
-              <button aria-label="Explore partnership opportunities" className="relative z-10 px-8 py-4 bg-slate-900 text-white rounded-full font-bold shadow-xl shadow-slate-900/10 hover:bg-emerald-600 transition-all duration-300 flex items-center gap-2 group-hover:px-10">
+              <Link href="/contact" aria-label="Explore partnership opportunities" className="relative z-10 px-8 py-4 bg-slate-900 text-white rounded-full font-bold shadow-xl shadow-slate-900/10 hover:bg-emerald-600 transition-all duration-300 flex items-center gap-2 group-hover:px-10">
                 Let's Talk <ArrowRight size={18} />
-              </button>
+              </Link>
             </div>
 
             {/* End Spacer to allow full scroll of last card */}
