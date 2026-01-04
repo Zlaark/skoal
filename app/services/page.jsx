@@ -1138,11 +1138,11 @@ export default function ServicesPage() {
                     </div>
 
                     {/* RIGHT: REFINED CARD DECK "THE FAN" */}
-                    <div className="relative h-[600px] flex items-center justify-center perspective-[2000px]">
+                    <div className="relative h-[500px] md:h-[600px] flex items-center justify-center perspective-[2000px]">
 
                         {/* Container Scope for Hover Effect */}
                         <motion.div
-                            className="relative w-[380px] h-[520px] cursor-pointer"
+                            className="relative w-[300px] h-[450px] md:w-[380px] md:h-[520px] cursor-pointer"
                             whileHover="hover"
                             initial="initial"
                             animate="animate"
