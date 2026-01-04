@@ -35,8 +35,9 @@ import {
     Zap
 } from "lucide-react";
 import AIServiceCard from "./AIServiceCard";
-import PrecisionStepper from "./PrecisionStepper";
+import TechPayrollSection from "./TechPayrollSection";
 import Footer from "../components/Footer";
+import PrecisionStepper from "./PrecisionStepper";
 
 // --- Components ---
 
@@ -957,385 +958,6 @@ const payrollFeatures = [
     }
 ];
 
-function TechPayrollSection() {
-    const [activeFeature, setActiveFeature] = useState(0);
-    const ref = useRef(null);
-
-    return (
-        <section ref={ref} className="bg-[#FAFAFA] relative py-20 lg:py-32">
-            {/* Animated Background Elements - ENHANCED VISIBILITY */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {/* 1. Stronger Grid Pattern */}
-                <div className="absolute inset-0 opacity-[0.6]"
-                    style={{
-                        backgroundImage: 'radial-gradient(#94a3b8 1px, transparent 1px)',
-                        backgroundSize: '24px 24px'
-                    }}
-                />
-
-                {/* 2. Secondary Moving Grid (Subtle Parallax) */}
-                <motion.div
-                    className="absolute inset-0 opacity-[0.1]"
-                    style={{
-                        backgroundImage: 'linear-gradient(0deg, transparent 24%, #e2e8f0 25%, #e2e8f0 26%, transparent 27%, transparent 74%, #e2e8f0 75%, #e2e8f0 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, #e2e8f0 25%, #e2e8f0 26%, transparent 27%, transparent 74%, #e2e8f0 75%, #e2e8f0 76%, transparent 77%, transparent)',
-                        backgroundSize: '50px 50px'
-                    }}
-                    animate={{ backgroundPosition: ["0px 0px", "50px 50px"] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                />
-
-                {/* 3. Floating Orbs - Increased Opacity & Saturation */}
-                <motion.div
-                    className="absolute -top-[10%] -right-[5%] w-[700px] h-[700px] bg-emerald-300/30 rounded-full blur-[80px] mix-blend-multiply"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 90, 0],
-                        opacity: [0.4, 0.7, 0.4]
-                    }}
-                    transition={{
-                        duration: 15,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                />
-                <motion.div
-                    className="absolute top-[30%] -left-[10%] w-[600px] h-[600px] bg-teal-300/30 rounded-full blur-[80px] mix-blend-multiply"
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, -50, 0],
-                        scale: [1, 1.3, 1]
-                    }}
-                    transition={{
-                        duration: 18,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-[-10%] right-[10%] w-[500px] h-[500px] bg-cyan-300/30 rounded-full blur-[80px] mix-blend-multiply"
-                    animate={{
-                        scale: [1, 1.4, 1],
-                        opacity: [0.3, 0.6, 0.3],
-                        x: [0, -50, 0]
-                    }}
-                    transition={{
-                        duration: 12,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-
-                {/* 4. Active "Noise" Texture for Premium Feel */}
-                <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-            </div>
-
-            <div className="container mx-auto px-6 lg:px-12">
-                <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-
-                    {/* LEFT COLUMN - STICKY VISUAL */}
-                    <div className="hidden lg:flex w-1/2 h-screen sticky top-0 items-center justify-center pointer-events-none">
-                        <div className="relative w-full aspect-square max-w-[550px]">
-                            {/* Outer Glow/Aura */}
-                            <motion.div
-                                className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-full blur-[80px]"
-                                animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-                                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                            />
-
-                            {/* Main Card Container - Glassmorphism */}
-                            <motion.div
-                                className="relative w-full h-full bg-[#0A261D] backdrop-blur-2xl rounded-[3rem] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.4)] border border-emerald-500/30 p-8 overflow-hidden z-10"
-                                animate={{ y: [0, -15, 0] }}
-                                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                {/* === 1. BORDER BEAM ANIMATION === */}
-                                {/* Static Border */}
-                                <div className="absolute inset-0 rounded-[3rem] border border-white/40 pointer-events-none z-20" />
-
-                                {/* Rotating Border Gradient (The Beam) */}
-                                <div className="absolute inset-0 rounded-[3rem] overflow-hidden pointer-events-none z-20">
-                                    <motion.div
-                                        className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#10b981_360deg)] opacity-100"
-                                        animate={{ rotate: 360 }}
-                                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                        style={{
-                                            maskImage: "linear-gradient(black, black), linear-gradient(black, black)",
-                                            maskClip: "content-box, border-box",
-                                            maskComposite: "exclude",
-                                            WebkitMaskImage: "linear-gradient(black, black), linear-gradient(black, black)",
-                                            WebkitMaskClip: "content-box, border-box",
-                                            WebkitMaskComposite: "xor",
-                                            padding: "3px" // Thickness of the beam
-                                        }}
-                                    />
-                                </div>
-
-                                {/* === 2. SURFACE SHIMMER EFFECT === */}
-                                {/* === 2. HOME PAGE ANIMATIONS (Blobs & Noise) === */}
-                                <div className="absolute inset-0 opacity-20 bg-gradient-to-br from-emerald-500/30 to-teal-400/30 pointer-events-none" />
-                                <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
-
-                                <motion.div
-                                    className="absolute -top-20 -right-20 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px] pointer-events-none"
-                                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                                    transition={{ duration: 4, repeat: Infinity }}
-                                />
-                                {/* === SCROLLING TECH GRID BACKGROUND - HIGH VISIBILITY === */}
-                                <div className="absolute inset-0 z-0 opacity-50 pointer-events-none overflow-hidden rounded-[3rem]">
-                                    <motion.div
-                                        className="absolute inset-0"
-                                        style={{
-                                            backgroundImage: 'linear-gradient(rgba(16, 185, 129, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.2) 1px, transparent 1px)',
-                                            backgroundSize: '40px 40px'
-                                        }}
-                                        animate={{ y: [0, -40] }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                                    />
-                                    <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0A261D]/40 to-[#0A261D]" />
-                                </div>
-
-                                <motion.div
-                                    className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/20 rounded-full blur-[80px] pointer-events-none"
-                                    animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.7, 0.3] }}
-                                    transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-                                />
-
-                                {/* Retaining Surface Shimmer for extra premium feel */}
-                                <motion.div
-                                    className="absolute inset-0 z-10 pointer-events-none"
-                                    initial={{ x: "-100%" }}
-                                    animate={{ x: "200%" }}
-                                    transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
-                                >
-                                    <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12" />
-                                </motion.div>
-
-                                {/* Inner Content */}
-                                <div className="relative z-10 h-full flex flex-col items-center justify-center">
-                                    <AnimatePresence mode="wait">
-                                        <motion.div
-                                            key={activeFeature}
-                                            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                                            exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-                                            transition={{ duration: 0.5, ease: "circOut" }}
-                                            className="text-center w-full flex flex-col items-center"
-                                        >
-                                            {/* Icon Box */}
-                                            <div className="relative mb-12 group">
-                                                {/* --- CONNECTIVITY BEAMS (New) --- */}
-                                                {/* Vertical Beam */}
-                                                <div className="absolute left-1/2 -translate-x-1/2 top-full h-16 w-1 bg-gradient-to-b from-emerald-500/50 to-transparent">
-                                                    <motion.div
-                                                        className="w-full h-4 bg-emerald-400 blur-[2px]"
-                                                        animate={{ y: [0, 60], opacity: [0, 1, 0] }}
-                                                        transition={{ duration: 1.5, repeat: Infinity }}
-                                                    />
-                                                </div>
-
-                                                {/* --- HOLOGRAPHIC PLATFORM (Brighter) --- */}
-                                                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-48 h-8 bg-emerald-400/40 rounded-[100%] blur-lg opacity-80" />
-                                                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-32 h-2 bg-white/50 rounded-[100%] blur-md" />
-
-                                                {/* 1. Radar Pulse Rings */}
-                                                <motion.div
-                                                    className="absolute inset-0 -m-8 border border-emerald-500/40 rounded-full"
-                                                    animate={{ scale: [0.8, 1.4], opacity: [0.6, 0], borderWidth: ["2px", "0px"] }}
-                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                                                />
-                                                <motion.div
-                                                    className="absolute inset-0 -m-8 border border-emerald-500/30 rounded-full"
-                                                    animate={{ scale: [0.8, 1.4], opacity: [0.5, 0], borderWidth: ["2px", "0px"] }}
-                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                                                />
-                                                <motion.div
-                                                    className="absolute inset-0 -m-8 border border-emerald-400/20 rounded-full"
-                                                    animate={{ scale: [0.8, 1.4], opacity: [0.5, 0], borderWidth: ["2px", "0px"] }}
-                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
-                                                />
-
-                                                {/* 2. Outer Glow Blob */}
-                                                <motion.div
-                                                    className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-[2.5rem] blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"
-                                                    animate={{ scale: [1, 1.2, 1] }}
-                                                    transition={{ duration: 4, repeat: Infinity }}
-                                                />
-
-                                                {/* 3. Orbiting Satellite */}
-                                                <motion.div
-                                                    className="absolute inset-0 -m-4 pointer-events-none"
-                                                    animate={{ rotate: 360 }}
-                                                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                                                >
-                                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_15px_#fff]" />
-                                                </motion.div>
-
-                                                {/* Main Icon Container */}
-                                                <div className="relative w-48 h-48 rounded-[2.5rem] bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-[0_20px_50px_-10px_rgba(16,185,129,0.4)] border border-white/20 z-10">
-                                                    <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent rounded-[2.5rem]" />
-                                                    <div className="text-white drop-shadow-md relative z-10">
-                                                        {activeFeature === 0 && <Monitor size={80} strokeWidth={1.5} />}
-                                                        {activeFeature === 1 && <Fingerprint size={80} strokeWidth={1.5} />}
-                                                        {activeFeature === 2 && <BarChart2 size={80} strokeWidth={1.5} />}
-                                                        {activeFeature === 3 && <Lock size={80} strokeWidth={1.5} />}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Stats Row - Floating Cards */}
-                                            <div className="flex justify-center gap-6 w-full px-4">
-                                                {payrollFeatures[activeFeature].stats.map((stat, idx) => (
-                                                    <motion.div
-                                                        key={idx}
-                                                        className="flex-1 bg-white/10 backdrop-blur-md px-6 py-5 rounded-3xl border border-white/10 shadow-xl shadow-black/20 text-left relative overflow-hidden group"
-                                                        initial={{ opacity: 0, y: 30 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ delay: 0.1 + idx * 0.1, type: "spring", stiffness: 200, damping: 20 }}
-                                                        whileHover={{ y: -5, transition: { duration: 0.2 }, backgroundColor: "rgba(255,255,255,0.15)" }}
-                                                    >
-                                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-emerald-400/20 to-transparent rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500" />
-
-                                                        {/* Animated Pulse Bar */}
-                                                        <div className="absolute bottom-0 left-0 h-1 bg-emerald-500/30 w-full overflow-hidden">
-                                                            <motion.div
-                                                                className="h-full bg-emerald-400/80 w-1/3 rounded-r-full"
-                                                                animate={{ x: ["-100%", "300%"] }}
-                                                                transition={{ duration: 2 + idx, repeat: Infinity, ease: "linear" }}
-                                                            />
-                                                        </div>
-
-                                                        <motion.div
-                                                            className="text-3xl font-bold text-white mb-2 relative z-10"
-                                                            initial={{ scale: 0.5, opacity: 0 }}
-                                                            animate={{ scale: 1, opacity: 1 }}
-                                                            transition={{ delay: 0.3 + idx * 0.1, type: "spring" }}
-                                                        >
-                                                            {stat.value}
-                                                        </motion.div>
-                                                        <div className="text-[11px] font-bold text-emerald-400/80 uppercase tracking-widest relative z-10">
-                                                            {stat.label}
-                                                        </div>
-                                                    </motion.div>
-                                                ))}
-                                            </div>
-                                        </motion.div>
-                                    </AnimatePresence>
-                                </div>
-                            </motion.div>
-                        </div>
-                    </div>
-
-                    {/* RIGHT COLUMN - SCROLL CONTENT */}
-                    <div className="w-full lg:w-1/2">
-                        {/* Section Header */}
-                        <div className="min-h-[40vh] flex flex-col justify-end mb-20 pt-20">
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                            >
-                                <span className="inline-block py-2 px-4 rounded-xl bg-emerald-50 text-emerald-600 font-bold tracking-widest text-xs uppercase mb-6">
-                                    Technology Infrastructure
-                                </span>
-                                <h2 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6">
-                                    Technology-Led <br />
-                                    <span className="text-[#00C885]">Payroll Control</span>
-                                </h2>
-                                <p className="text-lg text-slate-500 leading-relaxed font-light max-w-lg">
-                                    Eliminate leakages and improve accountability with our proprietary, integrated tech stack.
-                                </p>
-                            </motion.div>
-                        </div>
-
-                        {/* Scrolling Feature Items */}
-                        <div className="flex flex-col gap-32">
-                            {payrollFeatures.map((feature, index) => (
-                                <motion.div
-                                    key={feature.id}
-                                    className="min-h-[50vh] flex items-center perspective-1000"
-                                    onViewportEnter={() => setActiveFeature(index)}
-                                    viewport={{ margin: "-50% 0px -50% 0px" }}
-                                >
-                                    <motion.div
-                                        className={`
-                                            group w-full p-12 rounded-[3rem] transition-all duration-700 relative overflow-hidden backdrop-blur-xl border
-                                            ${activeFeature === index
-                                                ? 'bg-[#0A261D] border-emerald-500/30 shadow-[0_40px_100px_-30px_rgba(16,185,129,0.2)] opacity-100 scale-100'
-                                                : 'bg-white/40 border-white/20 shadow-none opacity-40 grayscale scale-95'}
-                                        `}
-                                        animate={activeFeature === index ? { x: 0 } : { x: 40 }}
-                                        whileHover={activeFeature === index ? { y: -5, transition: { duration: 0.2 } } : {}}
-                                        transition={{ duration: 0.6, ease: "easeOut" }}
-                                    >
-                                        {/* Active Gradient Border Overlay & Blobs */}
-                                        {activeFeature === index && (
-                                            <>
-                                                <div className="absolute inset-0 opacity-20 bg-gradient-to-br from-emerald-500/30 to-teal-400/30" />
-                                                <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
-
-                                                {/* Floating Blobs (Home Page Style) */}
-                                                <motion.div
-                                                    className="absolute -top-20 -right-20 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px]"
-                                                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                                                    transition={{ duration: 4, repeat: Infinity }}
-                                                />
-                                                <motion.div
-                                                    className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px]"
-                                                    animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
-                                                    transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-                                                />
-
-                                                <div className="absolute inset-0 rounded-[3rem] p-0.5 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 opacity-50 [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]"
-                                                    style={{ maskComposite: 'exclude', WebkitMaskComposite: 'xor' }}
-                                                />
-                                            </>
-                                        )}
-
-                                        <div className="relative z-10">
-                                            <div className="flex items-center justify-between mb-8">
-                                                <div className={`
-                                                    w-14 h-14 rounded-2xl flex items-center justify-center font-bold font-mono text-xl transition-colors duration-500
-                                                    ${activeFeature === index ? 'bg-gradient-to-br from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30' : 'bg-slate-100 text-slate-400'}
-                                                `}>
-                                                    0{index + 1}
-                                                </div>
-                                                <div className={`
-                                                    text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-colors duration-500
-                                                    ${activeFeature === index ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-50 text-slate-400'}
-                                                `}>
-                                                    {feature.subtitle}
-                                                </div>
-                                            </div>
-
-                                            <h3 className={`
-                                                text-3xl md:text-4xl font-bold mb-6 transition-colors duration-500
-                                                ${activeFeature === index ? 'text-white' : 'text-slate-400'}
-                                            `}>
-                                                {feature.title}
-                                            </h3>
-
-                                            <p className={`
-                                                text-lg leading-relaxed transition-colors duration-500
-                                                ${activeFeature === index ? 'text-slate-300' : 'text-slate-400'}
-                                            `}>
-                                                {feature.desc}
-                                            </p>
-                                        </div>
-                                    </motion.div>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        {/* Bottom Spacer */}
-                        <div className="h-[20vh]" />
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    );
-}
-
 // Recruitment as Extension of Payroll Section
 function RecruitmentSection() {
     const recruitmentCapabilities = [
@@ -1346,9 +968,9 @@ function RecruitmentSection() {
     ];
 
     return (
-        <section className="py-32 px-6 lg:px-12 bg-[#0A261D] relative overflow-hidden">
+        <section className="py-32 px-6 lg:px-12 bg-[#0A261D] relative overflow-hidden" >
             {/* Background Effects */}
-            <div className="absolute inset-0 pointer-events-none">
+            < div className="absolute inset-0 pointer-events-none" >
                 <motion.div
                     animate={{ opacity: [0.1, 0.2, 0.1], scale: [1, 1.2, 1] }}
                     transition={{ duration: 10, repeat: Infinity }}
@@ -1359,7 +981,7 @@ function RecruitmentSection() {
                     transition={{ duration: 12, repeat: Infinity, delay: 2 }}
                     className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[80px]"
                 />
-            </div>
+            </div >
 
             <div className="container mx-auto max-w-6xl relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -1442,7 +1064,7 @@ function RecruitmentSection() {
                     </motion.div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 }
 
