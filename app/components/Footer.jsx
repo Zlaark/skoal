@@ -68,7 +68,7 @@ export default function Footer() {
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
             </div>
-            <p>© 2024 Skoal Solutions Inc.</p>
+            <p>© {new Date().getFullYear()} Skoal Solutions Inc.</p>
           </div>
 
           {/* Back to Top */}

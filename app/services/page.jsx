@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useMotionTemplate, AnimatePresence, useMotionValueEvent } from "framer-motion";
@@ -411,17 +412,19 @@ function HRMS3DCard() {
                         </div>
 
                         {/* Right: CTA Button */}
-                        <motion.button
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="group relative px-8 py-4 bg-white text-[#0A261D] rounded-full font-bold text-lg overflow-hidden shadow-xl hover:shadow-emerald-500/30 transition-all"
-                        >
-                            <span className="relative z-10 flex items-center gap-3">
-                                Request Demo
-                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                            </span>
-                            <div className="absolute inset-0 bg-emerald-100 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                        </motion.button>
+                        <Link href="/book-demo">
+                            <motion.button
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="group relative px-8 py-4 bg-white text-[#0A261D] rounded-full font-bold text-lg overflow-hidden shadow-xl hover:shadow-emerald-500/30 transition-all"
+                            >
+                                <span className="relative z-10 flex items-center gap-3">
+                                    Request Demo
+                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                </span>
+                                <div className="absolute inset-0 bg-emerald-100 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                            </motion.button>
+                        </Link>
                     </div>
 
                     {/* Description */}

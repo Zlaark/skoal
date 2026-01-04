@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useRef } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
@@ -80,16 +81,18 @@ export default function AboutCTA() {
               We are ready to align your workforce with your wildest ambitions.
             </p>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative group/btn inline-flex items-center gap-4 px-10 py-5 rounded-full bg-white text-emerald-950 font-bold text-lg tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] transition-all duration-300"
-            >
-              <span className="relative z-10">Start the Conversation</span>
-              <div className="w-8 h-8 rounded-full bg-emerald-950 text-white flex items-center justify-center group-hover/btn:rotate-45 transition-transform duration-300">
-                <ArrowRight size={16} />
-              </div>
-            </motion.button>
+            <Link href="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative group/btn inline-flex items-center gap-4 px-10 py-5 rounded-full bg-white text-emerald-950 font-bold text-lg tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] transition-all duration-300"
+              >
+                <span className="relative z-10">Start the Conversation</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-950 text-white flex items-center justify-center group-hover/btn:rotate-45 transition-transform duration-300">
+                  <ArrowRight size={16} />
+                </div>
+              </motion.button>
+            </Link>
 
           </div>
         </div>
