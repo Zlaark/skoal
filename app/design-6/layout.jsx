@@ -13,6 +13,24 @@ const inter = Inter({
 export const metadata = {
   title: "Skoal Solutions - Global Payroll Reimagined",
   description: "Secure, compliant, and scalable people solutions across India and the Middle East.",
+  openGraph: {
+    title: "Skoal Solutions - Global Payroll Reimagined",
+    description: "Secure, compliant, and scalable people solutions across India and the Middle East.",
+    images: [
+      {
+        url: "/home-og.png",
+        width: 1200,
+        height: 630,
+        alt: "Skoal Solutions Dashboard Preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Skoal Solutions - Global Payroll Reimagined",
+    description: "Secure, compliant, and scalable people solutions across India and the Middle East.",
+    images: ["/home-og.png"],
+  },
 };
 
 export default function Design6Layout({ children }) {

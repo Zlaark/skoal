@@ -12,6 +12,8 @@ import AboutTeam from "./components/AboutTeam";
 import AboutCTA from "./components/AboutCTA";
 import Footer from "../components/Footer";
 
+
+
 export default function AboutPage() {
     const [loading, setLoading] = useState(false);
 
