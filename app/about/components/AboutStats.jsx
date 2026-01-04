@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -184,58 +185,60 @@ function AnimatedCounter({ value, suffix }) {
 // THE SUPERNOVA BUTTON
 const SupernovaButton = () => {
     return (
-        <motion.button
-            whileHover="hover"
-            initial="idle"
-            className="group relative px-10 py-5 rounded-full bg-white text-slate-950 font-bold text-lg tracking-wide overflow-visible transition-all duration-500 hover:scale-105"
-        >
-            {/* Hover Gradient Background (Absolute) */}
-            <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400 opacity-0"
-                variants={{
-                    hover: { opacity: 1 }
-                }}
-                transition={{ duration: 0.3 }}
-            />
+        <Link href="/contact">
+            <motion.button
+                whileHover="hover"
+                initial="idle"
+                className="group relative px-10 py-5 rounded-full bg-white text-slate-950 font-bold text-lg tracking-wide overflow-visible transition-all duration-500 hover:scale-105"
+            >
+                {/* Hover Gradient Background (Absolute) */}
+                <motion.div
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400 opacity-0"
+                    variants={{
+                        hover: { opacity: 1 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                />
 
-            {/* Shockwave Rings */}
-            <div className="absolute inset-0 rounded-full -z-10 flex items-center justify-center">
-                {[0, 1, 2].map((i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute inset-0 rounded-full border border-white/50"
-                        variants={{
-                            idle: { opacity: 0, scale: 1 },
-                            hover: {
-                                opacity: [0, 0.5, 0],
-                                scale: [1, 1.5 + (i * 0.2)],
-                                borderColor: ["rgba(255,255,255,0.5)", "rgba(16,185,129,0.5)"],
-                                transition: {
-                                    duration: 1.5,
-                                    repeat: Infinity,
-                                    delay: i * 0.2,
-                                    ease: "easeOut"
+                {/* Shockwave Rings */}
+                <div className="absolute inset-0 rounded-full -z-10 flex items-center justify-center">
+                    {[0, 1, 2].map((i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute inset-0 rounded-full border border-white/50"
+                            variants={{
+                                idle: { opacity: 0, scale: 1 },
+                                hover: {
+                                    opacity: [0, 0.5, 0],
+                                    scale: [1, 1.5 + (i * 0.2)],
+                                    borderColor: ["rgba(255,255,255,0.5)", "rgba(16,185,129,0.5)"],
+                                    transition: {
+                                        duration: 1.5,
+                                        repeat: Infinity,
+                                        delay: i * 0.2,
+                                        ease: "easeOut"
+                                    }
                                 }
-                            }
-                        }}
-                    />
-                ))}
-            </div>
+                            }}
+                        />
+                    ))}
+                </div>
 
-            {/* Content */}
-            <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
-                <Zap className="fill-current w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span>Let's Build Together</span>
-                <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </span>
+                {/* Content */}
+                <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
+                    <Zap className="fill-current w-5 h-5 group-hover:scale-110 transition-transform" />
+                    <span>Let's Build Together</span>
+                    <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </span>
 
-            {/* Idle Glow (White) */}
-            <div className="absolute inset-0 rounded-full bg-white blur-lg opacity-20 group-hover:opacity-0 transition-opacity" />
+                {/* Idle Glow (White) */}
+                <div className="absolute inset-0 rounded-full bg-white blur-lg opacity-20 group-hover:opacity-0 transition-opacity" />
 
-            {/* Hover Glow (Colored) */}
-            <div className="absolute inset-0 rounded-full bg-emerald-400 blur-xl opacity-0 group-hover:opacity-40 transition-opacity" />
+                {/* Hover Glow (Colored) */}
+                <div className="absolute inset-0 rounded-full bg-emerald-400 blur-xl opacity-0 group-hover:opacity-40 transition-opacity" />
 
-        </motion.button>
+            </motion.button>
+        </Link>
     );
 };
 
