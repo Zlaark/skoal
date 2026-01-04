@@ -12,10 +12,7 @@ import Magnetic from "./Magnetic";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const isLightMode = pathname === "/design-2" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about" || pathname === "/book-demo";
-  const isDesign4 = pathname === "/design-4";
-  const isHome = pathname === "/";
-  const textColorClass = (isDesign4 || isHome) ? "text-white" : "text-slate-900";
+  const isLightMode = pathname === "/" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about" || pathname === "/book-demo";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,9 +23,9 @@ const Navbar = () => {
   });
 
   const navLinks = [
-    { name: "Home", href: "/design-6" },
-    { name: "About", href: "/design-6/about" },
-    { name: "Services", href: "/design-6/services" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -94,7 +91,7 @@ const Navbar = () => {
             </Magnetic>
             <motion.span
               layout="position"
-              className={`font-bold tracking-tight hidden md:block whitespace-nowrap ${textColorClass}`}
+              className={`font-bold tracking-tight hidden md:block whitespace-nowrap ${isLightMode ? "text-slate-900" : "text-white"}`}
             >
               Skoal Solutions Pvt. Ltd.
             </motion.span>
@@ -116,8 +113,7 @@ const Navbar = () => {
                 <Magnetic key={link.name}>
                   <a
                     href={link.href}
-                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors group overflow-hidden ${textColorClass} ${(isDesign4 || isHome) ? "hover:text-emerald-400" : "hover:text-black"
-                      }`}
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors group overflow-hidden ${isLightMode ? "text-slate-900" : "text-white"}`}
                   >
                     <span className="relative z-10">{link.name}</span>
                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300 ${isLightMode ? "bg-black/5" : "bg-white/5"
@@ -152,7 +148,7 @@ const Navbar = () => {
             {/* Mobile Toggle */}
             <button
               aria-label="Open mobile menu"
-              className={`md:hidden p-2 rounded-full ml-2 ${textColorClass} bg-black/10`}
+              className={`md:hidden p-2 rounded-full ml-2  bg-black/10`}
               onClick={() => setMobileMenuOpen(true)}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
