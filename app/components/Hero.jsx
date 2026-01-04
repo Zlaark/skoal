@@ -251,7 +251,7 @@ export default function Hero() {
               <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
 
               {/* Noise Texture */}
-              <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+              <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.svg')] mix-blend-overlay"></div>
 
               {/* Decorative Header */}
               <div className="flex items-center justify-between mb-8 relative z-10">

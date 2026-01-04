@@ -82,7 +82,7 @@ const Card = ({ card }) => {
       <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-linear-to-br ${card.gradient}`} />
 
       {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+      <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.svg')] mix-blend-overlay"></div>
 
       {/* Abstract Shapes */}
       <div className="absolute -top-20 -right-20 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px] group-hover:bg-emerald-400/30 transition-colors duration-700" />
@@ -213,7 +213,7 @@ export default function Industries() {
             {/* CTA / End Card */}
             <div className="w-[340px] md:w-[380px] h-[480px] shrink-0 relative group rounded-4xl overflow-hidden cursor-pointer snap-center border border-slate-200 flex flex-col items-center justify-center text-center p-10 hover:border-emerald-500/50 transition-colors duration-700">
               {/* Pattern BG */}
-              <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+              <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.svg')]"></div>
 
               <div className="relative z-10 w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
                 <Globe size={36} className="text-emerald-600" strokeWidth={1.5} />

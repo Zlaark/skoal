@@ -68,7 +68,7 @@ export default function TechPayrollSection() {
       {/* 1. Global Ambient Background - Contained Overflow for sticky fix */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Light noise texture */}
-        <div className="absolute inset-0 opacity-[0.4] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+        <div className="absolute inset-0 opacity-[0.4] bg-[url('/noise.svg')] mix-blend-overlay" />
 
         {/* Active Color Bloom - Subtle on Light Mode */}
         <AnimatePresence mode="wait">

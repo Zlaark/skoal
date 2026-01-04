@@ -293,7 +293,7 @@ export default function ContactPage() {
         <div className="w-full lg:w-1/2 xl:w-7/12 min-h-[500px] lg:h-screen lg:sticky lg:top-0 bg-zinc-950 text-white p-12 lg:p-20 flex flex-col relative overflow-hidden">
 
           {/* Background Texture */}
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 Mix-blend-overlay" />
+          <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 Mix-blend-overlay" />
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-900/10 rounded-full blur-[120px]" />
 
           {/* Header */}

@@ -239,7 +239,7 @@ function PrecisionCard({ service, index }) {
 
                 {/* Animated Mesh Noise Background */}
                 <div className="absolute inset-0 opacity-[0.4] mix-blend-soft-light pointer-events-none">
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+                    <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20" />
                 </div>
 
                 {/* Decorative Background Blob (Animated) */}
@@ -354,7 +354,7 @@ function HRMS3DCard() {
                 {/* === ANIMATED BACKGROUNDS === */}
 
                 {/* Noise Texture */}
-                <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
+                <div className="absolute inset-0 opacity-[0.05] bg-[url('/noise.svg')] mix-blend-overlay pointer-events-none" />
 
                 {/* Animated Gradient Blobs */}
                 <motion.div
