@@ -56,15 +56,15 @@ const TimelineNode = ({ item, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
-      className={`flex items-center justify-between w-full mb-32 relative ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}
+      className={`relative w-full mb-12 md:mb-32 flex flex-col md:flex-row md:items-center md:justify-between ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}
     >
-      {/* The Horizontal Connector Beam */}
+      {/* The Horizontal Connector Beam (Desktop Only) */}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true, margin: "-150px" }}
         transition={{ duration: 0.8, delay: 0.2, ease: "circOut" }}
-        className={`absolute top-1/2 -translate-y-1/2 w-[50%] h-[2px] bg-linear-to-r ${item.gradient} origin-${isLeft ? 'right' : 'left'} ${isLeft ? 'right-[50%]' : 'left-[50%]'}`}
+        className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-[50%] h-[2px] bg-linear-to-r ${item.gradient} origin-${isLeft ? 'right' : 'left'} ${isLeft ? 'right-[50%]' : 'left-[50%]'}`}
       >
         {/* Pulse moving along the beam */}
         <motion.div
@@ -75,13 +75,13 @@ const TimelineNode = ({ item, index }) => {
       </motion.div>
 
       {/* Content Card */}
-      <div className={`w-full md:w-5/12 relative z-10 ${isLeft ? 'text-right pr-12' : 'text-left pl-12'}`}>
+      <div className={`w-full md:w-5/12 relative z-10 pl-20 md:pl-0 ${isLeft ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="p-10 rounded-4xl bg-white/60 backdrop-blur-xl border border-white/50 shadow-2xl hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 relative overflow-hidden group"
+          className="p-8 md:p-10 rounded-3xl md:rounded-4xl bg-white/60 backdrop-blur-xl border border-white/50 shadow-xl md:shadow-2xl hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 relative overflow-hidden group"
         >
           {/* Massive Watermark Year */}
-          <span className={`text-[8rem] font-bold absolute -bottom-10 opacity-[0.05] pointer-events-none select-none ${isLeft ? '-left-6' : '-right-6'} ${item.color}`}>
+          <span className={`text-6xl md:text-[8rem] font-bold absolute -bottom-5 md:-bottom-10 opacity-[0.05] pointer-events-none select-none right-4 md:auto ${isLeft ? 'md:-left-6 md:right-auto' : 'md:-right-6'} ${item.color}`}>
             {item.year}
           </span>
 
@@ -90,18 +90,18 @@ const TimelineNode = ({ item, index }) => {
 
           <div className="relative z-10">
             {/* Title Row */}
-            <div className={`flex items-center gap-4 mb-4 ${isLeft ? 'justify-end' : 'justify-start'}`}>
-              <h3 className="text-3xl font-bold text-slate-900">{item.title}</h3>
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${item.bg} bg-opacity-10 ${item.color}`}>
-                <item.icon size={22} />
+            <div className={`flex items-center gap-4 mb-4 ${isLeft ? 'justify-start md:justify-end' : 'justify-start'}`}>
+              <h3 className="text-2xl md:text-3xl font-bold text-slate-900 order-1 md:order-none">{item.title}</h3>
+              <div className={`inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full ${item.bg} bg-opacity-10 ${item.color} shrink-0 order-0 md:order-none`}>
+                <item.icon size={20} className="md:w-[22px] md:h-[22px]" />
               </div>
             </div>
 
-            <p className="text-lg text-slate-600 leading-relaxed font-medium">
+            <p className="text-base md:text-lg text-slate-600 leading-relaxed font-medium text-left md:text-inherit">
               {item.description}
             </p>
 
-            <div className={`mt-6 text-sm font-bold tracking-widest uppercase opacity-40 ${item.color}`}>
+            <div className={`mt-6 text-sm font-bold tracking-widest uppercase opacity-40 text-left md:text-inherit ${item.color}`}>
               {item.year}
             </div>
           </div>
@@ -109,19 +109,19 @@ const TimelineNode = ({ item, index }) => {
       </div>
 
       {/* Central Timeline Node */}
-      <div className="absolute left-1/2 -translate-x-1/2 z-20">
+      <div className="absolute left-8 md:left-1/2 -translate-x-1/2 z-20 top-0 md:top-auto md:relative">
         <motion.div
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          className={`w-16 h-16 rounded-full border-4 border-white ${item.bg} shadow-[0_0_0_8px_rgba(255,255,255,0.5)] flex items-center justify-center`}
+          className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white ${item.bg} shadow-[0_0_0_4px_rgba(255,255,255,0.5)] md:shadow-[0_0_0_8px_rgba(255,255,255,0.5)] flex items-center justify-center`}
         >
-          <div className="w-5 h-5 bg-white rounded-full animate-pulse" />
+          <div className="w-3 h-3 md:w-5 md:h-5 bg-white rounded-full animate-pulse" />
         </motion.div>
       </div>
 
-      {/* Empty Space for Balance */}
-      <div className="w-full md:w-5/12" />
+      {/* Empty Space for Balance (Desktop Only) */}
+      <div className="hidden md:block w-5/12" />
     </motion.div>
   );
 };
@@ -136,16 +136,16 @@ export default function AboutStory() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section ref={containerRef} className="relative py-40 bg-[#FAFAFA] overflow-hidden">
+    <section ref={containerRef} className="relative py-20 md:py-40 bg-[#FAFAFA] overflow-hidden">
 
       {/* Ambient Background Glows */}
-      <div className="absolute top-[20%] left-[20%] w-[500px] h-[500px] bg-blue-400/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[20%] w-[500px] h-[500px] bg-emerald-400/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-400/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-emerald-400/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-4 md:px-6 lg:px-12">
 
         {/* Header */}
-        <div className="text-center mb-32 relative z-10">
+        <div className="text-center mb-20 md:mb-32 relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -155,7 +155,7 @@ export default function AboutStory() {
             <span className="text-xs font-bold text-slate-500 tracking-widest uppercase">Our Evolution</span>
           </motion.div>
 
-          <h2 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-slate-900 tracking-tight leading-[1.1] md:leading-[1]">
             From a Vision to <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500 font-serif italic">Global Velocity.</span>
           </h2>
@@ -165,7 +165,7 @@ export default function AboutStory() {
         <div className="relative max-w-6xl mx-auto">
 
           {/* The Chrono-Beam (Central Line) */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-slate-100 rounded-full overflow-hidden">
+          <div className="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-slate-100 rounded-full overflow-hidden">
             <motion.div
               style={{ height: lineHeight }}
               className="w-full bg-linear-to-b from-blue-500 via-emerald-500 to-purple-500 shadow-[0_0_20px_2px_rgba(16,185,129,0.5)]"
