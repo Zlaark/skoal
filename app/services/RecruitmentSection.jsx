@@ -52,7 +52,7 @@ export default function RecruitmentSection() {
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
 
   return (
-    <section ref={containerRef} className="py-32 bg-white relative overflow-hidden">
+    <section ref={containerRef} id="recruitment" className="py-32 bg-white relative overflow-hidden">
       {/* Background Texture - Dot Grid */}
       <div
         className="absolute inset-0 opacity-[0.4]"

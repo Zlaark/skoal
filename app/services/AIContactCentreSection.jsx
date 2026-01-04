@@ -15,7 +15,7 @@ export default function AIContactCentreSection() {
   const rotateCore = useTransform(scrollYProgress, [0, 1], [0, 45]);
 
   return (
-    <section ref={containerRef} className="py-32 bg-slate-50 relative overflow-hidden">
+    <section ref={containerRef} id="contact-centre" className="py-32 bg-slate-50 relative overflow-hidden">
 
       {/* Ambient Background - Green/Teal for "Greener" AI Vibe */}
       <div className="absolute inset-0 pointer-events-none">
