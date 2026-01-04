@@ -767,7 +767,7 @@ function BentoCard({ item, index }) {
     );
 }
 
-// BPO Services Section - The Prism Revolver
+// BPO Services Section - "The Emerald Flood"
 function BPOSection() {
     const bpoServices = [
         {
@@ -776,8 +776,7 @@ function BPOSection() {
             description: "From voice to chat, we manage every touchpoint to boost retention and satisfaction.",
             stat: "24/7",
             label: "Availability",
-            tag: "360° SUPPORT",
-            icon: <Headset size={28} className="stroke-[1.5]" />
+            icon: <Headset size={32} className="stroke-[1.5]" />
         },
         {
             id: "growth",
@@ -785,8 +784,7 @@ function BPOSection() {
             description: "Turn abandoned carts into conversions with strategic outbound campaigns.",
             stat: "3x",
             label: "ROI Boost",
-            tag: "SALES ACCEL",
-            icon: <TrendingUp size={28} className="stroke-[1.5]" />
+            icon: <TrendingUp size={32} className="stroke-[1.5]" />
         },
         {
             id: "quality",
@@ -794,8 +792,7 @@ function BPOSection() {
             description: "Real-time scoring of every interaction to ensure compliance and quality.",
             stat: "99.9%",
             label: "Accuracy",
-            tag: "AI MONITORING",
-            icon: <ShieldCheck size={28} className="stroke-[1.5]" />
+            icon: <ShieldCheck size={32} className="stroke-[1.5]" />
         },
         {
             id: "analytics",
@@ -803,86 +800,112 @@ function BPOSection() {
             description: "Transform raw interaction data into actionable business strategies.",
             stat: "500+",
             label: "Metrics",
-            tag: "PREDICTIVE",
-            icon: <BarChart3 size={28} className="stroke-[1.5]" />
+            icon: <BarChart3 size={32} className="stroke-[1.5]" />
         }
     ];
 
     return (
-        <section className="relative py-24 lg:py-32 bg-[#FAFAFA] overflow-hidden">
-            {/* Background Pattern */}
+        <section className="relative py-32 bg-slate-50 overflow-hidden">
+            {/* === CLEAN BACKGROUND (No Grid) === */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 opacity-[0.4]"
-                    style={{
-                        backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
-                        backgroundSize: '32px 32px'
-                    }}
-                />
+                {/* Subtle Ambient Orbs */}
+                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-50/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-50/40 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
             </div>
 
             <div className="container mx-auto px-6 max-w-7xl relative z-10">
                 {/* Header */}
-                <div className="text-center mb-20">
-                    <div className="inline-block px-4 py-1.5 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-widest uppercase mb-6">
-                        BPO Services
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                    <div className="max-w-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-bold tracking-widest uppercase mb-6"
+                        >
+                            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                            Global Operations
+                        </motion.div>
+                        <h2 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
+                            The Outsourcing <br />
+                            <span className="font-serif italic text-emerald-600">Standard.</span>
+                        </h2>
                     </div>
-                    <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 tracking-tight">
-                        Business Process <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 italic font-serif">Outsourcing</span>
-                    </h2>
-                    <p className="text-xl text-slate-500 max-w-2xl mx-auto">
-                        Seamlessly managing customer interactions across global markets with 99.9% accuracy.
-                    </p>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xl text-slate-500 max-w-md font-medium leading-relaxed"
+                    >
+                        Refracting complex operational demands into clear, high-performance outcomes.
+                    </motion.p>
                 </div>
 
-                {/* Cards Row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {/* THE CARDS */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {bpoServices.map((service, index) => (
-                        <motion.div
-                            key={service.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
-                            className="group relative bg-white rounded-[2rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 hover:shadow-[0_20px_50px_-10px_rgba(16,185,129,0.15)] hover:border-emerald-500/30 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full"
-                        >
-                            {/* Top Row: Icon + Tag */}
-                            <div className="flex justify-between items-start mb-8">
-                                <div className="p-3.5 rounded-2xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-500">
-                                    {service.icon}
-                                </div>
-                                <div className="px-3 py-1 rounded-full bg-slate-100 text-[10px] font-bold tracking-wider text-slate-500 uppercase group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
-                                    {service.tag}
-                                </div>
-                            </div>
-
-                            {/* Content */}
-                            <div className="mb-auto">
-                                <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">
-                                    {service.title}
-                                </h3>
-                                <p className="text-slate-500 leading-relaxed text-sm">
-                                    {service.description}
-                                </p>
-                            </div>
-
-                            {/* Footer: Stat + Button */}
-                            <div className="mt-10 pt-6 border-t border-slate-100 flex items-center justify-between group-hover:border-emerald-100 transition-colors">
-                                <div>
-                                    <div className="text-3xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">{service.stat}</div>
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{service.label}</div>
-                                </div>
-                                <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:border-emerald-500 group-hover:text-white transition-all duration-300">
-                                    <ArrowUpRight size={18} />
-                                </button>
-                            </div>
-                        </motion.div>
+                        <FloodCard key={service.id} service={service} index={index} />
                     ))}
                 </div>
             </div>
         </section>
     );
 }
+
+// Sub-component: The "Flood" Card
+function FloodCard({ service, index }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            className="group relative h-[420px] rounded-[2.5rem] bg-white border border-slate-100 hover:border-emerald-500/0 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/20 overflow-hidden transition-all duration-500 flex flex-col justify-between p-10"
+        >
+            {/* === FLOOD FILL LAYER === */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
+
+            {/* Content Container */}
+            <div className="relative z-10 flex flex-col h-full">
+
+                {/* Header: Icon */}
+                <div className="flex justify-between items-start">
+                    <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-white/10 group-hover:border-white/20 flex items-center justify-center text-slate-900 group-hover:text-white transition-all duration-500">
+                        {service.icon}
+                    </div>
+                </div>
+
+                {/* Body: Text */}
+                <div className="mt-auto space-y-4">
+                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
+                        {service.title}
+                    </h3>
+                    <p className="text-slate-500 text-sm leading-relaxed group-hover:text-emerald-50/90 transition-colors duration-300">
+                        {service.description}
+                    </p>
+                </div>
+
+                {/* Footer: Stat */}
+                <div className="mt-8 pt-6 border-t border-slate-100 group-hover:border-white/20 transition-colors duration-500 flex items-center justify-between">
+                    <div>
+                        <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-emerald-200 transition-colors">{service.label}</div>
+                        <div className="text-3xl font-serif italic font-bold text-slate-900 group-hover:text-white transition-colors">{service.stat}</div>
+                    </div>
+                    {/* Arrow */}
+                    <div className="w-8 h-8 rounded-full border border-slate-200 group-hover:border-white/30 flex items-center justify-center text-slate-400 group-hover:text-white -rotate-45 group-hover:rotate-0 transition-all duration-500">
+                        <ArrowRight size={14} />
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
+
+
+
+
+
 const payrollFeatures = [
     {
         id: "hrms",

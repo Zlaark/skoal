@@ -188,7 +188,7 @@ export default function AboutHero() {
 
                         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-8">
                             <span className="block text-slate-900">People operations</span>
-                            <span className="block font-[family-name:var(--font-playfair)] italic text-emerald-700 pb-2">
+                            <span className="block font-(family-name:--font-playfair) italic text-emerald-700 pb-2">
                                 made extraordinary.
                             </span>
                         </h1>
