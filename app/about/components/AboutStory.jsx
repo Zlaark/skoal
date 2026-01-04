@@ -109,7 +109,7 @@ const TimelineNode = ({ item, index }) => {
       </div>
 
       {/* Central Timeline Node */}
-      <div className="absolute left-8 md:left-1/2 -translate-x-1/2 z-20 top-0 md:top-auto md:relative">
+      <div className="absolute left-8 top-0 -translate-x-1/2 z-20 md:static md:translate-x-0">
         <motion.div
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
