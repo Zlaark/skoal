@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   ShoppingBag,
   Zap,
@@ -137,16 +137,24 @@ const Card = ({ card }) => {
 
 export default function Industries() {
   const targetRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
-  // Increased range to ensure last card is fully viewable
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-110%"]);
+  // Different scroll range for mobile vs desktop
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "-500%" : "-110%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[350vh] bg-[#FAFAFA]">
+    <section ref={targetRef} className="relative h-[400vh] md:h-[350vh] bg-[#FAFAFA]">
 
       {/* Sticky Container */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -161,24 +169,24 @@ export default function Industries() {
 
         {/* Section Header - Sticky at top LEFT - Lower z-index so cards slide over it */}
         {/* Adjusted left-10 md:left-24 to fix cut-off issue */}
-        <div className="absolute top-12 left-10 md:left-24 z-0 max-w-lg">
+        <div className="absolute top-28 md:top-12 left-6 md:left-24 z-0 max-w-lg">
           <div className="flex items-center gap-3 mb-4">
             <span className="w-8 h-[2px] bg-emerald-500"></span>
             <span className="text-emerald-600 font-bold uppercase tracking-[0.2em] text-xs">
               Our Expertise
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-slate-900 leading-[1.1] mb-6">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium text-slate-900 leading-[1.1] mb-4 md:mb-6">
             Industries We <br />
             <span className="italic text-emerald-700">Revolutionize</span>
           </h2>
-          <p className="text-slate-500 text-lg max-w-sm">
+          <p className="text-slate-500 text-base md:text-lg max-w-sm hidden md:block">
             Tailored workforce solutions that adapt to the unique pulse of your sector.
           </p>
         </div>
 
         {/* Progress Indicator - Top Right */}
-        <div className="absolute top-16 right-8 md:right-16 z-20 flex items-center gap-4">
+        <div className="absolute top-28 md:top-16 right-4 md:right-16 z-20 flex items-center gap-4">
           <span className="text-xs font-bold text-slate-300 uppercase tracking-widest hidden md:block">Scroll to Explore</span>
           <div className="w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
             <motion.div
@@ -189,14 +197,14 @@ export default function Industries() {
         </div>
 
         {/* Horizontal Scroll Track - HIGHER z-index to overlay text */}
-        <div className="w-full relative z-20 pt-48 md:pt-64">
+        <div className="w-full relative z-20 pt-32 md:pt-64">
           <motion.div
             style={{ x }}
             className="flex gap-6 md:gap-8 pl-8 md:pl-16 pr-20 items-center will-change-transform"
           >
 
             {/* Intro Spacer */}
-            <div className="w-[10vw] md:w-[25vw] flex-shrink-0" />
+            <div className="w-[5vw] md:w-[25vw] shrink-0" />
 
             {industries.map((card) => (
               <Card card={card} key={card.id} />
@@ -222,7 +230,7 @@ export default function Industries() {
             </div>
 
             {/* End Spacer to allow full scroll of last card */}
-            <div className="w-[50vw] flex-shrink-0" />
+            <div className="w-[30vw] md:w-[50vw] shrink-0" />
 
           </motion.div>
         </div>
