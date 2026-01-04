@@ -137,7 +137,7 @@ function TimelineNode({ step, index }) {
                         filter: isInView ? "blur(0px)" : "blur(4px)"
                     }}
                     transition={{ duration: 0.8, delay: 0.1 }}
-                    className="group relative bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 hover:border-emerald-500/30 transition-all duration-500 shadow-2xl"
+                    className="group relative bg-emerald-50/10 backdrop-blur-xl border border-emerald-100/20 p-8 rounded-[2rem] hover:bg-emerald-50/20 hover:border-emerald-200/30 transition-all duration-500 shadow-2xl"
                 >
                     {/* Glowing Edge Effect */}
                     <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
