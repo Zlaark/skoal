@@ -72,53 +72,50 @@ const StickyCard = ({ item, index, progress, range, targetScale }) => {
     const opacity = useTransform(progress, range, [1, 0.6]);
 
     return (
-        <div ref={container} className="min-h-0 md:min-h-screen flex items-start md:items-center justify-center sticky relative md:sticky top-0 mb-8 md:mb-0">
+        <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
             <motion.div
-                style={{
-                    scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? scale : 1,
-                    top: typeof window !== 'undefined' && window.innerWidth >= 768 ? `calc(10% + ${index * 25}px)` : '0px'
-                }}
-                className="relative w-full max-w-5xl aspect-auto md:aspect-[1.8/1] rounded-[2rem] md:rounded-[3rem] overflow-hidden origin-top shadow-xl md:shadow-2xl"
+                style={{ scale, top: `calc(10% + ${index * 25}px)` }} // Stacking offset
+                className="relative w-full max-w-5xl aspect-[1.8/1] rounded-[3rem] overflow-hidden origin-top shadow-2xl"
             >
                 {/* Visual Card Container */}
-                <div className={`relative w-full h-full p-8 md:p-12 lg:p-20 flex flex-col justify-between border ${item.theme.border} ${item.theme.bg} ${item.theme.glow} shadow-xl backdrop-blur-3xl min-h-[400px] md:min-h-0`}>
+                <div className={`relative w-full h-full p-12 lg:p-20 flex flex-col justify-between border ${item.theme.border} ${item.theme.bg} ${item.theme.glow} shadow-xl backdrop-blur-3xl`}>
 
                     {/* Background Texture & Icon */}
-                    <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay overflow-hidden">
-                        <item.bgIcon className="absolute -right-10 -bottom-20 md:-right-20 md:-bottom-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] stroke-1 opacity-50 md:opacity-100" />
+                    <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
+                        <item.bgIcon className="absolute -right-20 -bottom-40 w-[600px] h-[600px] stroke-1" />
                     </div>
 
                     {/* Top Row */}
-                    <div className="flex flex-col md:flex-row justify-between items-start z-10 gap-6 md:gap-0">
+                    <div className="flex justify-between items-start z-10">
                         <div>
-                            <div className={`inline-flex items-center gap-3 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 md:mb-6 ${item.theme.main}`}>
-                                <item.icon size={14} className="md:w-4 md:h-4" />
-                                <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase">{item.subtitle}</span>
+                            <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6 ${item.theme.main}`}>
+                                <item.icon size={16} />
+                                <span className="text-xs font-bold tracking-[0.2em] uppercase">{item.subtitle}</span>
                             </div>
-                            <h3 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] max-w-2xl">
+                            <h3 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] max-w-2xl">
                                 {item.title}
                             </h3>
                         </div>
 
                         {/* Huge Stat */}
-                        <div className="md:block text-left md:text-right mt-4 md:mt-0">
-                            <div className="text-6xl md:text-8xl font-bold text-white/90 tracking-tighter">
+                        <div className="hidden lg:block text-right">
+                            <div className="text-8xl font-bold text-white/90 tracking-tighter">
                                 {item.stat}
                             </div>
-                            <div className={`text-xs md:text-sm font-bold tracking-[0.4em] uppercase mt-2 ${item.theme.main}`}>
+                            <div className={`text-sm font-bold tracking-[0.4em] uppercase mt-2 ${item.theme.main}`}>
                                 {item.statLabel}
                             </div>
                         </div>
                     </div>
 
                     {/* Bottom Row */}
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end z-10 pt-10 md:pt-10 gap-8 md:gap-0 mt-auto">
-                        <p className="text-lg md:text-2xl text-slate-300 leading-relaxed max-w-xl font-medium">
+                    <div className="flex justify-between items-end z-10 pt-10">
+                        <p className="text-xl md:text-2xl text-slate-300 leading-relaxed max-w-xl font-medium">
                             {item.description}
                         </p>
 
-                        <button className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 ${item.theme.accent} text-white shadow-lg self-end md:self-auto`}>
-                            <ArrowRight size={24} className="md:w-8 md:h-8" />
+                        <button className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 ${item.theme.accent} text-white shadow-lg`}>
+                            <ArrowRight size={32} />
                         </button>
                     </div>
 
@@ -139,10 +136,10 @@ export default function AboutApproach() {
     });
 
     return (
-        <section ref={container} className="relative bg-[#FAFAFA] pb-20 overflow-hidden">
+        <section ref={container} className="relative bg-[#FAFAFA] pb-20">
 
             {/* Main Header */}
-            <div className="container mx-auto px-6 lg:px-12 pt-20 md:pt-32 pb-10 text-center">
+            <div className="sticky top-0 z-0 h-screen flex flex-col items-center justify-center container mx-auto px-6 lg:px-12 pb-20 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -153,13 +150,13 @@ export default function AboutApproach() {
                     <span className="text-xs font-bold text-slate-500 tracking-widest uppercase">Methodology</span>
                 </motion.div>
 
-                <h2 className="text-4xl md:text-5xl md:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
+                <h2 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
                     What Sets <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500 font-serif italic">Us Apart.</span>
                 </h2>
             </div>
 
             {/* The Stack */}
-            <div className="px-4 container mx-auto">
+            <div className="px-4">
                 {approaches.map((item, index) => {
                     const targetScale = 1 - ((approaches.length - index) * 0.05);
                     return (
