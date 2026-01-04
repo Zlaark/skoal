@@ -58,7 +58,7 @@ export default function PrecisionStepper() {
     });
 
     return (
-        <section ref={containerRef} className="py-32 relative bg-emerald-950 overflow-hidden -mt-px">
+        <section ref={containerRef} className="py-16 md:py-32 relative bg-emerald-950 overflow-hidden -mt-px">
 
             {/* Smooth Asymmetric Wave Transition (Slate-50 to Emerald) */}
             <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-0 z-10">
@@ -82,7 +82,7 @@ export default function PrecisionStepper() {
             <div className="container mx-auto px-6 lg:px-12 max-w-6xl relative z-10">
 
                 {/* Section Header */}
-                <div className="text-center mb-32 relative">
+                <div className="text-center mb-12 md:mb-32 relative">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -93,7 +93,7 @@ export default function PrecisionStepper() {
                         <span className="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">Intelligent Processing</span>
                     </motion.div>
 
-                    <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-tight">
+                    <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-tight">
                         The Neural <span className="font-serif italic text-emerald-400">Pathway.</span>
                     </h2>
 
@@ -114,7 +114,7 @@ export default function PrecisionStepper() {
                         className="absolute left-4 md:left-1/2 top-0 w-[2px] bg-gradient-to-b from-emerald-400 via-teal-300 to-emerald-500 shadow-[0_0_20px_rgba(52,211,153,0.6)] -translate-x-1/2 hidden md:block origin-top"
                     />
 
-                    <div className="space-y-12 md:space-y-24 relative py-12">
+                    <div className="space-y-8 md:space-y-24 relative py-12">
                         {steps.map((step, index) => (
                             <TimelineNode key={step.id} step={step} index={index} />
                         ))}
@@ -147,7 +147,7 @@ function TimelineNode({ step, index }) {
                     className="relative max-w-md text-left"
                 >
                     {/* The "Plate" Box */}
-                    <div className="relative bg-white/5 backdrop-blur-sm border border-emerald-500/20 p-8 rounded-2xl overflow-hidden group hover:bg-white/10 transition-colors duration-500">
+                    <div className="relative bg-white/5 backdrop-blur-sm border border-emerald-500/20 p-6 md:p-8 rounded-2xl overflow-hidden group hover:bg-white/10 transition-colors duration-500">
 
                         {/* High-Tech Decor */}
                         <div className="absolute top-0 right-0 p-3 opacity-20">
