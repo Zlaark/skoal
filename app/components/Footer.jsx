@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className="bg-[#011c15] text-emerald-50 relative overflow-hidden pt-32 pb-8">
 
       {/* Background Texture */}
-      <div className="absolute inset-0 opacity-[0.1] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
+      <div className="absolute inset-0 opacity-[0.1] bg-[url('/noise.svg')] pointer-events-none" />
       {/* Subtle Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#011c15] to-[#022c22] opacity-80 pointer-events-none" />
 

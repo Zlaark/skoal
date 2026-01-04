@@ -22,7 +22,7 @@ const Marquee = () => {
        <div className="rotate-1 scale-110 origin-center relative z-10">
           <div className="relative w-full bg-[#00dc82] py-4 border-y-4 border-black/20 shadow-[0_0_50px_rgba(0,220,130,0.4)]">
               {/* Overlay Pattern */}
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+              <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20" />
               
               <div className="flex overflow-hidden w-full whitespace-nowrap">
                  <motion.div 

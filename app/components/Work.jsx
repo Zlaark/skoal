@@ -272,7 +272,7 @@ export default function Work() {
       </div>
 
       {/* 2. Cinematic Grain/Noise (Texture) */}
-      <div className="absolute inset-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay" />
+      <div className="absolute inset-0 opacity-[0.04] bg-[url('/noise.svg')] pointer-events-none mix-blend-overlay" />
 
       {/* 3. Subtle Tech Grid (Depth) */}
       <div className="absolute inset-0 opacity-[0.03]"
