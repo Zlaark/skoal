@@ -54,8 +54,17 @@ export default function Footer() {
                 { label: "Contact", href: "/contact" }
               ]}
             />
+            <div className="flex flex-col">
+              <h4 className="text-white font-medium mb-6">Quick Links</h4>
+              <ul className="space-y-4">
+                <li><a href="/" className="text-emerald-200/60 hover:text-white transition-colors text-sm">Home</a></li>
+                <li><a href="/about" className="text-emerald-200/60 hover:text-white transition-colors text-sm">About</a></li>
+                <li><a href="/services" className="text-emerald-200/60 hover:text-white transition-colors text-sm">Services</a></li>
+                <li><a href="/contact" className="text-emerald-200/60 hover:text-white transition-colors text-sm">Contact</a></li>
+                <li><a href="/book-demo" className="text-emerald-400 hover:text-emerald-300 transition-colors text-sm font-medium">Book Demo</a></li>
+              </ul>
+            </div>
           </div>
-
         </div>
 
 
