@@ -35,6 +35,7 @@ import {
     Zap
 } from "lucide-react";
 import AIServiceCard from "./AIServiceCard";
+import PrecisionStepper from "./PrecisionStepper";
 import Footer from "../components/Footer";
 
 // --- Components ---
@@ -1961,47 +1962,8 @@ export default function ServicesPage() {
                     />
                 </div>
 
-                <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
-                    {/* Header */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center mb-20 max-w-3xl mx-auto"
-                    >
-                        <div className="inline-block mb-4">
-                            <span className="flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full text-emerald-700 text-xs font-bold uppercase tracking-widest shadow-sm">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                Core Services
-                            </span>
-                        </div>
-
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
-                            Precision Payrolling
-                            <span className="block mt-2 font-serif italic font-normal text-emerald-800">
-                                Global Standards
-                            </span>
-                        </h2>
-
-                        <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-xl mx-auto">
-                            Seamlessly managing workforce compliance across <span className="font-semibold text-slate-800">India & Middle East</span> with 99.9% accuracy.
-                        </p>
-                    </motion.div>
-
-                    {/* The Grid Container - Moved to 4-column layout */}
-                    {/* The Grid Container - Crystal Layout */}
-                    <div className="relative">
-                        {/* Connecting Line Animation */}
-                        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-200/50 to-transparent hidden lg:block" />
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10">
-                            {servicesList.map((service, index) => (
-                                <CrystalCard key={index} service={service} index={index} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                {/* --- WHAT WE DO SECTION (Replaced with Stepper) --- */}
+                <PrecisionStepper />
             </section>
 
             {/* --- STATS SECTION --- */}
