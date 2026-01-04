@@ -47,7 +47,7 @@ export default function About() {
   return (
     <section ref={containerRef} className="py-24 relative px-4">
       {/* Main Container - Deep Green Theme */}
-      <div className="relative bg-[#022c22] rounded-[3rem] overflow-hidden text-white p-8 md:p-20 shadow-2xl">
+      <div className="relative bg-[#022c22] rounded-[2rem] md:rounded-[3rem] overflow-hidden text-white p-6 md:p-8 lg:p-20 shadow-2xl">
 
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
@@ -73,12 +73,12 @@ export default function About() {
               The Skoal Standard
             </motion.div>
 
-            <h2 className="text-4xl lg:text-6xl font-medium leading-[1.05] tracking-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-6xl font-medium leading-[1.05] tracking-tight">
               People operations <br /> made
-              <span className="text-emerald-400 font-serif italic ml-3">extraordinary.</span>
+              <span className="text-emerald-400 font-serif italic ml-2 md:ml-3">extraordinary.</span>
             </h2>
 
-            <p className="text-lg text-emerald-100/70 leading-relaxed max-w-xl font-light">
+            <p className="text-base md:text-lg text-emerald-100/70 leading-relaxed max-w-xl font-light">
               We don't just manage payroll; we engineer reliability. Founded with a compliance-first DNA, Skoal delivers risk-free workforce solutions at scale.
             </p>
 
