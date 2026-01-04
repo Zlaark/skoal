@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { ArrowRight, Play, CheckCircle2, TrendingUp, Shield, Globe, X } from "lucide-react";
 import { useRef, useState } from "react";
 import MagneticButton from "./MagneticButton";
+import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 
 function DemoModal({ isOpen, onClose }) {
@@ -57,6 +58,7 @@ function DemoModal({ isOpen, onClose }) {
 
 export default function Hero() {
   const targetRef = useRef(null);
+  const router = useRouter(); // Initialize router
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -161,6 +163,7 @@ export default function Hero() {
               // Primary Button updated to #0A261D
               className="bg-[#0A261D] text-white rounded-full px-6 py-3 sm:px-8 sm:py-4 font-semibold text-base sm:text-lg hover:shadow-2xl hover:shadow-emerald-900/20 transition-all shadow-xl shadow-slate-900/20 relative overflow-hidden w-full sm:w-auto justify-center"
               rippleClass="bg-gradient-to-r from-emerald-800 to-teal-700"
+              onClick={() => router.push('/services')}
             >
               <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors">
                 Explore Services <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
