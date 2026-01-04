@@ -114,7 +114,7 @@ function LedgerRow({ number, label, type = "text", value, onChange, placeholder,
             </div>
 
             {/* Content */}
-            <div className="flex-1 pr-6 md:pr-12 relative">
+            <div className="flex-1 px-6 md:pl-0 md:pr-12 relative">
                 <label className={`block text-sm font-semibold uppercase tracking-wider mb-2 transition-colors duration-300 ${error ? 'text-red-800' : ((isFocused || isDropdownOpen) ? 'text-emerald-800' : 'text-slate-900')}`}>
                     {label}
                 </label>
@@ -279,7 +279,7 @@ export default function BookDemoPage() {
                 <div className="w-full lg:w-7/12 min-h-screen bg-white relative">
 
                     {/* Mobile Header (Visible only on small screens) */}
-                    <div className="lg:hidden p-8 pb-0">
+                    <div className="lg:hidden p-8 pb-0 pt-24">
                         <h1 className="text-4xl font-bold text-slate-900 leading-tight mb-4">
                             Book Your <br />
                             <span className="font-serif italic text-emerald-600">Demo</span>
