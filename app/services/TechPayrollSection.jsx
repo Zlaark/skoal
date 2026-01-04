@@ -64,7 +64,7 @@ export default function TechPayrollSection() {
   const [activeFeature, setActiveFeature] = useState(0);
 
   return (
-    <section ref={containerRef} className="relative bg-slate-50 text-slate-900 py-32" id="technology">
+    <section ref={containerRef} className="relative bg-slate-50 text-slate-900 py-16 md:py-32" id="technology">
       {/* 1. Global Ambient Background - Contained Overflow for sticky fix */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Light noise texture */}
@@ -90,14 +90,14 @@ export default function TechPayrollSection() {
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Creative Modern Header - "The Digital Backbone" (Light Mode) */}
-        <div className="mb-32 relative">
-          <div className="flex flex-col md:flex-row items-end justify-between gap-8 border-b border-slate-200 pb-8">
-            <div className="md:w-2/3">
+        <div className="mb-12 md:mb-32 relative">
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-8 border-b border-slate-200 pb-8">
+            <div className="w-full md:w-2/3 text-center md:text-left">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="flex items-center gap-4 mb-4"
+                className="flex items-center justify-center md:justify-start gap-4 mb-4"
               >
                 <div className="flex gap-1">
                   <span className="w-1 h-4 bg-emerald-600 rounded-sm animate-pulse" />
@@ -113,7 +113,7 @@ export default function TechPayrollSection() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 leading-[0.9]"
+                className="text-4xl md:text-7xl font-bold tracking-tight text-slate-900 leading-[0.9]"
               >
                 THE DIGITAL <br />
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-400 font-bold ml-2">
@@ -122,7 +122,7 @@ export default function TechPayrollSection() {
               </motion.h2>
             </div>
 
-            <div className="md:w-1/3 flex flex-col gap-4 text-right">
+            <div className="w-full md:w-1/3 flex flex-col gap-4 items-center md:items-end text-center md:text-right">
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -131,7 +131,7 @@ export default function TechPayrollSection() {
               >
                         // SYSTEM_METRICS
               </motion.div>
-              <div className="flex justify-end gap-8">
+              <div className="flex justify-center md:justify-end gap-8">
                 <div>
                   <div className="text-2xl font-bold text-slate-900">99.9%</div>
                   <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Uptime</div>
@@ -277,7 +277,7 @@ export default function TechPayrollSection() {
             {features.map((feature, index) => (
               <div
                 key={feature.id}
-                className="bg-white border border-slate-200 rounded-3xl p-8 relative overflow-hidden shadow-sm"
+                className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-sm"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 blur-[60px] opacity-10" style={{ backgroundColor: feature.color }} />
 
