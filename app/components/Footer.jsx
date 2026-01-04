@@ -9,7 +9,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#011c15] text-emerald-50 relative overflow-hidden pt-32 pb-8">
+    <footer className="bg-[#011c15] text-emerald-50 relative overflow-hidden pt-12 md:pt-32 pb-0">
 
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-[0.1] bg-[url('/noise.svg')] pointer-events-none" />
@@ -19,7 +19,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
 
         {/* --- Top Section: Links & CTA --- */}
-        <div className="grid md:grid-cols-12 gap-12 mb-32">
+        <div className="grid md:grid-cols-12 gap-12 mb-12 md:mb-32">
 
           {/* Brand Column */}
           <div className="md:col-span-5 px-6">
@@ -69,10 +69,10 @@ export default function Footer() {
 
 
         {/* --- Bottom Section: MASSIVE WATERMARK --- */}
-        <div className="relative border-t border-emerald-800/30 pt-8 flex flex-col md:flex-row justify-between items-end gap-8">
+        <div className="relative border-t border-emerald-800/30 pt-8 flex flex-col md:flex-row justify-between items-center md:items-end gap-8">
 
           {/* Copyright & Legal */}
-          <div className="flex flex-col gap-4 text-xs text-emerald-400/60 font-mono uppercase tracking-widest order-2 md:order-1">
+          <div className="flex flex-col gap-4 text-xs text-center md:text-left text-emerald-400/60 font-mono uppercase tracking-widest order-2 md:order-1">
             <div className="flex gap-6">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
@@ -92,7 +92,7 @@ export default function Footer() {
         </div>
 
         {/* THE MONUMENTAL TEXT */}
-        <div className="relative w-full overflow-hidden mt-12 select-none pointer-events-none opacity-50">
+        <div className="relative w-full overflow-hidden mt-2 select-none pointer-events-none opacity-50">
           <motion.h1
             initial={{ y: 100 }}
             whileInView={{ y: 0 }}
