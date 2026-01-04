@@ -116,7 +116,7 @@ export default function TechPayrollSection() {
                 className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 leading-[0.9]"
               >
                 THE DIGITAL <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 opacity-100">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-400 font-bold ml-2">
                   BACKBONE
                 </span>
               </motion.h2>
@@ -154,7 +154,7 @@ export default function TechPayrollSection() {
               <div className="relative w-full h-full">
                 {/* The Glass Console Frame - Light Mode: White Glass */}
                 <motion.div
-                  className="absolute inset-0 bg-white/60 backdrop-blur-2xl rounded-3xl border border-white/50 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden"
+                  className="absolute inset-0 bg-linear-to-b from-slate-50 via-white to-slate-50 z-0 rounded-3xl border border-white/50 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden"
                   style={{
                     boxShadow: `0 30px 60px -15px ${features[activeFeature].color}20` // tinted shadow
                   }}
@@ -174,7 +174,7 @@ export default function TechPayrollSection() {
                     </div>
 
                     {/* Main Visual Staging Area */}
-                    <div className="flex-1 relative flex items-center justify-center p-12 bg-gradient-to-b from-white to-slate-50/30">
+                    <div className="flex-1 relative flex items-center justify-center p-12 bg-linear-to-b from-white to-slate-50/30">
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={activeFeature}

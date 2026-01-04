@@ -47,7 +47,7 @@ export default function About() {
   return (
     <section ref={containerRef} className="py-24 relative px-4">
       {/* Main Container - Deep Green Theme */}
-      <div className="relative bg-[#022c22] rounded-[2rem] md:rounded-[3rem] overflow-hidden text-white p-6 md:p-8 lg:p-20 shadow-2xl">
+      <div className="relative bg-[#022c22] rounded-4xl md:rounded-[3rem] overflow-hidden text-white p-6 md:p-8 lg:p-20 shadow-2xl">
 
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 pointer-events-none">

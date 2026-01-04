@@ -82,7 +82,7 @@ export default function RecruitmentSection() {
             className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
           >
             Recruitment as an Extension of <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500">
               Your Payroll Strategy.
             </span>
           </motion.h2>

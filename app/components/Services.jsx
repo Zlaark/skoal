@@ -68,7 +68,7 @@ function PrecisionCard({ module, index }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       // Updated Card Style: Cleaner, crisper, deeper shadows, white bg
-      className={`relative p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] bg-white border border-slate-200 shadow-xl shadow-slate-200/50 transition-all duration-500 h-full flex flex-col justify-between group overflow-hidden ${module.borderHover} hover:shadow-2xl hover:-translate-y-1`}
+      className={`relative p-6 md:p-8 rounded-4xl md:rounded-[2.5rem] bg-white border border-slate-200 shadow-xl shadow-slate-200/50 transition-all duration-500 h-full flex flex-col justify-between group overflow-hidden ${module.borderHover} hover:shadow-2xl hover:-translate-y-1`}
     >
       {/* Active Indicator Pulse */}
       <div className="absolute top-6 right-6 flex items-center gap-2">

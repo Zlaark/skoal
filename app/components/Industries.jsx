@@ -76,10 +76,10 @@ const Card = ({ card }) => {
   const Icon = card.icon;
 
   return (
-    <Link href="/services" className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] overflow-hidden rounded-[2rem] flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
+    <Link href="/services" className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
 
       {/* Dynamic Background Gradients */}
-      <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-gradient-to-br ${card.gradient}`} />
+      <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-linear-to-br ${card.gradient}`} />
 
       {/* Noise Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
@@ -211,7 +211,7 @@ export default function Industries() {
             ))}
 
             {/* CTA / End Card */}
-            <div className="group relative h-[480px] w-[340px] md:w-[380px] overflow-hidden rounded-[2rem] flex-shrink-0 bg-white border border-slate-200 flex flex-col items-center justify-center text-center p-10 hover:border-emerald-500/50 transition-colors duration-700">
+            <div className="w-[340px] md:w-[380px] h-[480px] shrink-0 relative group rounded-4xl overflow-hidden cursor-pointer snap-center border border-slate-200 flex flex-col items-center justify-center text-center p-10 hover:border-emerald-500/50 transition-colors duration-700">
               {/* Pattern BG */}
               <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
