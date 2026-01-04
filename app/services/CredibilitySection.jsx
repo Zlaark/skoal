@@ -87,7 +87,7 @@ export default function CredibilitySection({ type = "bpo" }) {
   const titleLine2 = isBPO ? "Local Precision." : "Precision Control.";
 
   return (
-    <section className="relative py-24 lg:py-40 bg-[#051F18] overflow-hidden">
+    <section id={type === "bpo" ? "credibility-bpo" : "compliance"} className="relative py-24 lg:py-40 bg-[#051F18] overflow-hidden">
 
       {/* === BACKGROUND === */}
       {/* Large Typography Background */}

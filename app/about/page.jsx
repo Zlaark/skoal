@@ -46,6 +46,7 @@ export default function AboutPage() {
 
                     {/* Mission Section */}
                     <motion.div
+                        id="mission"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
@@ -56,6 +57,7 @@ export default function AboutPage() {
 
                     {/* Story Section */}
                     <motion.div
+                        id="story"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
@@ -96,6 +98,7 @@ export default function AboutPage() {
 
                     {/* Team Section */}
                     <motion.div
+                        id="team"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}

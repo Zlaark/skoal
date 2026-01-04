@@ -58,7 +58,7 @@ export default function PrecisionStepper() {
     });
 
     return (
-        <section ref={containerRef} className="py-16 md:py-32 relative bg-emerald-950 overflow-hidden -mt-px">
+        <section ref={containerRef} id="precision" className="py-16 md:py-32 relative bg-emerald-950 overflow-hidden -mt-px">
 
             {/* Smooth Asymmetric Wave Transition (Slate-50 to Emerald) */}
             <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-0 z-10">

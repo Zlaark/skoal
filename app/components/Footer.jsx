@@ -39,18 +39,18 @@ export default function Footer() {
             <FooterColumn
               title="Platform"
               links={[
-                { label: "Global Payroll", href: "/services" },
-                { label: "Compliance", href: "/services" },
-                { label: "Benefits", href: "/services" },
-                { label: "Contractors", href: "/services" }
+                { label: "Global Payroll", href: "/services#technology" },
+                { label: "Compliance", href: "/services#compliance" },
+                { label: "Benefits", href: "/services#precision" },
+                { label: "Contractors", href: "/services#recruitment" }
               ]}
             />
             <FooterColumn
               title="Company"
               links={[
-                { label: "About Us", href: "/about" },
-                { label: "Careers", href: "/about" },
-                { label: "Press", href: "/about" },
+                { label: "About Us", href: "/about#mission" },
+                { label: "Careers", href: "/about#team" },
+                { label: "Press", href: "/about#story" },
                 { label: "Contact", href: "/contact" }
               ]}
             />
