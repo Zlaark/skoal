@@ -12,7 +12,7 @@ import Magnetic from "./Magnetic";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const isLightMode = pathname === "/" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about" || pathname === "/book-demo";
+  const isLightMode = pathname === "/" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about" ||  pathname === "/services" || pathname === "/book-demo";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
