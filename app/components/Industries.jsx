@@ -13,6 +13,7 @@ import {
   TrendingUp,
   ShieldCheck
 } from "lucide-react";
+import Link from "next/link";
 
 /**
  * Data with more "premium" copy and distinct gradient themes
@@ -75,7 +76,7 @@ const Card = ({ card }) => {
   const Icon = card.icon;
 
   return (
-    <div className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] overflow-hidden rounded-[2rem] flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2">
+    <Link href="/services" className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] overflow-hidden rounded-[2rem] flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
 
       {/* Dynamic Background Gradients */}
       <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-gradient-to-br ${card.gradient}`} />
@@ -124,13 +125,13 @@ const Card = ({ card }) => {
             </div>
 
             {/* Floating Action Button */}
-            <button aria-label="Learn more about this industry" className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:border-emerald-500 flex items-center justify-center transition-all duration-500 hover:scale-110">
+            <div aria-label="Learn more about this industry" className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:border-emerald-500 flex items-center justify-center transition-all duration-500 hover:scale-110">
               <ArrowRight size={20} className="text-emerald-400 group-hover:text-white transition-colors duration-500" />
-            </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
