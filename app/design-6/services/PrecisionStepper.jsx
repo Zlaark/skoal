@@ -232,6 +232,8 @@ function StepItem({ step, index, setActiveStep }) {
     const ref = useRef(null);
     const isInView = useInView(ref, { margin: "-50% 0px -50% 0px" });
 
+    const [isHovered, setIsHovered] = useState(false);
+
     useEffect(() => {
         if (isInView) {
             setActiveStep(step.id);
@@ -245,43 +247,38 @@ function StepItem({ step, index, setActiveStep }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`group relative flex items-start gap-6 cursor-pointer transition-all duration-300 rounded-3xl p-6 md:p-8 border ${isInView ? 'bg-white border-slate-100 shadow-xl shadow-slate-200/50 scale-[1.02]' : 'border-transparent hover:bg-white/50'}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={`group relative flex items-start gap-4 cursor-pointer transition-all duration-300 rounded-3xl p-4 border ${isInView ? 'bg-white border-slate-100 shadow-xl shadow-slate-200/50 scale-[1.02]' : 'border-transparent hover:bg-white/50'}`}
         >
             {/* Number / Connector */}
-            <div className="flex flex-col items-center gap-4 shrink-0">
+            <div className="flex flex-col items-center gap-2 shrink-0">
                 <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center text-lg font-bold transition-all duration-500 z-10 bg-white relative
                     ${isInView ? `border-${step.color}-500 text-${step.color}-600 shadow-lg scale-110` : 'border-slate-200 text-slate-300'}`}>
                     0{index + 1}
                 </div>
-                {index !== steps.length - 1 && (
-                    <div className="w-px h-24 lg:h-32 bg-slate-200 overflow-hidden relative">
-                        {isInView && (
-                            <motion.div
-                                className={`absolute top-0 left-0 w-full bg-${step.color}-500`}
-                                initial={{ height: 0 }}
-                                animate={{ height: "100%" }}
-                                transition={{ duration: 0.8 }}
-                            />
-                        )}
-                    </div>
-                )}
             </div>
 
             {/* Content */}
-            <div className="pt-1 w-full">
-                <h3 className={`text-2xl font-bold mb-2 transition-colors duration-300 ${isInView ? 'text-slate-900' : 'text-slate-400'}`}>
+            <div className="w-full pt-2">
+                <h3 className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${isInView ? 'text-slate-900' : 'text-slate-400'}`}>
                     {step.title}
                 </h3>
-                <p className={`text-lg leading-relaxed transition-colors duration-300 max-w-xl ${isInView ? 'text-slate-600' : 'text-slate-400'}`}>
-                    {step.desc}
-                </p>
 
-                {/* Inline Stats (Revealed on Active) */}
                 <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: isInView ? "auto" : 0, opacity: isInView ? 1 : 0 }}
+                    animate={{
+                        height: isHovered ? "auto" : 0,
+                        opacity: isHovered ? 1 : 0
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                 >
+                    <p className={`text-lg leading-relaxed transition-colors duration-300 max-w-xl ${isInView ? 'text-slate-600' : 'text-slate-400'}`}>
+                        {step.desc}
+                    </p>
+
+                    {/* Inline Stats (Revealed on Hover) */}
                     <div className="pt-4 mt-4 border-t border-slate-100/50 flex items-center gap-8">
                         <div>
                             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{step.statLabel}</div>
