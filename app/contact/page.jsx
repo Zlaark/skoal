@@ -181,10 +181,10 @@ export default function ContactPage() {
         style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}
       />
 
-      <div className="flex flex-col-reverse lg:flex-row min-h-screen">
+      <div className="flex flex-col lg:flex-row min-h-screen">
 
         {/* === LEFT COLUMN: COMPACT FORM === */}
-        <div className="w-full lg:w-1/2 xl:w-5/12 px-6 py-12 lg:p-16 xl:p-20 bg-white relative z-10 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 xl:w-5/12 px-6 pb-12 pt-32 lg:p-16 xl:p-20 bg-white relative z-10 flex flex-col justify-center">
 
           <div className="max-w-md mx-auto w-full">
             <motion.div
