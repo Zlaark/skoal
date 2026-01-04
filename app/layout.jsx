@@ -1,6 +1,7 @@
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import ClientLayout from "./components/ClientLayout";
 
 
 const inter = Inter({
@@ -22,11 +23,13 @@ export const metadata = {
 
 export default function Design6Layout({ children }) {
   return (
-    <html>
+    <html lang="en">
       <body className={`${inter.variable} ${playfair.variable} font-sans bg-white min-h-screen text-slate-800 selection:bg-emerald-100 selection:text-emerald-900`}>
 
-        <Navbar />
-        {children}
+        <ClientLayout>
+          <Navbar />
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
