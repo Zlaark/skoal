@@ -40,6 +40,7 @@ import RecruitmentSection from "./RecruitmentSection";
 import AIContactCentreSection from "./AIContactCentreSection";
 import Footer from "../components/Footer";
 import PrecisionStepper from "./PrecisionStepper";
+import CredibilitySection from "./CredibilitySection";
 
 // --- Components ---
 
@@ -1270,8 +1271,14 @@ export default function ServicesPage() {
             {/* --- BPO SERVICES SECTION --- */}
             <BPOSection />
 
+            {/* --- BPO CREDIBILITY STATS --- */}
+            <CredibilitySection type="bpo" />
+
             {/* --- TECHNOLOGY-LED PAYROLL CONTROL --- */}
             <TechPayrollSection />
+
+            {/* --- PAYROLL CREDIBILITY STATS --- */}
+            <CredibilitySection type="payroll" />
 
             {/* --- RECRUITMENT AS EXTENSION OF PAYROLL --- */}
             <RecruitmentSection />
