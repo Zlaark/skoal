@@ -12,7 +12,7 @@ import Magnetic from "./Magnetic";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const isLightMode = pathname === "/" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about" ||  pathname === "/services" || pathname === "/book-demo";
+  const isLightMode = pathname === "/" || pathname?.startsWith("/design-6") || pathname === "/contact" || pathname === "/about" || pathname === "/services" || pathname === "/book-demo";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -187,15 +187,17 @@ const Navbar = () => {
                 </motion.a>
               ))}
 
-              <motion.button
+              <motion.a
+                href="/book-demo"
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5 }}
                 className={`px-8 py-3 text-xl font-bold rounded-full hover:bg-[#00dc82] transition-colors ${isLightMode ? "bg-black text-white" : "bg-white text-black"
                   }`}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Book Demo
-              </motion.button>
+              </motion.a>
             </div>
           </motion.div>
         )}
