@@ -176,7 +176,7 @@ export default function Contact() {
               <span className="text-emerald-600 font-bold tracking-widest text-[10px] uppercase mb-4 block">
                 Get In Touch
               </span>
-              <h2 className="text-5xl lg:text-7xl font-serif text-slate-900 leading-[0.9] mb-8">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-slate-900 leading-[0.9] mb-8">
                 Start the <br />
                 <span className="italic text-emerald-700 opacity-90">Conversation.</span>
               </h2>

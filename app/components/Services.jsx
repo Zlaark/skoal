@@ -98,7 +98,7 @@ function PrecisionCard({ module, index }) {
         </div>
         {/* Massive Stat Typography for Impact */}
         <div className="flex items-baseline justify-between">
-          <div className={`text-4xl md:text-5xl lg:text-7xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900 transition-colors`}>
+          <div className={`text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900 transition-colors`}>
             {module.stat}
           </div>
           <ArrowUpRight className={`opacity-0 group-hover:opacity-100 transition-all duration-500 text-slate-400`} size={24} />
@@ -155,7 +155,7 @@ export default function Services() {
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
 
         {/* Section Header */}
-        <div className="max-w-4xl mx-auto text-center mb-24">
+        <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -173,7 +173,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6"
+            className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-slate-900 mb-6"
           >
             We manage the <span className="font-serif italic text-emerald-700">complexity.</span>
           </motion.h2>
@@ -183,21 +183,21 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto"
+            className="text-base md:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto"
           >
             You focus on growth. Our infrastructure handles the operational heavy lifting with military precision.
           </motion.p>
         </div>
 
         {/* 2x2 Precision Layout Connected */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 max-w-6xl mx-auto">
           {modules.map((module, index) => (
             <PrecisionCard key={module.id} module={module} index={index} />
           ))}
         </div>
 
         {/* Center Glow Core */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-50/80 blur-[100px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-emerald-50/80 blur-[80px] md:blur-[100px] rounded-full pointer-events-none -z-10" />
 
       </div>
     </section>

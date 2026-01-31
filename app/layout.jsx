@@ -21,6 +21,12 @@ export const metadata = {
   description: "Secure, compliant, and scalable people solutions across India and the Middle East.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function Design6Layout({ children }) {
   return (
     <html lang="en">

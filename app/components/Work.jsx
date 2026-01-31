@@ -291,7 +291,7 @@ export default function Work() {
         <span className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-xs mb-6 block">
           Impact Stories
         </span>
-        <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-6">
           Engineering <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">velocity.</span>
         </h2>
       </div>
