@@ -41,7 +41,7 @@ const TeamCard = ({ member, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.6 }}
-      className="group relative overflow-hidden rounded-4xl bg-white aspect-3/4 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
+      className="group relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-4xl bg-white aspect-[3/4] shadow-md sm:shadow-lg hover:shadow-xl md:hover:shadow-2xl transition-all duration-500 cursor-pointer"
     >
       {/* Image Layer - Grayscale to Color */}
       <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
@@ -56,22 +56,22 @@ const TeamCard = ({ member, index }) => {
       <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
 
       {/* Content Layer - Slide Up Reveal */}
-      <div className="absolute inset-x-0 bottom-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 text-white">
+      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 md:p-8 transform translate-y-2 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-500 text-white">
 
-        <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-        <p className="text-emerald-400 font-medium tracking-wide text-sm uppercase mb-4">{member.role}</p>
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-0.5 sm:mb-1">{member.name}</h3>
+        <p className="text-emerald-400 font-medium tracking-wide text-xs sm:text-sm uppercase mb-2 sm:mb-4">{member.role}</p>
 
         <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-500">
-          <p className="text-slate-200 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+          <p className="text-slate-200 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-3">
             {member.bio}
           </p>
 
-          <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-            <a href={member.social.linkedin} className="p-2 rounded-full bg-white/10 hover:bg-white/20 hover:text-white transition-colors">
-              <Linkedin size={18} />
+          <div className="flex gap-3 sm:gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+            <a href={member.social.linkedin} className="p-1.5 sm:p-2 rounded-full bg-white/10 hover:bg-white/20 hover:text-white transition-colors">
+              <Linkedin size={16} className="sm:w-[18px] sm:h-[18px]" />
             </a>
-            <a href={member.social.twitter} className="p-2 rounded-full bg-white/10 hover:bg-white/20 hover:text-white transition-colors">
-              <Twitter size={18} />
+            <a href={member.social.twitter} className="p-1.5 sm:p-2 rounded-full bg-white/10 hover:bg-white/20 hover:text-white transition-colors">
+              <Twitter size={16} className="sm:w-[18px] sm:h-[18px]" />
             </a>
           </div>
         </div>
@@ -79,8 +79,8 @@ const TeamCard = ({ member, index }) => {
       </div>
 
       {/* Top Right Icon */}
-      <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-        <ArrowUpRight size={20} />
+      <div className="absolute top-4 sm:top-6 right-4 sm:right-6 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+        <ArrowUpRight size={16} className="sm:w-5 sm:h-5" />
       </div>
 
     </motion.div>
@@ -89,27 +89,27 @@ const TeamCard = ({ member, index }) => {
 
 export default function AboutTeam() {
   return (
-    <section className="py-32 bg-white">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section className="py-20 sm:py-24 md:py-32 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
 
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 sm:mb-16 md:mb-20 gap-6 sm:gap-8">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-200 shadow-sm mb-6">
-              <Users size={14} className="text-slate-500" />
-              <span className="text-xs font-bold text-slate-500 tracking-widest uppercase">Leadership</span>
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-50 border border-slate-200 shadow-sm mb-4 sm:mb-6">
+              <Users size={12} className="sm:w-3.5 sm:h-3.5 text-slate-500" />
+              <span className="text-[10px] sm:text-xs font-bold text-slate-500 tracking-widest uppercase">Leadership</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
               Meet the <span className="font-serif italic text-slate-500">Minds.</span>
             </h2>
           </div>
 
-          <p className="max-w-md text-lg text-slate-500 font-medium mb-4">
+          <p className="max-w-md text-base sm:text-lg text-slate-500 font-medium lg:mb-4">
             A diverse team of innovators, strategists, and problem solvers dedicated to redefining the workforce.
           </p>
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {team.map((member, index) => (
             <TeamCard key={index} member={member} index={index} />
           ))}

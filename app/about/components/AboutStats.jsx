@@ -260,7 +260,7 @@ export default function AboutStats() {
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
     return (
-        <section ref={containerRef} className="relative py-32 overflow-hidden" id="stats">
+        <section ref={containerRef} className="relative py-20 sm:py-24 md:py-32 overflow-hidden" id="stats">
             {/* Premium Dark Background */}
             <div className="absolute inset-0 bg-[#011c15]" />
 
@@ -295,23 +295,23 @@ export default function AboutStats() {
                 }}
             />
 
-            <motion.div style={{ opacity }} className="container mx-auto px-6 lg:px-12 relative z-10">
+            <motion.div style={{ opacity }} className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
 
                 {/* Header */}
-                <div className="text-center mb-20">
+                <div className="text-center mb-12 sm:mb-16 md:mb-20">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm mb-8"
+                        className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm mb-6 sm:mb-8"
                     >
                         <motion.div
                             animate={{ scale: [1, 1.2, 1] }}
                             transition={{ duration: 2, repeat: Infinity }}
                         >
-                            <TrendingUp size={18} className="text-emerald-400" />
+                            <TrendingUp size={16} className="sm:w-[18px] sm:h-[18px] text-emerald-400" />
                         </motion.div>
-                        <span className="text-emerald-300 text-sm font-semibold tracking-wider uppercase">
+                        <span className="text-emerald-300 text-xs sm:text-sm font-semibold tracking-wider uppercase">
                             Our Impact
                         </span>
                     </motion.div>
@@ -321,7 +321,7 @@ export default function AboutStats() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-4 sm:mb-6"
                     >
                         Numbers that{" "}
                         <motion.span
@@ -339,17 +339,17 @@ export default function AboutStats() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-emerald-100/50 max-w-2xl mx-auto"
+                        className="text-base sm:text-lg md:text-xl text-emerald-100/50 max-w-2xl mx-auto px-4"
                     >
                         We are not just a service provider—we operate as a long-term workforce and operations partner.
                     </motion.p>
                 </div>
 
                 {/* Main Layout */}
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
+                <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
 
                     {/* Left: Premium Stats Cards */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
                         {stats.map((stat, i) => (
                             <motion.div
                                 key={i}
@@ -362,7 +362,7 @@ export default function AboutStats() {
                                     scale: 1.02,
                                     transition: { duration: 0.2 }
                                 }}
-                                className="group relative p-6 rounded-2xl bg-gradient-to-br from-emerald-950/80 to-emerald-900/40 border border-emerald-500/20 backdrop-blur-sm overflow-hidden cursor-default"
+                                className="group relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br from-emerald-950/80 to-emerald-900/40 border border-emerald-500/20 backdrop-blur-sm overflow-hidden cursor-default min-h-[160px] sm:min-h-[180px] md:min-h-[200px] flex flex-col justify-between"
                             >
                                 {/* Hover Glow */}
                                 <motion.div
@@ -370,23 +370,23 @@ export default function AboutStats() {
                                 />
 
                                 {/* Icon */}
-                                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 group-hover:bg-emerald-500/30 group-hover:border-emerald-400/50 transition-all">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-3 sm:mb-4 group-hover:bg-emerald-500/30 group-hover:border-emerald-400/50 transition-all">
                                     {stat.icon}
                                 </div>
 
                                 {/* Number */}
-                                <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-mono">
+                                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1 sm:mb-2 font-mono">
                                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                                 </div>
 
                                 {/* Labels */}
-                                <div className="text-white font-medium text-sm mb-1">{stat.label}</div>
-                                <div className="text-emerald-400/50 text-xs">{stat.sub}</div>
+                                <div className="text-white font-medium text-xs sm:text-sm mb-0.5 sm:mb-1">{stat.label}</div>
+                                <div className="text-emerald-400/50 text-[10px] sm:text-xs">{stat.sub}</div>
 
                                 {/* Corner Accent */}
                                 <ArrowUpRight
-                                    className="absolute top-4 right-4 text-emerald-500/20 group-hover:text-emerald-400 group-hover:rotate-45 transition-all duration-300"
-                                    size={20}
+                                    className="absolute top-3 sm:top-4 right-3 sm:right-4 text-emerald-500/20 group-hover:text-emerald-400 group-hover:rotate-45 transition-all duration-300"
+                                    size={16}
                                 />
 
                                 {/* Bottom Accent */}
@@ -407,7 +407,7 @@ export default function AboutStats() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.3 }}
-                        className="h-[450px] lg:h-[500px]"
+                        className="h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px]"
                     >
                         <PremiumVisualization />
                     </motion.div>
@@ -419,7 +419,7 @@ export default function AboutStats() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.6 }}
-                    className="mt-20 flex justify-center"
+                    className="mt-12 sm:mt-16 md:mt-20 flex justify-center"
                 >
                     <SupernovaButton />
                 </motion.div>

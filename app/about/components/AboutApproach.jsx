@@ -69,50 +69,60 @@ const StickyCard = ({ item, index, progress, range, targetScale }) => {
     const opacity = useTransform(progress, range, [1, 0.6]);
 
     return (
-        <div ref={container} className="min-h-screen flex items-center justify-center sticky top-0 py-10 md:py-0">
+        <div ref={container} className="min-h-[70vh] sm:min-h-[75vh] md:min-h-[90vh] flex items-center justify-center sticky top-0 py-4 sm:py-6 md:py-8">
             <motion.div
-                style={{ scale, top: `calc(10% + ${index * 25}px)` }}
-                className="relative w-full max-w-5xl aspect-[4/5] md:aspect-auto md:min-h-[60vh] lg:aspect-[1.8/1] rounded-[2rem] md:rounded-[3rem] overflow-hidden origin-top shadow-2xl"
+                style={{ scale, top: `calc(8% + ${index * 16}px)` }}
+                className="relative w-full max-w-4xl mx-auto min-h-[320px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[50vh] rounded-xl sm:rounded-2xl md:rounded-[2rem] overflow-hidden origin-top shadow-lg md:shadow-xl"
             >
                 {/* Visual Card Container */}
-                <div className={`relative w-full h-full p-6 md:p-10 lg:p-16 flex flex-col justify-between border ${item.theme.border} ${item.theme.bg} ${item.theme.glow} shadow-xl backdrop-blur-3xl`}>
+                <div className={`relative w-full h-full min-h-[320px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[50vh] p-4 sm:p-5 md:p-8 lg:p-12 flex flex-col justify-between border ${item.theme.border} ${item.theme.bg} ${item.theme.glow} shadow-xl backdrop-blur-3xl`}>
 
                     {/* Background Texture & Icon */}
                     <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
-                        <item.bgIcon className="absolute -right-20 -bottom-40 w-[200px] h-[200px] md:w-[400px] md:h-[400px] lg:w-[600px] lg:h-[600px] stroke-1" />
+                        <item.bgIcon className="absolute -right-8 sm:-right-12 md:-right-16 -bottom-16 sm:-bottom-24 md:-bottom-32 w-[120px] h-[120px] sm:w-[180px] sm:h-[180px] md:w-[280px] md:h-[280px] lg:w-[400px] lg:h-[400px] stroke-1" />
                     </div>
 
                     {/* Top Row */}
-                    <div className="flex justify-between items-start z-10 w-full">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start z-10 w-full gap-3">
                         <div className="flex-1">
-                            <div className={`inline-flex items-center gap-2 md:gap-3 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 md:mb-6 ${item.theme.main}`}>
-                                <item.icon size={14} className="md:w-4 md:h-4" />
-                                <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase">{item.subtitle}</span>
+                            <div className={`inline-flex items-center gap-1.5 md:gap-2 px-2 py-0.5 sm:px-2.5 sm:py-1 md:px-3 md:py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-2 sm:mb-3 md:mb-4 ${item.theme.main}`}>
+                                <item.icon size={10} className="sm:w-3 sm:h-3 md:w-3.5 md:h-3.5" />
+                                <span className="text-[8px] sm:text-[9px] md:text-[10px] font-bold tracking-[0.12em] sm:tracking-[0.15em] uppercase">{item.subtitle}</span>
                             </div>
-                            <h3 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-[1.1] max-w-2xl">
+                            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white tracking-tight leading-[1.15] max-w-xl">
                                 {item.title}
                             </h3>
                         </div>
 
-                        {/* Huge Stat */}
-                        <div className="hidden lg:block text-right shrink-0">
-                            <div className="text-5xl xl:text-7xl font-bold text-white/90 tracking-tighter">
+                        {/* Huge Stat - Show on tablets and up */}
+                        <div className="hidden sm:block text-right shrink-0">
+                            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white/90 tracking-tighter">
                                 {item.stat}
                             </div>
-                            <div className={`text-xs xl:text-sm font-bold tracking-[0.4em] uppercase mt-2 ${item.theme.main}`}>
+                            <div className={`text-[9px] sm:text-[10px] md:text-xs font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-0.5 sm:mt-1 ${item.theme.main}`}>
                                 {item.statLabel}
                             </div>
                         </div>
                     </div>
 
                     {/* Bottom Row */}
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end z-10 pt-6 md:pt-10 gap-6">
-                        <p className="text-base md:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-xl font-medium">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end z-10 pt-3 sm:pt-4 md:pt-6 gap-3 sm:gap-4">
+                        {/* Mobile Stat */}
+                        <div className="sm:hidden">
+                            <div className="text-2xl font-bold text-white/90 tracking-tighter">
+                                {item.stat}
+                            </div>
+                            <div className={`text-[9px] font-bold tracking-[0.2em] uppercase mt-0.5 ${item.theme.main}`}>
+                                {item.statLabel}
+                            </div>
+                        </div>
+                        
+                        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-slate-300 leading-relaxed max-w-md font-medium">
                             {item.description}
                         </p>
 
-                        <button className={`w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 ${item.theme.accent} text-white shadow-lg shrink-0`}>
-                            <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
+                        <button className={`w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 ${item.theme.accent} text-white shadow-lg shrink-0`}>
+                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                         </button>
                     </div>
 
@@ -136,24 +146,24 @@ export default function AboutApproach() {
         <section ref={container} className="relative bg-[#FAFAFA] pb-20">
 
             {/* Main Header */}
-            <div className="sticky top-0 z-0 h-screen flex flex-col items-center justify-center container mx-auto px-6 lg:px-12 pb-20 text-center">
+            <div className="sticky top-0 z-0 h-[50vh] sm:h-[60vh] md:h-[80vh] flex flex-col items-center justify-center container mx-auto px-4 sm:px-6 lg:px-12 pb-10 sm:pb-12 md:pb-16 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-6"
+                    className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-3 sm:mb-4 md:mb-5"
                 >
-                    <Sparkles size={14} className="text-slate-400" />
-                    <span className="text-xs font-bold text-slate-500 tracking-widest uppercase">Methodology</span>
+                    <Sparkles size={10} className="sm:w-3 sm:h-3 text-slate-400" />
+                    <span className="text-[9px] sm:text-[10px] md:text-xs font-bold text-slate-500 tracking-widest uppercase">Methodology</span>
                 </motion.div>
 
-                <h2 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1]">
                     What Sets <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500 font-serif italic">Us Apart.</span>
                 </h2>
             </div>
 
             {/* The Stack */}
-            <div className="px-4">
+            <div className="px-3 sm:px-4">
                 {approaches.map((item, index) => {
                     const targetScale = 1 - ((approaches.length - index) * 0.05);
                     return (

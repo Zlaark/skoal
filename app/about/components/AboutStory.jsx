@@ -56,7 +56,7 @@ const TimelineNode = ({ item, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
-      className={`relative w-full mb-12 md:mb-32 flex flex-col md:flex-row md:items-center md:justify-between ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+      className={`relative w-full mb-8 sm:mb-12 md:mb-24 lg:mb-32 flex flex-col md:flex-row md:items-center md:justify-between ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}
     >
       {/* The Horizontal Connector Beam (Desktop Only) */}
       <motion.div
@@ -75,13 +75,13 @@ const TimelineNode = ({ item, index }) => {
       </motion.div>
 
       {/* Content Card */}
-      <div className={`w-full md:w-5/12 relative z-10 pl-20 md:pl-0 ${isLeft ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
+      <div className={`w-full md:w-[48%] 2xl:w-5/12 relative z-10 pl-16 sm:pl-20 md:pl-0 ${isLeft ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="p-8 md:p-10 rounded-3xl md:rounded-4xl bg-white/60 backdrop-blur-xl border border-white/50 shadow-xl md:shadow-2xl hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 relative overflow-hidden group"
+          className="p-5 sm:p-6 md:p-5 lg:p-6 2xl:p-10 rounded-2xl md:rounded-3xl lg:rounded-4xl bg-white/60 backdrop-blur-xl border border-white/50 shadow-lg md:shadow-xl lg:shadow-2xl hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 relative overflow-hidden group"
         >
           {/* Massive Watermark Year */}
-          <span className={`text-6xl md:text-[8rem] font-bold absolute -bottom-5 md:-bottom-10 opacity-[0.05] pointer-events-none select-none right-4 md:auto ${isLeft ? 'md:-left-6 md:right-auto' : 'md:-right-6'} ${item.color}`}>
+          <span className={`text-5xl sm:text-6xl md:text-[8rem] font-bold absolute -bottom-3 sm:-bottom-5 md:-bottom-10 opacity-[0.05] pointer-events-none select-none right-2 sm:right-4 md:auto ${isLeft ? 'md:-left-6 md:right-auto' : 'md:-right-6'} ${item.color}`}>
             {item.year}
           </span>
 
@@ -90,18 +90,18 @@ const TimelineNode = ({ item, index }) => {
 
           <div className="relative z-10">
             {/* Title Row */}
-            <div className={`flex items-center gap-4 mb-4 ${isLeft ? 'justify-start md:justify-end' : 'justify-start'}`}>
-              <h3 className="text-2xl md:text-3xl font-bold text-slate-900 order-1 md:order-none">{item.title}</h3>
-              <div className={`inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full ${item.bg} bg-opacity-10 ${item.color} shrink-0 order-0 md:order-none`}>
-                <item.icon size={20} className="md:w-[22px] md:h-[22px]" />
+            <div className={`flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 ${isLeft ? 'justify-start md:justify-end' : 'justify-start'}`}>
+              <h3 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-slate-900 order-1 md:order-none">{item.title}</h3>
+              <div className={`inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full ${item.bg} bg-opacity-10 ${item.color} shrink-0 order-0 md:order-none`}>
+                <item.icon size={16} className="sm:w-[18px] sm:h-[18px] md:w-[22px] md:h-[22px]" />
               </div>
             </div>
 
-            <p className="text-base md:text-lg text-slate-600 leading-relaxed font-medium text-left md:text-inherit">
+            <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-medium text-left md:text-inherit">
               {item.description}
             </p>
 
-            <div className={`mt-6 text-sm font-bold tracking-widest uppercase opacity-40 text-left md:text-inherit ${item.color}`}>
+            <div className={`mt-4 sm:mt-6 text-xs sm:text-sm font-bold tracking-widest uppercase opacity-40 text-left md:text-inherit ${item.color}`}>
               {item.year}
             </div>
           </div>
@@ -109,19 +109,19 @@ const TimelineNode = ({ item, index }) => {
       </div>
 
       {/* Central Timeline Node */}
-      <div className="absolute left-8 top-0 -translate-x-1/2 z-20 md:static md:translate-x-0">
+      <div className="absolute left-6 sm:left-8 top-0 -translate-x-1/2 z-20 md:static md:translate-x-0">
         <motion.div
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white ${item.bg} shadow-[0_0_0_4px_rgba(255,255,255,0.5)] md:shadow-[0_0_0_8px_rgba(255,255,255,0.5)] flex items-center justify-center`}
+          className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full border-4 border-white ${item.bg} shadow-[0_0_0_3px_rgba(255,255,255,0.5)] sm:shadow-[0_0_0_4px_rgba(255,255,255,0.5)] md:shadow-[0_0_0_8px_rgba(255,255,255,0.5)] flex items-center justify-center`}
         >
-          <div className="w-3 h-3 md:w-5 md:h-5 bg-white rounded-full animate-pulse" />
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-5 md:h-5 bg-white rounded-full animate-pulse" />
         </motion.div>
       </div>
 
       {/* Empty Space for Balance (Desktop Only) */}
-      <div className="hidden md:block w-5/12" />
+      <div className="hidden md:block md:w-[48%] 2xl:w-5/12" />
     </motion.div>
   );
 };
@@ -136,7 +136,7 @@ export default function AboutStory() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section ref={containerRef} className="relative py-20 md:py-40 bg-[#FAFAFA] overflow-hidden">
+    <section ref={containerRef} className="relative py-16 sm:py-24 md:py-32 lg:py-40 bg-[#FAFAFA] overflow-hidden">
 
       {/* Ambient Background Glows */}
       <div className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-400/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none" />
@@ -145,18 +145,18 @@ export default function AboutStory() {
       <div className="container mx-auto px-4 md:px-6 lg:px-12">
 
         {/* Header */}
-        <div className="text-center mb-20 md:mb-32 relative z-10">
+        <div className="text-center mb-12 sm:mb-16 md:mb-24 lg:mb-32 relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-6"
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-4 sm:mb-6"
           >
             <Zap size={14} className="text-amber-500 fill-amber-500" />
-            <span className="text-xs font-bold text-slate-500 tracking-widest uppercase">Our Evolution</span>
+            <span className="text-[10px] sm:text-xs font-bold text-slate-500 tracking-widest uppercase">Our Evolution</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-slate-900 tracking-tight leading-[1.1] md:leading-[1]">
-            From a Vision to <br />
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl font-bold text-slate-900 tracking-tight leading-[1.1] md:leading-[1] px-4">
+            From a Vision to <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500 font-serif italic">Global Velocity.</span>
           </h2>
         </div>
@@ -165,7 +165,7 @@ export default function AboutStory() {
         <div className="relative max-w-6xl mx-auto">
 
           {/* The Chrono-Beam (Central Line) */}
-          <div className="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-slate-100 rounded-full overflow-hidden">
+          <div className="absolute left-6 sm:left-8 md:left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-slate-100 rounded-full overflow-hidden">
             <motion.div
               style={{ height: lineHeight }}
               className="w-full bg-linear-to-b from-blue-500 via-emerald-500 to-purple-500 shadow-[0_0_20px_2px_rgba(16,185,129,0.5)]"
