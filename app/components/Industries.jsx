@@ -76,7 +76,7 @@ const Card = ({ card }) => {
   const Icon = card.icon;
 
   return (
-    <Link href="/services" className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
+    <Link href="/services" className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] lg:w-[450px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
 
       {/* Dynamic Background Gradients */}
       <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-linear-to-br ${card.gradient}`} />
@@ -169,7 +169,7 @@ export default function Industries() {
 
         {/* Section Header - Sticky at top LEFT - Lower z-index so cards slide over it */}
         {/* Adjusted left-10 md:left-24 to fix cut-off issue */}
-        <div className="absolute top-20 md:top-12 left-6 md:left-24 z-0 max-w-lg">
+        <div className="absolute top-20 md:top-12 left-4 sm:left-6 lg:left-8 z-0 max-w-lg">
           <div className="flex items-center gap-3 mb-4">
             <span className="w-8 h-[2px] bg-emerald-500"></span>
             <span className="text-emerald-600 font-bold uppercase tracking-[0.2em] text-xs">
@@ -200,7 +200,7 @@ export default function Industries() {
         <div className="w-full relative z-20 pt-44 md:pt-64">
           <motion.div
             style={{ x }}
-            className="flex gap-6 md:gap-8 pl-8 md:pl-16 pr-20 items-center will-change-transform"
+            className="flex gap-6 md:gap-8 pl-4 sm:pl-6 lg:pl-8 pr-20 items-center will-change-transform"
           >
 
             {/* Intro Spacer */}

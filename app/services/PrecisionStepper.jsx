@@ -93,11 +93,17 @@ export default function PrecisionStepper() {
                         <span className="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">Intelligent Processing</span>
                     </motion.div>
 
-                    <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-tight">
+                    <h2
+                        className="font-bold text-white tracking-tight mb-6 leading-tight"
+                        style={{ fontSize: 'clamp(1.75rem, 4vw, 4rem)' }}
+                    >
                         The Neural <span className="font-serif italic text-emerald-400">Pathway.</span>
                     </h2>
 
-                    <p className="text-xl md:text-2xl text-emerald-200/80 max-w-2xl mx-auto font-light leading-relaxed">
+                    <p
+                        className="text-emerald-200/80 max-w-2xl mx-auto font-light leading-relaxed"
+                        style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.25rem)' }}
+                    >
                         A continuous, intelligent stream of precision from data entry to final audit.
                     </p>
                 </div>
@@ -147,21 +153,30 @@ function TimelineNode({ step, index }) {
                     className="relative max-w-md text-left"
                 >
                     {/* The "Plate" Box */}
-                    <div className="relative bg-white/5 backdrop-blur-sm border border-emerald-500/20 p-6 md:p-8 rounded-2xl overflow-hidden group hover:bg-white/10 transition-colors duration-500">
+                    <div className="relative bg-white/5 backdrop-blur-sm border border-emerald-500/20 rounded-2xl overflow-hidden group hover:bg-white/10 transition-colors duration-500" style={{ padding: 'clamp(1rem, 2vw, 2rem)' }}>
 
                         {/* High-Tech Decor */}
                         <div className="absolute top-0 right-0 p-3 opacity-20">
-                            <step.icon size={80} className="text-emerald-500 stroke-[0.5]" />
+                            <step.icon size={60} className="text-emerald-500 stroke-[0.5]" />
                         </div>
 
                         <div className="relative z-10">
-                            <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-2 block font-mono">
+                            <span
+                                className="font-bold text-emerald-400 uppercase tracking-widest mb-2 block font-mono"
+                                style={{ fontSize: 'clamp(0.5rem, 0.8vw, 0.65rem)' }}
+                            >
                                 {step.subtitle} // SYSTEM_READY
                             </span>
-                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                            <h3
+                                className="font-bold text-white mb-3"
+                                style={{ fontSize: 'clamp(1.1rem, 2vw, 1.75rem)' }}
+                            >
                                 {step.title}
                             </h3>
-                            <p className="text-emerald-100/70 text-sm md:text-base font-light leading-relaxed">
+                            <p
+                                className="text-emerald-100/70 font-light leading-relaxed"
+                                style={{ fontSize: 'clamp(0.75rem, 1vw, 0.95rem)' }}
+                            >
                                 {step.desc}
                             </p>
                         </div>

@@ -46,17 +46,26 @@ const StatItem = ({ stat, index }) => {
     >
       <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-emerald-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top" />
 
-      {/* Number */}
-      <div className="text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tighter leading-none mb-4">
+      {/* Number - Using clamp for zoom-responsive scaling */}
+      <div
+        className="font-bold text-white tracking-tighter leading-none mb-4"
+        style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}
+      >
         <AnimatedNumber value={stat.value} />
         <span className="text-emerald-500">{stat.suffix}</span>
       </div>
 
       {/* Label */}
-      <h3 className="text-xl text-white font-medium mb-1">{stat.label}</h3>
+      <h3
+        className="text-white font-medium mb-1"
+        style={{ fontSize: 'clamp(1rem, 1.25vw, 1.25rem)' }}
+      >{stat.label}</h3>
 
       {/* Sublabel */}
-      <p className="text-sm text-white/50 font-mono uppercase tracking-wider">{stat.sublabel}</p>
+      <p
+        className="text-white/50 font-mono uppercase tracking-wider"
+        style={{ fontSize: 'clamp(0.7rem, 0.9vw, 0.875rem)' }}
+      >{stat.sublabel}</p>
     </motion.div>
   );
 };
@@ -113,14 +122,20 @@ export default function CredibilitySection({ type = "bpo" }) {
                 <span className="text-emerald-400 font-mono uppercase tracking-[0.2em] text-sm">The Numbers</span>
               </div>
 
-              {/* Headline */}
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tighter leading-[0.95] mb-10">
+              {/* Headline - Using clamp for zoom-responsive scaling */}
+              <h2
+                className="font-bold text-white tracking-tighter leading-[0.95] mb-10"
+                style={{ fontSize: 'clamp(2.5rem, 4.5vw, 4.5rem)' }}
+              >
                 <span className="block">{titleLine1}</span>
                 <span className="block text-white/40">{titleLine2}</span>
               </h2>
 
               {/* Description */}
-              <p className="text-lg text-white/60 leading-relaxed max-w-md mb-12">
+              <p
+                className="text-white/60 leading-relaxed max-w-md mb-12"
+                style={{ fontSize: 'clamp(0.9rem, 1.1vw, 1.125rem)' }}
+              >
                 {isBPO
                   ? "Delivering consistent, high-quality customer experiences requires robust infrastructure and a relentless focus on metrics."
                   : "Managing complex workforce payroll demands a zero-error approach. Our numbers reflect a legacy of trust and operational excellence."

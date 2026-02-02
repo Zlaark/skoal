@@ -113,7 +113,8 @@ export default function TechPayrollSection() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-4xl md:text-7xl font-bold tracking-tight text-slate-900 leading-[0.9]"
+                className="font-bold tracking-tight text-slate-900 leading-[0.9]"
+                style={{ fontSize: 'clamp(1.75rem, 4vw, 4rem)' }}
               >
                 THE DIGITAL <br />
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-400 font-bold ml-2">
@@ -127,18 +128,19 @@ export default function TechPayrollSection() {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="font-mono text-xs text-slate-400 font-medium"
+                className="font-mono text-slate-400 font-medium"
+                style={{ fontSize: 'clamp(0.6rem, 0.8vw, 0.75rem)' }}
               >
                         // SYSTEM_METRICS
               </motion.div>
               <div className="flex justify-center md:justify-end gap-8">
                 <div>
-                  <div className="text-2xl font-bold text-slate-900">99.9%</div>
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Uptime</div>
+                  <div className="font-bold text-slate-900" style={{ fontSize: 'clamp(1rem, 1.5vw, 1.5rem)' }}>99.9%</div>
+                  <div className="text-slate-500 uppercase tracking-wider font-semibold" style={{ fontSize: 'clamp(0.5rem, 0.7vw, 0.65rem)' }}>Uptime</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-600">0ms</div>
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Latency</div>
+                  <div className="font-bold text-emerald-600" style={{ fontSize: 'clamp(1rem, 1.5vw, 1.5rem)' }}>0ms</div>
+                  <div className="text-slate-500 uppercase tracking-wider font-semibold" style={{ fontSize: 'clamp(0.5rem, 0.7vw, 0.65rem)' }}>Latency</div>
                 </div>
               </div>
             </div>
@@ -150,11 +152,11 @@ export default function TechPayrollSection() {
           {/* Sticky Container - ensure NO overflow hidden on parent */}
           <div className="hidden lg:flex flex-row gap-8 items-start relative min-h-[150vh]">
             {/* LEFT: The "Console" (Sticky) */}
-            <div className="sticky top-32 w-1/2 h-[600px]">
+            <div className="sticky top-32 w-1/2 h-[450px] max-w-[min(55%,45vw)]">
               <div className="relative w-full h-full">
                 {/* The Glass Console Frame - Light Mode: White Glass */}
                 <motion.div
-                  className="absolute inset-0 bg-linear-to-b from-slate-50 via-white to-slate-50 z-0 rounded-3xl border border-white/50 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden"
+                  className="absolute inset-0 bg-linear-to-b from-slate-50 via-white to-slate-50 z-0 rounded-3xl border border-white/50 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]"
                   style={{
                     boxShadow: `0 30px 60px -15px ${features[activeFeature].color}20` // tinted shadow
                   }}
@@ -162,19 +164,19 @@ export default function TechPayrollSection() {
                   {/* Console Internal Layout */}
                   <div className="h-full flex flex-col relative">
                     {/* Top Bar */}
-                    <div className="h-16 border-b border-slate-200/60 flex items-center justify-between px-8 bg-slate-50/50">
+                    <div className="h-[min(4rem,6vh)] border-b border-slate-200/60 flex items-center justify-between px-[min(2rem,2vw)] bg-slate-50/50">
                       <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-400" />
-                        <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                        <div className="w-3 h-3 rounded-full bg-green-400" />
+                        <div className="w-[min(0.75rem,1vw)] h-[min(0.75rem,1vw)] rounded-full bg-red-400" />
+                        <div className="w-[min(0.75rem,1vw)] h-[min(0.75rem,1vw)] rounded-full bg-yellow-400" />
+                        <div className="w-[min(0.75rem,1vw)] h-[min(0.75rem,1vw)] rounded-full bg-green-400" />
                       </div>
-                      <div className="font-mono text-xs text-slate-400 uppercase tracking-widest font-semibold">
+                      <div className="font-mono text-slate-400 uppercase tracking-widest font-semibold" style={{ fontSize: 'clamp(0.6rem, 0.8vw, 0.75rem)' }}>
                         System.Active // {features[activeFeature].id}
                       </div>
                     </div>
 
                     {/* Main Visual Staging Area */}
-                    <div className="flex-1 relative flex items-center justify-center p-12 bg-linear-to-b from-white to-slate-50/30">
+                    <div className="flex-1 relative flex items-center justify-center p-[min(3rem,4vw)] bg-linear-to-b from-white to-slate-50/30">
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={activeFeature}
@@ -188,8 +190,9 @@ export default function TechPayrollSection() {
                           <div className="relative z-10 drop-shadow-xl">
                             {(() => {
                               const ActiveIcon = features[activeFeature].icon;
+                              const iconSize = Math.min(180, window?.innerWidth * 0.12 || 180);
                               return <ActiveIcon
-                                size={180}
+                                size={iconSize}
                                 strokeWidth={0.5}
                                 className="transition-colors duration-500"
                                 style={{
@@ -210,13 +213,13 @@ export default function TechPayrollSection() {
                     </div>
 
                     {/* Bottom Data Hud - Light Mode */}
-                    <div className="h-32 bg-slate-50/80 border-t border-slate-200/60 p-6 grid grid-cols-2 gap-4 backdrop-blur-xl">
+                    <div className="min-h-[6rem] py-4 px-6 bg-slate-50/80 border-t border-slate-200/60 grid grid-cols-2 gap-4 backdrop-blur-xl">
                       {features[activeFeature].stats.map((stat, i) => (
                         <div key={i} className="flex flex-col justify-center">
-                          <div className="text-2xl font-bold font-mono text-slate-800 mb-1">
+                          <div className="font-bold font-mono text-slate-800 mb-1" style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
                             {stat.value}
                           </div>
-                          <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                          <div className="uppercase tracking-wider text-slate-500 font-semibold" style={{ fontSize: 'clamp(0.6rem, 0.8vw, 0.75rem)' }}>
                             {stat.label}
                           </div>
                         </div>
@@ -232,7 +235,7 @@ export default function TechPayrollSection() {
               {features.map((feature, index) => (
                 <motion.div
                   key={feature.id}
-                  className="min-h-[80vh] flex flex-col justify-center"
+                  className="min-h-[70vh] flex flex-col justify-center"
                   onViewportEnter={() => setActiveFeature(index)}
                   viewport={{ margin: "-50% 0px -50% 0px" }}
                 >
@@ -243,10 +246,11 @@ export default function TechPayrollSection() {
                   >
                     <div className="flex items-center gap-4 mb-6">
                       <span
-                        className="font-mono text-4xl font-bold transition-all duration-500 hover:scale-110"
+                        className="font-mono font-bold transition-all duration-500 hover:scale-110"
                         style={{
-                          color: activeFeature === index ? feature.color : '#cbd5e1', // slate-300 inactive
-                          opacity: activeFeature === index ? 1 : 0.5
+                          color: activeFeature === index ? feature.color : '#cbd5e1',
+                          opacity: activeFeature === index ? 1 : 0.5,
+                          fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)'
                         }}
                       >
                         0{index + 1}
@@ -260,10 +264,16 @@ export default function TechPayrollSection() {
                       )}
                     </div>
 
-                    <h3 className={`text-5xl font-bold mb-6 leading-tight transition-colors duration-500 ${activeFeature === index ? 'text-slate-900' : 'text-slate-300'}`}>
+                    <h3
+                      className={`font-bold mb-6 leading-tight transition-colors duration-500 ${activeFeature === index ? 'text-slate-900' : 'text-slate-300'}`}
+                      style={{ fontSize: 'clamp(1.5rem, 3vw, 2.75rem)' }}
+                    >
                       {feature.title}
                     </h3>
-                    <p className={`text-xl leading-relaxed max-w-md transition-colors duration-500 ${activeFeature === index ? 'text-slate-600' : 'text-slate-300'}`}>
+                    <p
+                      className={`leading-relaxed max-w-md transition-colors duration-500 ${activeFeature === index ? 'text-slate-600' : 'text-slate-300'}`}
+                      style={{ fontSize: 'clamp(0.85rem, 1.2vw, 1.125rem)' }}
+                    >
                       {feature.desc}
                     </p>
                   </motion.div>
@@ -277,19 +287,20 @@ export default function TechPayrollSection() {
             {features.map((feature, index) => (
               <div
                 key={feature.id}
-                className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-sm"
+                className="bg-white border border-slate-200 rounded-3xl relative overflow-hidden shadow-sm"
+                style={{ padding: 'clamp(1rem, 3vw, 2rem)' }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 blur-[60px] opacity-10" style={{ backgroundColor: feature.color }} />
 
-                <feature.icon size={48} className="mb-6" style={{ color: feature.color }} />
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-                <p className="text-slate-500 mb-6">{feature.desc}</p>
+                <feature.icon size={36} className="mb-4" style={{ color: feature.color }} />
+                <h3 className="font-bold text-slate-900 mb-2" style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>{feature.title}</h3>
+                <p className="text-slate-500 mb-4" style={{ fontSize: 'clamp(0.75rem, 1vw, 0.9rem)' }}>{feature.desc}</p>
 
                 <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-4">
                   {feature.stats.map((stat, i) => (
                     <div key={i}>
-                      <div className="text-lg font-bold text-slate-900">{stat.value}</div>
-                      <div className="text-xs text-slate-400 uppercase font-semibold">{stat.label}</div>
+                      <div className="font-bold text-slate-900" style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.125rem)' }}>{stat.value}</div>
+                      <div className="text-slate-400 uppercase font-semibold" style={{ fontSize: 'clamp(0.5rem, 0.8vw, 0.7rem)' }}>{stat.label}</div>
                     </div>
                   ))}
                 </div>

@@ -350,7 +350,7 @@ function HRMS3DCard() {
             className="relative"
         >
             {/* Main Dark Hero Card */}
-            <div className="relative bg-[#0A261D] rounded-[3rem] p-12 lg:p-16 overflow-hidden">
+            <div className="relative bg-[#0A261D] rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 lg:p-16 overflow-hidden">
 
                 {/* === ANIMATED BACKGROUNDS === */}
 
@@ -405,7 +405,7 @@ function HRMS3DCard() {
                             </motion.div>
                             <div>
                                 <div className="text-emerald-400/80 text-sm font-bold uppercase tracking-widest mb-2">Powered By</div>
-                                <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">
                                     Skoal <span className="font-serif italic text-emerald-400">HRMS</span>
                                 </h2>
                             </div>
@@ -538,7 +538,7 @@ function StatsSection() {
                         <div className="w-12 h-px bg-emerald-500" />
                         <span className="text-xs font-bold text-emerald-600 uppercase tracking-[0.2em]">By The Numbers</span>
                     </div>
-                    <h2 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight max-w-3xl leading-[1.1]">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 tracking-tight max-w-3xl leading-[1.1]">
                         Global Scale,<br />
                         <span className="font-serif italic text-emerald-700">Local Precision.</span>
                     </h2>
@@ -590,17 +590,17 @@ function MetricCard({ stat, index }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: index * 0.1 }}
-            className="group relative border-b border-r border-slate-200 p-10 md:p-16 hover:bg-slate-50/50 transition-colors duration-500"
+            className="group relative border-b border-r border-slate-200 p-6 md:p-8 lg:p-10 xl:p-16 hover:bg-slate-50/50 transition-colors duration-500"
         >
             {/* Hover Accent Line */}
             <div className="absolute top-0 left-0 w-0 h-1 bg-emerald-500 group-hover:w-full transition-all duration-500" />
 
             {/* Number */}
             <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-7xl md:text-9xl font-bold text-slate-900 tracking-tighter font-serif">
+                <span className="text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-bold text-slate-900 tracking-tighter font-serif">
                     {displayValue.toLocaleString()}
                 </span>
-                <span className="text-5xl md:text-7xl font-serif italic text-emerald-600">{stat.suffix}</span>
+                <span className="text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-serif italic text-emerald-600">{stat.suffix}</span>
             </div>
 
             {/* Label */}
@@ -812,7 +812,7 @@ function BPOSection() {
     ];
 
     return (
-        <section className="relative py-32 bg-slate-50 overflow-hidden">
+        <section className="relative py-20 md:py-24 lg:py-28 xl:py-32 bg-slate-50 overflow-hidden">
             {/* === CLEAN BACKGROUND (No Grid) === */}
             <div className="absolute inset-0 pointer-events-none">
                 {/* Subtle Ambient Orbs */}
@@ -833,7 +833,7 @@ function BPOSection() {
                             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
                             Global Operations
                         </motion.div>
-                        <h2 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
                             The Outsourcing <br />
                             <span className="font-serif italic text-emerald-600">Standard.</span>
                         </h2>
@@ -868,7 +868,7 @@ function FloodCard({ service, index }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
-            className="group relative h-[420px] rounded-[2.5rem] bg-white border border-slate-100 hover:border-emerald-500/0 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/20 overflow-hidden transition-all duration-500 flex flex-col justify-between p-10"
+            className="group relative h-[340px] md:h-[360px] lg:h-[380px] xl:h-[420px] rounded-[2.5rem] bg-white border border-slate-100 hover:border-emerald-500/0 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/20 overflow-hidden transition-all duration-500 flex flex-col justify-between p-5 md:p-6 lg:p-5 xl:p-10"
         >
             {/* === FLOOD FILL LAYER === */}
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
@@ -878,14 +878,14 @@ function FloodCard({ service, index }) {
 
                 {/* Header: Icon */}
                 <div className="flex justify-between items-start">
-                    <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-white/10 group-hover:border-white/20 flex items-center justify-center text-slate-900 group-hover:text-white transition-all duration-500">
+                    <div className="w-12 h-12 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-white/10 group-hover:border-white/20 flex items-center justify-center text-slate-900 group-hover:text-white transition-all duration-500">
                         {service.icon}
                     </div>
                 </div>
 
                 {/* Body: Text */}
                 <div className="mt-auto space-y-4">
-                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
+                    <h3 className="text-lg md:text-xl lg:text-lg xl:text-2xl font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
                         {service.title}
                     </h3>
                     <p className="text-slate-500 text-sm leading-relaxed group-hover:text-emerald-50/90 transition-colors duration-300">
@@ -897,7 +897,7 @@ function FloodCard({ service, index }) {
                 <div className="mt-8 pt-6 border-t border-slate-100 group-hover:border-white/20 transition-colors duration-500 flex items-center justify-between">
                     <div>
                         <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-emerald-200 transition-colors">{service.label}</div>
-                        <div className="text-3xl font-serif italic font-bold text-slate-900 group-hover:text-white transition-colors">{service.stat}</div>
+                        <div className="text-2xl lg:text-2xl xl:text-3xl font-serif italic font-bold text-slate-900 group-hover:text-white transition-colors">{service.stat}</div>
                     </div>
                     {/* Arrow */}
                     <div className="w-8 h-8 rounded-full border border-slate-200 group-hover:border-white/30 flex items-center justify-center text-slate-400 group-hover:text-white -rotate-45 group-hover:rotate-0 transition-all duration-500">
@@ -1087,7 +1087,7 @@ export default function ServicesPage() {
                     />
                 </div>
 
-                <div className="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                <div className="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center relative z-10">
 
                     {/* LEFT: TEXT CONTENT */}
                     <div className="max-w-2xl relative pr-6 md:pr-0">
@@ -1104,7 +1104,7 @@ export default function ServicesPage() {
                             <span className="text-slate-600 text-xs font-bold tracking-widest uppercase">Global People Ops</span>
                         </motion.div>
 
-                        <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1] mb-8 text-slate-900">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[1] mb-8 text-slate-900">
                             <span className="block">Skoal HR &</span>
                             <span className="block font-[family-name:var(--font-playfair)] italic text-emerald-700">
                                 Payrolling.
@@ -1115,7 +1115,7 @@ export default function ServicesPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3, duration: 0.8 }}
-                            className="text-xl md:text-2xl text-slate-500 leading-relaxed max-w-lg mb-10 font-medium"
+                            className="text-lg md:text-xl lg:text-2xl text-slate-500 leading-relaxed max-w-lg mb-10 font-medium"
                         >
                             We manage your employee lifecycle with a focus on compliance, transparency, and precision.
                         </motion.p>
@@ -1141,11 +1141,11 @@ export default function ServicesPage() {
                     </div>
 
                     {/* RIGHT: REFINED CARD DECK "THE FAN" */}
-                    <div className="relative h-[500px] md:h-[600px] flex items-center justify-center perspective-[2000px]">
+                    <div className="relative h-[450px] md:h-[500px] lg:h-[600px] flex items-center justify-center perspective-[2000px]">
 
                         {/* Container Scope for Hover Effect */}
                         <motion.div
-                            className="relative w-[300px] h-[450px] md:w-[380px] md:h-[520px] cursor-pointer"
+                            className="relative w-[280px] h-[420px] md:w-[340px] md:h-[480px] lg:w-[380px] lg:h-[520px] cursor-pointer"
                             whileHover="hover"
                             initial="initial"
                             animate="animate"
@@ -1158,13 +1158,13 @@ export default function ServicesPage() {
                                     animate: { rotateZ: 12, y: 0, x: 60, scale: 0.9, transition: { duration: 1.5, ease: "easeOut", repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 } }, // Gentle breathing
                                     hover: { rotateZ: 25, x: 140, y: -20, scale: 0.95, transition: { duration: 0.4, ease: "backOut" } }
                                 }}
-                                className="absolute inset-0 bg-emerald-900/90 backdrop-blur-md rounded-[2.5rem] shadow-2xl p-8 border border-white/10 z-10 flex flex-col justify-between"
+                                className="absolute inset-0 bg-emerald-900/90 backdrop-blur-md rounded-[2.5rem] shadow-2xl p-6 md:p-8 border border-white/10 z-10 flex flex-col justify-between"
                             >
                                 <div className="flex justify-between items-start opacity-60">
-                                    <div className="w-12 h-12 rounded-2xl bg-white/20" />
+                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-white/20" />
                                     <div className="w-8 h-2 rounded-full bg-white/20" />
                                 </div>
-                                <div className="h-24 w-full bg-emerald-800/50 rounded-2xl" />
+                                <div className="h-20 md:h-24 w-full bg-emerald-800/50 rounded-2xl" />
                                 <div className="space-y-3 opacity-40">
                                     <div className="h-3 w-3/4 bg-white/20 rounded-full" />
                                     <div className="h-3 w-1/2 bg-white/20 rounded-full" />
@@ -1178,18 +1178,18 @@ export default function ServicesPage() {
                                     animate: { rotateZ: -8, y: 10, x: -40, scale: 0.95, transition: { duration: 1.8, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" } },
                                     hover: { rotateZ: -15, x: -120, y: -10, scale: 0.95, transition: { duration: 0.4, ease: "backOut" } }
                                 }}
-                                className="absolute inset-0 bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] p-8 border border-white/60 z-20 flex flex-col justify-between"
+                                className="absolute inset-0 bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] p-6 md:p-8 border border-white/60 z-20 flex flex-col justify-between"
                             >
                                 <div className="flex justify-between items-start">
-                                    <div className="w-12 h-12 rounded-2xl bg-slate-200" />
-                                    <div className="w-16 h-6 rounded-full bg-emerald-100" />
+                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-slate-200" />
+                                    <div className="w-12 md:w-16 h-5 md:h-6 rounded-full bg-emerald-100" />
                                 </div>
                                 <div className="space-y-4">
                                     <div className="flex gap-4">
-                                        <div className="h-16 w-1/2 bg-slate-100 rounded-2xl" />
-                                        <div className="h-16 w-1/2 bg-slate-100 rounded-2xl" />
+                                        <div className="h-14 md:h-16 w-1/2 bg-slate-100 rounded-2xl" />
+                                        <div className="h-14 md:h-16 w-1/2 bg-slate-100 rounded-2xl" />
                                     </div>
-                                    <div className="h-16 w-full bg-slate-100 rounded-2xl" />
+                                    <div className="h-14 md:h-16 w-full bg-slate-100 rounded-2xl" />
                                 </div>
                             </motion.div>
 
@@ -1200,17 +1200,17 @@ export default function ServicesPage() {
                                     animate: { y: [0, -10, 0], transition: { duration: 4, ease: "easeInOut", repeat: Infinity } },
                                     hover: { y: -20, scale: 1.02, transition: { duration: 0.3 } }
                                 }}
-                                className="absolute inset-0 bg-white rounded-[2.5rem] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)] p-8 border border-slate-100 z-30 flex flex-col justify-between overflow-hidden"
+                                className="absolute inset-0 bg-white rounded-[2.5rem] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)] p-6 md:p-8 border border-slate-100 z-30 flex flex-col justify-between overflow-hidden"
                             >
                                 {/* Decorative BG Gradient */}
-                                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-50/50 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                                <div className="absolute top-0 right-0 w-[250px] md:w-[300px] h-[250px] md:h-[300px] bg-emerald-50/50 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                                 {/* Header */}
                                 <div className="flex items-center justify-between relative z-10">
-                                    <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-100">
-                                        <Activity size={28} />
+                                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-100">
+                                        <Activity size={24} className="md:w-[28px] md:h-[28px]" />
                                     </div>
-                                    <div className="px-3 py-1.5 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-700 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                    <div className="px-3 py-1.5 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-700 text-[9px] md:text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
                                         <span className="relative flex h-2 w-2">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
@@ -1220,15 +1220,15 @@ export default function ServicesPage() {
                                 </div>
 
                                 {/* Main Metric */}
-                                <div className="space-y-8 relative z-10 mt-8">
+                                <div className="space-y-6 md:space-y-8 relative z-10 mt-6 md:mt-8">
                                     <div>
-                                        <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">System Health</div>
-                                        <div className="text-4xl font-[family-name:var(--font-playfair)] font-medium text-slate-900">Optimal</div>
+                                        <div className="text-slate-400 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-2">System Health</div>
+                                        <div className="text-3xl md:text-4xl font-[family-name:var(--font-playfair)] font-medium text-slate-900">Optimal</div>
                                     </div>
 
                                     {/* Progress Bar Item */}
-                                    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                                        <div className="flex items-center justify-between text-sm font-medium">
+                                    <div className="p-4 md:p-5 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
+                                        <div className="flex items-center justify-between text-xs md:text-sm font-medium">
                                             <span className="text-slate-500">Payroll Accuracy</span>
                                             <span className="text-emerald-700">100%</span>
                                         </div>
@@ -1243,17 +1243,17 @@ export default function ServicesPage() {
                                     </div>
 
                                     {/* Mini Stats Grid */}
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="bg-[#022c22] text-white p-4 rounded-2xl shadow-lg relative overflow-hidden group">
+                                    <div className="grid grid-cols-2 gap-3 md:gap-4">
+                                        <div className="bg-[#022c22] text-white p-3 md:p-4 rounded-2xl shadow-lg relative overflow-hidden group">
                                             <div className="absolute inset-0 bg-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            <PieChart size={20} className="mb-2 opacity-80" />
-                                            <div className="text-2xl font-bold">Zero</div>
-                                            <div className="text-[10px] opacity-60 uppercase tracking-wider">Risk</div>
+                                            <PieChart size={18} className="mb-2 opacity-80 md:w-[20px] md:h-[20px]" />
+                                            <div className="text-xl md:text-2xl font-bold">Zero</div>
+                                            <div className="text-[9px] md:text-[10px] opacity-60 uppercase tracking-wider">Risk</div>
                                         </div>
-                                        <div className="bg-white border border-slate-100 text-slate-900 p-4 rounded-2xl shadow-sm">
-                                            <Layers size={20} className="mb-2 text-emerald-600" />
-                                            <div className="text-2xl font-bold">50+</div>
-                                            <div className="text-[10px] text-slate-400 uppercase tracking-wider">Modules</div>
+                                        <div className="bg-white border border-slate-100 text-slate-900 p-3 md:p-4 rounded-2xl shadow-sm">
+                                            <Layers size={18} className="mb-2 text-emerald-600 md:w-[20px] md:h-[20px]" />
+                                            <div className="text-xl md:text-2xl font-bold">50+</div>
+                                            <div className="text-[9px] md:text-[10px] text-slate-400 uppercase tracking-wider">Modules</div>
                                         </div>
                                     </div>
                                 </div>

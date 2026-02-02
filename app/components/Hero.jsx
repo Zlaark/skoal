@@ -102,7 +102,7 @@ export default function Hero() {
 
       <motion.div
         style={{ opacity, scale, y }}
-        className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-20 relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-10 xl:gap-14 2xl:gap-20 items-center lg:items-start"
+        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-10 xl:gap-14 2xl:gap-20 items-center lg:items-start"
       >
 
         {/* Left Column: Content */}
@@ -122,7 +122,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter leading-[1.1] mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-slate-900">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-slate-900">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={{ y: "100%" }}

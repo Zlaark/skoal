@@ -54,10 +54,10 @@ export default function AboutCapabilities() {
         <section className="py-16 sm:py-20 md:py-24 bg-white relative overflow-hidden text-slate-900 font-sans">
 
             {/* Header */}
-            <div className="container mx-auto px-4 sm:px-6 mb-12 md:mb-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-16">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8 border-b border-slate-200 pb-6 lg:pb-8">
                     <div>
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[0.9] text-slate-900">
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] text-slate-900">
                             <span className="whitespace-nowrap">WE EXCEL</span> <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 italic font-serif whitespace-nowrap">
                                 AT SCALE.
@@ -72,7 +72,7 @@ export default function AboutCapabilities() {
             </div>
 
             {/* The Kinetic Accordion */}
-            <div className="container mx-auto px-4 sm:px-6">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col">
                     {capabilities.map((cap) => {
                         const isActive = activeId === cap.id;
