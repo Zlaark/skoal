@@ -76,7 +76,7 @@ const Card = ({ card }) => {
   const Icon = card.icon;
 
   return (
-    <Link href="/services" className="group relative h-[480px] w-[85vw] sm:w-[360px] md:w-[420px] lg:w-[450px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
+    <Link href="/services" className="group relative h-[280px] md:h-[320px] lg:h-[350px] xl:h-[400px] w-[85vw] sm:w-[360px] md:w-[420px] lg:w-[450px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
 
       {/* Dynamic Background Gradients */}
       <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-linear-to-br ${card.gradient}`} />
@@ -89,44 +89,44 @@ const Card = ({ card }) => {
       <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
       {/* Content Container */}
-      <div className="relative h-full p-8 md:p-10 flex flex-col justify-between z-10">
+      <div className="relative h-full p-5 md:p-6 lg:p-7 xl:p-10 flex flex-col justify-between z-10">
 
         {/* Top Section */}
         <div>
           {/* Icon & Subtitle Row */}
-          <div className="flex items-center justify-between mb-6 group-hover:text-emerald-100 transition-colors duration-500">
-            <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-400/30 backdrop-blur-md transition-all duration-500">
-              <Icon size={26} className="text-emerald-400 group-hover:text-white transition-colors duration-500" strokeWidth={1.5} />
+          <div className="flex items-center justify-between mb-3 md:mb-4 xl:mb-6 group-hover:text-emerald-100 transition-colors duration-500">
+            <div className="p-2.5 md:p-3 xl:p-3.5 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-400/30 backdrop-blur-md transition-all duration-500">
+              <Icon size={20} className="md:w-6 md:h-6 xl:w-[26px] xl:h-[26px] text-emerald-400 group-hover:text-white transition-colors duration-500" strokeWidth={1.5} />
             </div>
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-300 md:text-emerald-400 group-hover:text-emerald-200 transition-colors duration-500">
+            <span className="text-[9px] md:text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-300 md:text-emerald-400 group-hover:text-emerald-200 transition-colors duration-500">
               {card.subtitle}
             </span>
           </div>
 
           {/* Title & Desc */}
-          <h3 className="text-3xl font-serif font-medium text-white mb-4 transition-colors duration-500 leading-tight">
+          <h3 className="text-2xl md:text-[26px] lg:text-[28px] xl:text-3xl font-serif font-medium text-white mb-2 md:mb-3 xl:mb-4 transition-colors duration-500 leading-tight">
             {card.title}
           </h3>
-          <p className="text-emerald-100/90 text-[17px] leading-relaxed group-hover:text-emerald-100/80 transition-colors duration-500 font-light">
+          <p className="text-emerald-100/90 text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] leading-relaxed group-hover:text-emerald-100/80 transition-colors duration-500 font-light">
             {card.desc}
           </p>
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-white/5 group-hover:border-white/10 transition-colors duration-500">
+        <div className="pt-4 md:pt-5 lg:pt-6 xl:pt-8 border-t border-white/5 group-hover:border-white/10 transition-colors duration-500">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-4xl font-bold text-white group-hover:text-emerald-50 transition-colors duration-500 tracking-tighter">
+              <div className="text-2xl md:text-3xl lg:text-[34px] xl:text-4xl font-bold text-white group-hover:text-emerald-50 transition-colors duration-500 tracking-tighter">
                 {card.stat}
               </div>
-              <div className="text-xs font-medium text-emerald-300/80 group-hover:text-emerald-300 transition-colors duration-500 mt-1 uppercase tracking-wider">
+              <div className="text-[10px] md:text-[11px] xl:text-xs font-medium text-emerald-300/80 group-hover:text-emerald-300 transition-colors duration-500 mt-1 uppercase tracking-wider">
                 {card.statLabel}
               </div>
             </div>
 
             {/* Floating Action Button */}
-            <div aria-label="Learn more about this industry" className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:border-emerald-500 flex items-center justify-center transition-all duration-500 hover:scale-110">
-              <ArrowRight size={20} className="text-emerald-400 group-hover:text-white transition-colors duration-500" />
+            <div aria-label="Learn more about this industry" className="w-10 h-10 md:w-11 md:h-11 xl:w-12 xl:h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 group-hover:bg-emerald-500 group-hover:border-emerald-500 flex items-center justify-center transition-all duration-500 hover:scale-110">
+              <ArrowRight size={16} className="md:w-[18px] md:h-[18px] xl:w-5 xl:h-5 text-emerald-400 group-hover:text-white transition-colors duration-500" />
             </div>
           </div>
         </div>
@@ -169,26 +169,26 @@ export default function Industries() {
 
         {/* Section Header - Sticky at top LEFT - Lower z-index so cards slide over it */}
         {/* Adjusted left-10 md:left-24 to fix cut-off issue */}
-        <div className="absolute top-20 md:top-12 left-4 sm:left-6 lg:left-8 z-0 max-w-lg">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-8 h-[2px] bg-emerald-500"></span>
-            <span className="text-emerald-600 font-bold uppercase tracking-[0.2em] text-xs">
+        <div className="absolute top-8 md:top-8 lg:top-10 xl:top-24 left-4 sm:left-6 lg:left-8 z-0 max-w-lg">
+          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3 xl:mb-4">
+            <span className="w-6 md:w-8 h-[2px] bg-emerald-500"></span>
+            <span className="text-emerald-600 font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">
               Our Expertise
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium text-slate-900 leading-[1.1] mb-4 md:mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-serif font-medium text-slate-900 leading-[1.1] mb-2 md:mb-4 xl:mb-6">
             Industries We <br />
             <span className="italic text-emerald-700">Revolutionize</span>
           </h2>
-          <p className="text-slate-500 text-base md:text-lg max-w-sm hidden md:block">
+          <p className="text-slate-500 text-sm md:text-base lg:text-lg max-w-sm hidden md:block">
             Tailored workforce solutions that adapt to the unique pulse of your sector.
           </p>
         </div>
 
         {/* Progress Indicator - Top Right */}
-        <div className="absolute top-24 md:top-16 right-4 md:right-16 z-20 flex items-center gap-4">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-widest hidden md:block">Scroll to Explore</span>
-          <div className="w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
+        <div className="absolute top-16 md:top-14 lg:top-16 right-4 md:right-16 z-20 flex items-center gap-3 md:gap-4">
+          <span className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest hidden md:block">Scroll to Explore</span>
+          <div className="w-24 md:w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-emerald-600 rounded-full"
               style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
@@ -197,7 +197,7 @@ export default function Industries() {
         </div>
 
         {/* Horizontal Scroll Track - HIGHER z-index to overlay text */}
-        <div className="w-full relative z-20 pt-44 md:pt-64">
+        <div className="w-full relative z-20 pt-24 md:pt-32 lg:pt-40 xl:pt-48">
           <motion.div
             style={{ x }}
             className="flex gap-6 md:gap-8 pl-4 sm:pl-6 lg:pl-8 pr-20 items-center will-change-transform"
@@ -211,21 +211,21 @@ export default function Industries() {
             ))}
 
             {/* CTA / End Card */}
-            <div className="w-[340px] md:w-[380px] h-[480px] shrink-0 relative group rounded-4xl overflow-hidden cursor-pointer snap-center border border-slate-200 flex flex-col items-center justify-center text-center p-10 hover:border-emerald-500/50 transition-colors duration-700">
+            <div className="w-[340px] md:w-[380px] h-[280px] md:h-[320px] lg:h-[350px] xl:h-[400px] shrink-0 relative group rounded-4xl overflow-hidden cursor-pointer snap-center border border-slate-200 flex flex-col items-center justify-center text-center p-6 md:p-8 xl:p-10 hover:border-emerald-500/50 transition-colors duration-700">
               {/* Pattern BG */}
               <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.svg')]"></div>
 
-              <div className="relative z-10 w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-                <Globe size={36} className="text-emerald-600" strokeWidth={1.5} />
+              <div className="relative z-10 w-14 h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-full bg-emerald-50 flex items-center justify-center mb-4 md:mb-5 lg:mb-6 xl:mb-8 group-hover:scale-110 transition-transform duration-500">
+                <Globe size={28} className="md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-9 xl:h-9 text-emerald-600" strokeWidth={1.5} />
               </div>
-              <h3 className="relative z-10 text-3xl font-serif font-medium text-slate-900 mb-4">
+              <h3 className="relative z-10 text-xl md:text-2xl lg:text-[26px] xl:text-3xl font-serif font-medium text-slate-900 mb-2 md:mb-3 xl:mb-4">
                 Don't see your industry?
               </h3>
-              <p className="relative z-10 text-slate-500 mb-8 max-w-xs mx-auto">
+              <p className="relative z-10 text-slate-500 text-sm md:text-base mb-4 md:mb-6 xl:mb-8 max-w-xs mx-auto">
                 We build custom workforce solutions for unique operational challenges.
               </p>
-              <Link href="/contact" aria-label="Explore partnership opportunities" className="relative z-10 px-8 py-4 bg-slate-900 text-white rounded-full font-bold shadow-xl shadow-slate-900/10 hover:bg-emerald-600 transition-all duration-300 flex items-center gap-2 group-hover:px-10">
-                Let's Talk <ArrowRight size={18} />
+              <Link href="/contact" aria-label="Explore partnership opportunities" className="relative z-10 px-6 py-3 md:px-7 md:py-3.5 xl:px-8 xl:py-4 bg-slate-900 text-white text-sm md:text-base rounded-full font-bold shadow-xl shadow-slate-900/10 hover:bg-emerald-600 transition-all duration-300 flex items-center gap-2 group-hover:px-8 md:group-hover:px-9 xl:group-hover:px-10">
+                Let's Talk <ArrowRight size={16} className="md:w-[18px] md:h-[18px]" />
               </Link>
             </div>
 
