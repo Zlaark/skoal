@@ -167,7 +167,7 @@ export default function AboutHero() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
             </div>
 
-            <motion.div style={{ y, opacity }} className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative z-10 min-h-screen flex items-center">
+            <motion.div style={{ y, opacity }} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative z-10 min-h-screen flex items-center">
                 <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full">
 
                     {/* --- Left Column: Typography --- */}

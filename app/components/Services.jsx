@@ -98,7 +98,7 @@ function PrecisionCard({ module, index }) {
         </div>
         {/* Massive Stat Typography for Impact */}
         <div className="flex items-baseline justify-between">
-          <div className={`text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900 transition-colors`}>
+          <div className={`text-3xl sm:text-4xl md:text-4xl xl:text-5xl font-mono font-light tracking-tighter text-slate-900 group-hover:text-emerald-900 transition-colors`}>
             {module.stat}
           </div>
           <ArrowUpRight className={`opacity-0 group-hover:opacity-100 transition-all duration-500 text-slate-400`} size={24} />
@@ -110,7 +110,7 @@ function PrecisionCard({ module, index }) {
 
 export default function Services() {
   return (
-    <section className="relative py-20 md:py-32 bg-slate-50 text-slate-900 border-t border-slate-200 overflow-hidden" id="services">
+    <section className="relative py-16 md:py-24 lg:py-28 xl:py-32 bg-slate-50 text-slate-900 border-t border-slate-200 overflow-hidden" id="services">
       {/* Background Technical Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.3]"
         style={{
@@ -173,7 +173,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-6"
+            className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-slate-900 mb-6"
           >
             We manage the <span className="font-serif italic text-emerald-700">complexity.</span>
           </motion.h2>

@@ -143,3 +143,11 @@ html.lenis body {
 .animate-shutter-reveal {
   animation: shutter-reveal 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
+
+/* === 125% ZOOM / DISPLAY SCALING COMPENSATION === */
+/* Use viewport-clamped rem so elements scale proportionally.
+   At 1920px CSS viewport (100% on 1080p) 1rem ≈ 16px.
+   At 1536px CSS viewport (125% zoom)     1rem ≈ 14.4px → things shrink ~10% naturally.
+   At 1228px CSS viewport (150% zoom)     1rem ≈ 13px  → things shrink ~18% naturally.
+   We do NOT override the root font-size globally because it breaks
+   hero sections and high-DPI native displays at 100% zoom. */

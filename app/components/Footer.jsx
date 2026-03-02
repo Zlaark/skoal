@@ -9,7 +9,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#011c15] text-emerald-50 relative overflow-hidden pt-12 md:pt-32 pb-0">
+    <footer className="bg-[#011c15] text-emerald-50 relative overflow-hidden pt-12 md:pt-24 xl:pt-32 pb-0">
 
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-[0.1] bg-[url('/noise.svg')] pointer-events-none" />

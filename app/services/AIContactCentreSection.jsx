@@ -15,7 +15,7 @@ export default function AIContactCentreSection() {
   const rotateCore = useTransform(scrollYProgress, [0, 1], [0, 45]);
 
   return (
-    <section ref={containerRef} id="contact-centre" className="py-32 bg-slate-50 relative overflow-hidden">
+    <section ref={containerRef} id="contact-centre" className="py-20 lg:py-28 xl:py-32 bg-slate-50 relative overflow-hidden">
 
       {/* Ambient Background - Green/Teal for "Greener" AI Vibe */}
       <div className="absolute inset-0 pointer-events-none">
@@ -49,7 +49,7 @@ export default function AIContactCentreSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
           >
             AI-Driven <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
@@ -92,12 +92,12 @@ export default function AIContactCentreSection() {
           </div>
 
           {/* CENTER COLUMN - THE VISUAL CORE */}
-          <div className="relative h-[400px] lg:h-[500px] flex items-center justify-center order-1 lg:order-2">
+          <div className="relative h-[350px] lg:h-[420px] xl:h-[500px] flex items-center justify-center order-1 lg:order-2">
             <div className="relative w-full h-full flex items-center justify-center">
               {/* Inner Pulsing Core */}
               <motion.div
                 style={{ rotate: rotateCore }}
-                className="relative z-10 w-64 h-64 md:w-80 md:h-80"
+                className="relative z-10 w-52 h-52 md:w-64 md:h-64 xl:w-80 xl:h-80"
               >
                 {/* Core Gradient Sphere */}
                 <div className="absolute inset-4 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 blur-xl opacity-20 animate-pulse" />

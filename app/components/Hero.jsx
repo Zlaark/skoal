@@ -72,7 +72,7 @@ export default function Hero() {
   return (
     <section
       ref={targetRef}
-      className="relative z-0 min-h-screen flex items-center overflow-hidden bg-white pt-20 pb-12 sm:pt-24 sm:pb-14 md:pt-28 md:pb-16 lg:pt-28 lg:pb-20 text-slate-900"
+      className="relative z-0 min-h-screen flex items-center overflow-hidden bg-white pt-20 pb-12 sm:pt-24 sm:pb-14 md:pt-28 md:pb-16 lg:pt-28 lg:pb-18 xl:pt-28 xl:pb-20 text-slate-900"
     >
       <DemoModal isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
 
@@ -102,7 +102,7 @@ export default function Hero() {
 
       <motion.div
         style={{ opacity, scale, y }}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-10 xl:gap-14 2xl:gap-20 items-center lg:items-start"
+        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-10 xl:gap-14 items-center lg:items-start"
       >
 
         {/* Left Column: Content */}
@@ -122,7 +122,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-slate-900">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-bold tracking-tighter leading-[1.1] mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-slate-900">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={{ y: "100%" }}
@@ -225,10 +225,10 @@ export default function Hero() {
         </div>
 
         {/* Right Column: High-End Glass UI - Hidden on mobile/tablet */}
-        <div className="relative hidden lg:flex h-auto lg:min-h-[400px] xl:min-h-[500px] 2xl:min-h-[600px] items-center justify-center perspective-[2000px]">
+        <div className="relative hidden lg:flex h-auto lg:min-h-[440px] xl:min-h-[520px] items-center justify-end perspective-[2000px]">
 
           <motion.div
-            className="relative w-full max-w-[380px] lg:max-w-[360px] xl:max-w-[450px] 2xl:max-w-[520px]"
+            className="relative w-full max-w-[480px] lg:max-w-[480px] xl:max-w-[560px]"
             initial={{ opacity: 0, rotateY: -20, rotateX: 10, scale: 0.9 }}
             animate={{ opacity: 1, rotateY: -15, rotateX: 8, scale: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
@@ -246,32 +246,32 @@ export default function Hero() {
             }}
           >
             {/* Dark Card */}
-            <div className="relative bg-[#0A261D] backdrop-blur-2xl border border-emerald-500/10 rounded-[1.5rem] lg:rounded-[1.75rem] xl:rounded-[2rem] 2xl:rounded-[2.5rem] p-4 lg:p-4 xl:p-5 2xl:p-7 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3),0_20px_40px_-10px_rgba(0,0,0,0.2),inset_0_0_60px_rgba(16,185,129,0.05)] overflow-hidden">
+            <div className="relative bg-[#0A261D] backdrop-blur-2xl border border-emerald-500/10 rounded-[1.75rem] lg:rounded-[2rem] xl:rounded-[2.25rem] p-5 lg:p-5 xl:p-6 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3),0_20px_40px_-10px_rgba(0,0,0,0.2),inset_0_0_60px_rgba(16,185,129,0.05)] overflow-hidden">
 
               {/* Subtle Top Light Leak */}
-              <div className="absolute top-0 left-0 right-0 h-24 lg:h-28 xl:h-32 2xl:h-40 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+              <div className="absolute top-0 left-0 right-0 h-28 lg:h-32 xl:h-36 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
 
               {/* Noise Texture */}
               <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.svg')] mix-blend-overlay"></div>
 
               {/* Decorative Header */}
-              <div className="flex items-center justify-between mb-3 lg:mb-4 xl:mb-5 2xl:mb-6 relative z-10">
-                <div className="flex items-center gap-2 lg:gap-2.5 xl:gap-3">
-                  <div className="w-8 h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 2xl:w-12 2xl:h-12 rounded-lg lg:rounded-xl xl:rounded-xl 2xl:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                    <TrendingUp className="text-emerald-400 w-4 h-4 lg:w-[18px] lg:h-[18px] xl:w-5 xl:h-5" />
+              <div className="flex items-center justify-between mb-4 lg:mb-5 xl:mb-6 relative z-10">
+                <div className="flex items-center gap-2.5 lg:gap-3 xl:gap-3">
+                  <div className="w-9 h-9 lg:w-10 lg:h-10 xl:w-11 xl:h-11 rounded-lg lg:rounded-xl xl:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                    <TrendingUp className="text-emerald-400 w-[18px] h-[18px] lg:w-5 lg:h-5 xl:w-5 xl:h-5" />
                   </div>
                   <div>
-                    <div className="text-[11px] lg:text-xs xl:text-xs 2xl:text-sm font-bold text-white">Projections</div>
-                    <div className="text-[9px] lg:text-[10px] xl:text-[10px] 2xl:text-xs text-emerald-400/60">FY 2024-25</div>
+                    <div className="text-xs lg:text-xs xl:text-sm font-bold text-white">Projections</div>
+                    <div className="text-[10px] lg:text-[11px] xl:text-[11px] text-emerald-400/60">FY 2024-25</div>
                   </div>
                 </div>
-                <div className="px-2 py-0.5 lg:px-2.5 lg:py-1 xl:px-2.5 xl:py-1 bg-white/5 border border-white/10 rounded-full text-[9px] lg:text-[10px] xl:text-[10px] 2xl:text-xs font-bold text-emerald-300">
+                <div className="px-2.5 py-1 lg:px-3 lg:py-1 xl:px-3 xl:py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] lg:text-[11px] xl:text-xs font-bold text-emerald-300">
                   Live Data
                 </div>
               </div>
 
               {/* Chart Visualization */}
-              <div className="h-28 lg:h-32 xl:h-36 2xl:h-44 flex items-end justify-between gap-1.5 lg:gap-2 xl:gap-2 2xl:gap-3 mb-3 lg:mb-4 xl:mb-5 2xl:mb-6 px-1 relative z-10">
+              <div className="h-32 lg:h-36 xl:h-44 flex items-end justify-between gap-2 lg:gap-2.5 xl:gap-2.5 mb-4 lg:mb-5 xl:mb-6 px-1 relative z-10">
                 {[35, 55, 45, 75, 60, 90, 70, 95].map((h, i) => (
                   <motion.div
                     key={i}
@@ -288,15 +288,15 @@ export default function Hero() {
               </div>
 
               {/* Bottom Stat Row */}
-              <div className="grid grid-cols-2 gap-2 lg:gap-2.5 xl:gap-3 2xl:gap-4 relative z-10">
-                <div className="bg-white/5 border border-white/5 p-2.5 lg:p-3 xl:p-3.5 2xl:p-4 rounded-lg lg:rounded-xl xl:rounded-xl 2xl:rounded-2xl hover:bg-white/10 transition-colors duration-500">
-                  <div className="text-emerald-200/40 text-[9px] lg:text-[10px] xl:text-[10px] 2xl:text-xs font-medium uppercase tracking-wider mb-1 lg:mb-1.5 xl:mb-1.5">Total Processed</div>
-                  <div className="text-lg lg:text-xl xl:text-xl 2xl:text-2xl font-bold text-white tracking-tight">$12.4M</div>
+              <div className="grid grid-cols-2 gap-2.5 lg:gap-3 xl:gap-3.5 relative z-10">
+                <div className="bg-white/5 border border-white/5 p-3 lg:p-3.5 xl:p-4 rounded-lg lg:rounded-xl xl:rounded-xl hover:bg-white/10 transition-colors duration-500">
+                  <div className="text-emerald-200/40 text-[10px] lg:text-[11px] xl:text-xs font-medium uppercase tracking-wider mb-1.5 lg:mb-2 xl:mb-2">Total Processed</div>
+                  <div className="text-xl lg:text-xl xl:text-2xl font-bold text-white tracking-tight">$12.4M</div>
                 </div>
-                <div className="bg-emerald-500/10 border border-emerald-500/20 p-2.5 lg:p-3 xl:p-3.5 2xl:p-4 rounded-lg lg:rounded-xl xl:rounded-xl 2xl:rounded-2xl relative overflow-hidden group">
+                <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 lg:p-3.5 xl:p-4 rounded-lg lg:rounded-xl xl:rounded-xl relative overflow-hidden group">
                   <div className="absolute inset-0 bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  <div className="text-emerald-400/60 text-[9px] lg:text-[10px] xl:text-[10px] 2xl:text-xs font-medium uppercase tracking-wider mb-1 lg:mb-1.5 xl:mb-1.5 relative z-10">Efficiency</div>
-                  <div className="text-lg lg:text-xl xl:text-xl 2xl:text-2xl font-bold text-emerald-400 tracking-tight relative z-10">+24%</div>
+                  <div className="text-emerald-400/60 text-[10px] lg:text-[11px] xl:text-xs font-medium uppercase tracking-wider mb-1.5 lg:mb-2 xl:mb-2 relative z-10">Efficiency</div>
+                  <div className="text-xl lg:text-xl xl:text-2xl font-bold text-emerald-400 tracking-tight relative z-10">+24%</div>
                 </div>
               </div>
             </div>
@@ -305,25 +305,25 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, -15, 0], rotate: [0, 6, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-2 lg:-right-3 xl:-right-4 2xl:-right-6 top-8 lg:top-10 xl:top-12 2xl:top-16 bg-white p-2 lg:p-2.5 xl:p-3 2xl:p-4 rounded-lg lg:rounded-xl xl:rounded-xl 2xl:rounded-2xl shadow-xl shadow-slate-900/20 z-20 flex items-center gap-1.5 lg:gap-2 xl:gap-2 2xl:gap-3 border border-slate-50"
+              className="absolute -right-3 lg:-right-4 xl:-right-5 top-10 lg:top-12 xl:top-14 bg-white p-2.5 lg:p-3 xl:p-3.5 rounded-xl lg:rounded-xl xl:rounded-2xl shadow-xl shadow-slate-900/20 z-20 flex items-center gap-2 lg:gap-2.5 xl:gap-2.5 border border-slate-50"
               style={{ transform: "translateZ(50px)" }}
             >
-              <div className="w-6 h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-900">
-                <Globe size={14} className="lg:w-4 lg:h-4 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5" />
+              <div className="w-7 h-7 lg:w-8 lg:h-8 xl:w-9 xl:h-9 rounded-full bg-blue-50 flex items-center justify-center text-blue-900">
+                <Globe size={14} className="lg:w-4 lg:h-4 xl:w-[18px] xl:h-[18px]" />
               </div>
               <div>
-                <div className="text-[9px] lg:text-[10px] xl:text-[10px] 2xl:text-xs font-bold text-slate-900">New Region</div>
-                <div className="text-[8px] lg:text-[9px] xl:text-[9px] 2xl:text-[10px] text-slate-500">Middle East Added</div>
+                <div className="text-[10px] lg:text-[11px] xl:text-xs font-bold text-slate-900">New Region</div>
+                <div className="text-[9px] lg:text-[10px] xl:text-[10px] text-slate-500">Middle East Added</div>
               </div>
             </motion.div>
 
             <motion.div
               animate={{ y: [0, 20, 0], rotate: [0, -4, 0] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -left-1 lg:-left-2 xl:-left-3 2xl:-left-5 bottom-14 lg:bottom-16 xl:bottom-18 2xl:bottom-22 bg-[#0A261D] text-white p-2 lg:p-2.5 xl:p-3 2xl:p-4 rounded-lg lg:rounded-xl xl:rounded-xl 2xl:rounded-2xl shadow-2xl z-20"
+              className="absolute -left-2 lg:-left-3 xl:-left-4 bottom-16 lg:bottom-18 xl:bottom-20 bg-[#0A261D] text-white p-2.5 lg:p-3 xl:p-3.5 rounded-xl lg:rounded-xl xl:rounded-2xl shadow-2xl z-20"
               style={{ transform: "translateZ(60px)" }}
             >
-              <CheckCircle2 size={16} className="text-emerald-400 lg:w-[18px] lg:h-[18px] xl:w-5 xl:h-5 2xl:w-6 2xl:h-6" />
+              <CheckCircle2 size={18} className="text-emerald-400 lg:w-5 lg:h-5 xl:w-6 xl:h-6" />
             </motion.div>
 
           </motion.div>

@@ -5,7 +5,7 @@ import { Bot, Phone, Share2, Zap, BrainCircuit, MessageSquare, Mail, ArrowRight 
 
 export default function TechStack() {
   return (
-    <section className="relative py-32 bg-slate-50 overflow-hidden" id="tech-stack">
+    <section className="relative py-20 lg:py-28 xl:py-32 bg-slate-50 overflow-hidden" id="tech-stack">
 
       {/* Background Grid - Subtle Engineering Graph */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -28,7 +28,7 @@ export default function TechStack() {
             <Zap size={12} className="text-amber-500" />
             <span>Neural Architecture</span>
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
             Intelligent <span className="text-emerald-600 font-serif italic">Routing.</span>
           </h2>
           <p className="text-lg text-slate-500 leading-relaxed">

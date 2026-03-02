@@ -168,12 +168,12 @@ function FeatureRow({ item, index }) {
   const isGraphicLeft = item.align === "left";
 
   return (
-    <div className="min-h-[80vh] flex items-center py-20">
+    <div className="min-h-[70vh] lg:min-h-[80vh] flex items-center py-16 lg:py-20">
       <div className={`grid lg:grid-cols-2 gap-12 lg:gap-24 items-center w-full ${!isGraphicLeft ? "lg:auto-cols-fr" : ""}`}>
 
         {/* Graphic Column */}
         <motion.div
-          className={`relative h-[400px] lg:h-[600px] w-full ${!isGraphicLeft ? "lg:order-2" : "lg:order-1"}`}
+          className={`relative h-[350px] lg:h-[450px] xl:h-[520px] w-full ${!isGraphicLeft ? "lg:order-2" : "lg:order-1"}`}
           initial={{ opacity: 0, x: isGraphicLeft ? -50 : 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -210,11 +210,11 @@ function FeatureRow({ item, index }) {
             {item.client}
           </span>
 
-          <h3 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-[1.1]">
+          <h3 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-6 leading-[1.1]">
             {item.title}
           </h3>
 
-          <p className="text-slate-400 text-lg lg:text-xl leading-relaxed mb-10 max-w-lg">
+          <p className="text-slate-400 text-base lg:text-lg xl:text-xl leading-relaxed mb-10 max-w-lg">
             {item.desc}
           </p>
 
@@ -222,7 +222,7 @@ function FeatureRow({ item, index }) {
           <div className={`flex items-center gap-6 ${!isGraphicLeft ? "flex-row-reverse" : "flex-row"}`}>
             <div className={`w-[1px] h-16 ${item.accent === 'emerald' ? 'bg-emerald-500' : 'bg-teal-500'}`} />
             <div className={`${!isGraphicLeft ? "text-right" : "text-left"}`}>
-              <div className="text-5xl lg:text-6xl font-serif italic text-white mb-1">
+              <div className="text-4xl lg:text-5xl xl:text-6xl font-serif italic text-white mb-1">
                 {item.stat}
               </div>
               <div className="text-xs font-mono text-slate-500 uppercase tracking-widest">
@@ -291,7 +291,7 @@ export default function Work() {
         <span className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-xs mb-6 block">
           Impact Stories
         </span>
-        <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-6">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight mb-6">
           Engineering <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">velocity.</span>
         </h2>
       </div>

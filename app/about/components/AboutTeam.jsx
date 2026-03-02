@@ -90,7 +90,7 @@ const TeamCard = ({ member, index }) => {
 export default function AboutTeam() {
   return (
     <section className="py-20 sm:py-24 md:py-32 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 sm:mb-16 md:mb-20 gap-6 sm:gap-8">
           <div>

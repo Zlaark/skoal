@@ -72,7 +72,7 @@ export default function AboutMission() {
             <div className="absolute top-0 left-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-emerald-500/5 rounded-full blur-[80px] md:blur-[120px]" />
             <div className="absolute bottom-0 right-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-teal-500/5 rounded-full blur-[80px] md:blur-[120px]" />
 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 {/* Compact Header */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8 mb-12 lg:mb-16">

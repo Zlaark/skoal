@@ -295,7 +295,7 @@ export default function AboutStats() {
                 }}
             />
 
-            <motion.div style={{ opacity }} className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+            <motion.div style={{ opacity }} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 {/* Header */}
                 <div className="text-center mb-12 sm:mb-16 md:mb-20">
@@ -321,7 +321,7 @@ export default function AboutStats() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-4 sm:mb-6"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6"
                     >
                         Numbers that{" "}
                         <motion.span

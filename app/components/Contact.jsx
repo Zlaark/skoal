@@ -155,7 +155,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative py-32 bg-[#FAFAFA] text-slate-900 overflow-hidden" id="contact">
+    <section className="relative py-20 lg:py-28 xl:py-32 bg-[#FAFAFA] text-slate-900 overflow-hidden" id="contact">
 
       {/* Background Decor */}
       <div className="absolute inset-0 opacity-[0.3]"
@@ -176,7 +176,7 @@ export default function Contact() {
               <span className="text-emerald-600 font-bold tracking-widest text-[10px] uppercase mb-4 block">
                 Get In Touch
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-slate-900 leading-[0.9] mb-8">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-serif text-slate-900 leading-[0.9] mb-8">
                 Start the <br />
                 <span className="italic text-emerald-700 opacity-90">Conversation.</span>
               </h2>

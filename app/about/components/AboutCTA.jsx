@@ -24,7 +24,7 @@ export default function AboutCTA() {
 
   return (
     <section className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 md:px-6 bg-[#FAFAFA]">
-      <div className="container mx-auto">
+      <div className="w-full max-w-7xl mx-auto">
         <div
           ref={cardRef}
           onMouseMove={handleMouseMove}
@@ -71,7 +71,7 @@ export default function AboutCTA() {
               <span className="text-[10px] sm:text-xs font-bold text-slate-300 tracking-widest uppercase">Ready for the Future?</span>
             </motion.div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tight mb-6 sm:mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white tracking-tight mb-6 sm:mb-8">
               Let's Build <br className="sm:hidden" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-emerald-400 font-serif italic">Something Iconic.</span>
             </h2>

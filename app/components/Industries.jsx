@@ -76,7 +76,7 @@ const Card = ({ card }) => {
   const Icon = card.icon;
 
   return (
-    <Link href="/services" className="group relative h-[280px] md:h-[320px] lg:h-[350px] xl:h-[400px] w-[85vw] sm:w-[360px] md:w-[420px] lg:w-[450px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
+    <Link href="/services" className="group relative h-[260px] md:h-[300px] lg:h-[320px] xl:h-[360px] w-[85vw] sm:w-[340px] md:w-[380px] lg:w-[400px] xl:w-[430px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
 
       {/* Dynamic Background Gradients */}
       <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-linear-to-br ${card.gradient}`} />
@@ -176,7 +176,7 @@ export default function Industries() {
               Our Expertise
             </span>
           </div>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-serif font-medium text-slate-900 leading-[1.1] mb-2 md:mb-4 xl:mb-6">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-serif font-medium text-slate-900 leading-[1.1] mb-2 md:mb-4 xl:mb-6">
             Industries We <br />
             <span className="italic text-emerald-700">Revolutionize</span>
           </h2>
@@ -197,7 +197,7 @@ export default function Industries() {
         </div>
 
         {/* Horizontal Scroll Track - HIGHER z-index to overlay text */}
-        <div className="w-full relative z-20 pt-24 md:pt-32 lg:pt-40 xl:pt-48">
+        <div className="w-full relative z-20 pt-60 md:pt-72 lg:pt-76 xl:pt-80">
           <motion.div
             style={{ x }}
             className="flex gap-6 md:gap-8 pl-4 sm:pl-6 lg:pl-8 pr-20 items-center will-change-transform"

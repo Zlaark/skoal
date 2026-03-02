@@ -54,10 +54,10 @@ export default function AboutCapabilities() {
         <section className="py-16 sm:py-20 md:py-24 bg-white relative overflow-hidden text-slate-900 font-sans">
 
             {/* Header */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-16">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-16">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8 border-b border-slate-200 pb-6 lg:pb-8">
                     <div>
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] text-slate-900">
+                        <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.9] text-slate-900">
                             <span className="whitespace-nowrap">WE EXCEL</span> <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 italic font-serif whitespace-nowrap">
                                 AT SCALE.
@@ -72,7 +72,7 @@ export default function AboutCapabilities() {
             </div>
 
             {/* The Kinetic Accordion */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col">
                     {capabilities.map((cap) => {
                         const isActive = activeId === cap.id;
@@ -94,7 +94,7 @@ export default function AboutCapabilities() {
                                         <span className={`text-xs sm:text-sm font-mono uppercase tracking-widest transition-colors duration-300 shrink-0 ${isActive ? `text-${cap.color}-600` : 'text-slate-400'}`}>
                                             0{capabilities.indexOf(cap) + 1}
                                         </span>
-                                        <h3 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase tracking-tight transition-all duration-300 truncate ${isActive ? 'text-slate-900 md:translate-x-4' : 'text-slate-300 group-hover:text-slate-500'}`}>
+                                        <h3 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight transition-all duration-300 truncate ${isActive ? 'text-slate-900 md:translate-x-4' : 'text-slate-300 group-hover:text-slate-500'}`}>
                                             {cap.title}
                                         </h3>
                                     </div>
@@ -141,7 +141,7 @@ export default function AboutCapabilities() {
                                                         initial={{ y: "100%" }}
                                                         animate={{ y: 0 }}
                                                         transition={{ duration: 0.5, delay: 0.2 }}
-                                                        className={`text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter text-${cap.color}-500`}
+                                                        className={`text-6xl lg:text-7xl font-bold tracking-tighter text-${cap.color}-500`}
                                                     >
                                                         {cap.stat}
                                                     </motion.div>

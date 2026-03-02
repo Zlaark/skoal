@@ -75,10 +75,10 @@ const TimelineNode = ({ item, index }) => {
       </motion.div>
 
       {/* Content Card */}
-      <div className={`w-full md:w-[48%] 2xl:w-5/12 relative z-10 pl-16 sm:pl-20 md:pl-0 ${isLeft ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
+      <div className={`w-full md:w-[48%] relative z-10 pl-16 sm:pl-20 md:pl-0 ${isLeft ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="p-5 sm:p-6 md:p-5 lg:p-6 2xl:p-10 rounded-2xl md:rounded-3xl lg:rounded-4xl bg-white/60 backdrop-blur-xl border border-white/50 shadow-lg md:shadow-xl lg:shadow-2xl hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 relative overflow-hidden group"
+          className="p-5 sm:p-6 md:p-5 lg:p-6 xl:p-8 rounded-2xl md:rounded-3xl lg:rounded-4xl bg-white/60 backdrop-blur-xl border border-white/50 shadow-lg md:shadow-xl lg:shadow-2xl hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-300 relative overflow-hidden group"
         >
           {/* Massive Watermark Year */}
           <span className={`text-5xl sm:text-6xl md:text-[8rem] font-bold absolute -bottom-3 sm:-bottom-5 md:-bottom-10 opacity-[0.05] pointer-events-none select-none right-2 sm:right-4 md:auto ${isLeft ? 'md:-left-6 md:right-auto' : 'md:-right-6'} ${item.color}`}>
@@ -121,7 +121,7 @@ const TimelineNode = ({ item, index }) => {
       </div>
 
       {/* Empty Space for Balance (Desktop Only) */}
-      <div className="hidden md:block md:w-[48%] 2xl:w-5/12" />
+      <div className="hidden md:block md:w-[48%]" />
     </motion.div>
   );
 };
@@ -142,7 +142,7 @@ export default function AboutStory() {
       <div className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-400/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[20%] right-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-emerald-400/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-24 lg:mb-32 relative z-10">
@@ -155,7 +155,7 @@ export default function AboutStory() {
             <span className="text-[10px] sm:text-xs font-bold text-slate-500 tracking-widest uppercase">Our Evolution</span>
           </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl font-bold text-slate-900 tracking-tight leading-[1.1] md:leading-[1] px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] md:leading-[1]">
             From a Vision to <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500 font-serif italic">Global Velocity.</span>
           </h2>

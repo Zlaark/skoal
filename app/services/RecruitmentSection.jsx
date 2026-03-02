@@ -52,7 +52,7 @@ export default function RecruitmentSection() {
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
 
   return (
-    <section ref={containerRef} id="recruitment" className="py-32 bg-white relative overflow-hidden">
+    <section ref={containerRef} id="recruitment" className="py-20 lg:py-28 xl:py-32 bg-white relative overflow-hidden">
       {/* Background Texture - Dot Grid */}
       <div
         className="absolute inset-0 opacity-[0.4]"
@@ -79,7 +79,7 @@ export default function RecruitmentSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
           >
             Recruitment as an Extension of <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500">

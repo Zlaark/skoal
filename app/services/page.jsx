@@ -516,7 +516,7 @@ function StatsSection() {
     ];
 
     return (
-        <section ref={containerRef} className="relative bg-white py-32 md:py-48 overflow-hidden">
+        <section ref={containerRef} className="relative bg-white py-20 md:py-28 lg:py-32 xl:py-40 overflow-hidden">
 
             {/* Subtle Background Accent */}
             <div className="absolute inset-0 pointer-events-none">
@@ -532,13 +532,13 @@ function StatsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="mb-20 md:mb-32"
+                    className="mb-14 md:mb-20 lg:mb-28"
                 >
                     <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-px bg-emerald-500" />
                         <span className="text-xs font-bold text-emerald-600 uppercase tracking-[0.2em]">By The Numbers</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 tracking-tight max-w-3xl leading-[1.1]">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight max-w-3xl leading-[1.1]">
                         Global Scale,<br />
                         <span className="font-serif italic text-emerald-700">Local Precision.</span>
                     </h2>
@@ -590,17 +590,17 @@ function MetricCard({ stat, index }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: index * 0.1 }}
-            className="group relative border-b border-r border-slate-200 p-6 md:p-8 lg:p-10 xl:p-16 hover:bg-slate-50/50 transition-colors duration-500"
+            className="group relative border-b border-r border-slate-200 p-6 md:p-8 lg:p-10 xl:p-12 hover:bg-slate-50/50 transition-colors duration-500"
         >
             {/* Hover Accent Line */}
             <div className="absolute top-0 left-0 w-0 h-1 bg-emerald-500 group-hover:w-full transition-all duration-500" />
 
             {/* Number */}
             <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-bold text-slate-900 tracking-tighter font-serif">
+                <span className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 tracking-tighter font-serif">
                     {displayValue.toLocaleString()}
                 </span>
-                <span className="text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-serif italic text-emerald-600">{stat.suffix}</span>
+                <span className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-serif italic text-emerald-600">{stat.suffix}</span>
             </div>
 
             {/* Label */}
@@ -612,7 +612,7 @@ function MetricCard({ stat, index }) {
             </div>
 
             {/* Background Index Number */}
-            <div className="absolute top-6 right-6 text-[120px] md:text-[180px] font-bold text-slate-100 leading-none pointer-events-none select-none -z-10 group-hover:text-slate-200/50 transition-colors duration-500">
+            <div className="absolute top-6 right-6 text-[80px] md:text-[100px] lg:text-[120px] xl:text-[140px] font-bold text-slate-100 leading-none pointer-events-none select-none -z-10 group-hover:text-slate-200/50 transition-colors duration-500">
                 0{index + 1}
             </div>
         </motion.div>
@@ -812,7 +812,7 @@ function BPOSection() {
     ];
 
     return (
-        <section className="relative py-20 md:py-24 lg:py-28 xl:py-32 bg-slate-50 overflow-hidden">
+        <section className="relative py-16 md:py-20 lg:py-24 xl:py-28 bg-slate-50 overflow-hidden">
             {/* === CLEAN BACKGROUND (No Grid) === */}
             <div className="absolute inset-0 pointer-events-none">
                 {/* Subtle Ambient Orbs */}
@@ -833,7 +833,7 @@ function BPOSection() {
                             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
                             Global Operations
                         </motion.div>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 tracking-tight leading-[1]">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-[1]">
                             The Outsourcing <br />
                             <span className="font-serif italic text-emerald-600">Standard.</span>
                         </h2>
@@ -868,7 +868,7 @@ function FloodCard({ service, index }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
-            className="group relative h-[340px] md:h-[360px] lg:h-[380px] xl:h-[420px] rounded-[2.5rem] bg-white border border-slate-100 hover:border-emerald-500/0 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/20 overflow-hidden transition-all duration-500 flex flex-col justify-between p-5 md:p-6 lg:p-5 xl:p-10"
+            className="group relative h-[300px] md:h-[320px] lg:h-[340px] xl:h-[370px] rounded-[2.5rem] bg-white border border-slate-100 hover:border-emerald-500/0 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/20 overflow-hidden transition-all duration-500 flex flex-col justify-between p-5 md:p-6 lg:p-5 xl:p-8"
         >
             {/* === FLOOD FILL LAYER === */}
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
@@ -885,7 +885,7 @@ function FloodCard({ service, index }) {
 
                 {/* Body: Text */}
                 <div className="mt-auto space-y-4">
-                    <h3 className="text-lg md:text-xl lg:text-lg xl:text-2xl font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
+                    <h3 className="text-lg md:text-xl lg:text-lg xl:text-xl font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
                         {service.title}
                     </h3>
                     <p className="text-slate-500 text-sm leading-relaxed group-hover:text-emerald-50/90 transition-colors duration-300">
@@ -897,7 +897,7 @@ function FloodCard({ service, index }) {
                 <div className="mt-8 pt-6 border-t border-slate-100 group-hover:border-white/20 transition-colors duration-500 flex items-center justify-between">
                     <div>
                         <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-emerald-200 transition-colors">{service.label}</div>
-                        <div className="text-2xl lg:text-2xl xl:text-3xl font-serif italic font-bold text-slate-900 group-hover:text-white transition-colors">{service.stat}</div>
+                        <div className="text-xl lg:text-2xl xl:text-2xl font-serif italic font-bold text-slate-900 group-hover:text-white transition-colors">{service.stat}</div>
                     </div>
                     {/* Arrow */}
                     <div className="w-8 h-8 rounded-full border border-slate-200 group-hover:border-white/30 flex items-center justify-center text-slate-400 group-hover:text-white -rotate-45 group-hover:rotate-0 transition-all duration-500">
@@ -1056,7 +1056,7 @@ export default function ServicesPage() {
         <main ref={containerRef} className="bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
 
             {/* --- HERO SECTION --- */}
-            <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 px-6 lg:px-12 overflow-hidden bg-slate-50">
+            <section className="relative min-h-[90vh] flex items-center pt-28 lg:pt-32 pb-16 lg:pb-20 px-6 lg:px-12 overflow-hidden bg-slate-50">
 
                 {/* 1. ANIMATED ORBS BACKGROUND (From About Page) */}
                 <div className="absolute inset-0 pointer-events-none">
@@ -1104,7 +1104,7 @@ export default function ServicesPage() {
                             <span className="text-slate-600 text-xs font-bold tracking-widest uppercase">Global People Ops</span>
                         </motion.div>
 
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[1] mb-8 text-slate-900">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.25rem] font-bold tracking-tighter leading-[1] mb-8 text-slate-900">
                             <span className="block">Skoal HR &</span>
                             <span className="block font-[family-name:var(--font-playfair)] italic text-emerald-700">
                                 Payrolling.
@@ -1115,7 +1115,7 @@ export default function ServicesPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3, duration: 0.8 }}
-                            className="text-lg md:text-xl lg:text-2xl text-slate-500 leading-relaxed max-w-lg mb-10 font-medium"
+                            className="text-lg md:text-xl lg:text-xl xl:text-2xl text-slate-500 leading-relaxed max-w-lg mb-10 font-medium"
                         >
                             We manage your employee lifecycle with a focus on compliance, transparency, and precision.
                         </motion.p>
@@ -1141,11 +1141,11 @@ export default function ServicesPage() {
                     </div>
 
                     {/* RIGHT: REFINED CARD DECK "THE FAN" */}
-                    <div className="relative h-[450px] md:h-[500px] lg:h-[600px] flex items-center justify-center perspective-[2000px]">
+                    <div className="relative h-[450px] md:h-[500px] lg:h-[550px] xl:h-[580px] flex items-center justify-center perspective-[2000px]">
 
                         {/* Container Scope for Hover Effect */}
                         <motion.div
-                            className="relative w-[280px] h-[420px] md:w-[340px] md:h-[480px] lg:w-[380px] lg:h-[520px] cursor-pointer"
+                            className="relative w-[280px] h-[400px] md:w-[320px] md:h-[450px] lg:w-[360px] lg:h-[490px] xl:w-[370px] xl:h-[510px] cursor-pointer"
                             whileHover="hover"
                             initial="initial"
                             animate="animate"
@@ -1290,7 +1290,7 @@ export default function ServicesPage() {
             <AIContactCentreSection />
 
             {/* --- HRMS FOOTER --- */}
-            <section className="py-32 px-6 lg:px-12 relative overflow-hidden bg-slate-50/50">
+            <section className="py-20 lg:py-28 xl:py-32 px-6 lg:px-12 relative overflow-hidden bg-slate-50/50">
                 <div className="container mx-auto max-w-5xl relative z-10">
                     <HRMS3DCard />
                 </div>

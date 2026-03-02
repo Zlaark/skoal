@@ -45,7 +45,7 @@ export default function About() {
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={containerRef} className="py-24 relative px-4">
+    <section ref={containerRef} className="py-16 lg:py-20 xl:py-24 relative px-4">
       {/* Main Container - Deep Green Theme */}
       <div className="relative bg-[#022c22] rounded-4xl md:rounded-[3rem] overflow-hidden text-white p-6 md:p-8 lg:p-20 shadow-2xl">
 
@@ -73,7 +73,7 @@ export default function About() {
               The Skoal Standard
             </motion.div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-medium leading-[1.05] tracking-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium leading-[1.05] tracking-tight">
               People operations <br /> made
               <span className="text-emerald-400 font-serif italic ml-2 md:ml-3">extraordinary.</span>
             </h2>

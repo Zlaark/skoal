@@ -146,7 +146,7 @@ export default function AboutApproach() {
         <section ref={container} className="relative bg-[#FAFAFA] pb-20">
 
             {/* Main Header */}
-            <div className="sticky top-0 z-0 h-[50vh] sm:h-[60vh] md:h-[80vh] flex flex-col items-center justify-center container mx-auto px-4 sm:px-6 lg:px-12 pb-10 sm:pb-12 md:pb-16 text-center">
+            <div className="sticky top-0 z-0 h-[50vh] sm:h-[60vh] md:h-[80vh] flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 sm:pb-12 md:pb-16 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -157,7 +157,7 @@ export default function AboutApproach() {
                     <span className="text-[9px] sm:text-[10px] md:text-xs font-bold text-slate-500 tracking-widest uppercase">Methodology</span>
                 </motion.div>
 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.1]">
                     What Sets <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-600 to-teal-500 font-serif italic">Us Apart.</span>
                 </h2>
             </div>
