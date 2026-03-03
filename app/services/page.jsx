@@ -1056,7 +1056,7 @@ export default function ServicesPage() {
         <main ref={containerRef} className="bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
 
             {/* --- HERO SECTION --- */}
-            <section className="relative min-h-[90vh] flex items-center pt-28 lg:pt-32 pb-16 lg:pb-20 px-6 lg:px-12 overflow-hidden bg-slate-50">
+            <section className="relative min-h-[90vh] flex items-center pt-28 lg:pt-32 pb-16 lg:pb-20 px-6 lg:px-12 overflow-x-clip bg-slate-50">
 
                 {/* 1. ANIMATED ORBS BACKGROUND (From About Page) */}
                 <div className="absolute inset-0 pointer-events-none">

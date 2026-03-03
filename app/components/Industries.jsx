@@ -76,7 +76,7 @@ const Card = ({ card }) => {
   const Icon = card.icon;
 
   return (
-    <Link href="/services" className="group relative h-[260px] md:h-[300px] lg:h-[320px] xl:h-[360px] w-[85vw] sm:w-[340px] md:w-[380px] lg:w-[400px] xl:w-[430px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
+    <Link href="/services" className="group relative h-[300px] md:h-[340px] lg:h-[360px] xl:h-[400px] w-[85vw] sm:w-[340px] md:w-[380px] lg:w-[400px] xl:w-[430px] overflow-hidden rounded-4xl flex-shrink-0 bg-[#0A261D] border border-emerald-900/30 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/50 hover:-translate-y-2 block">
 
       {/* Dynamic Background Gradients */}
       <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-linear-to-br ${card.gradient}`} />
@@ -89,7 +89,7 @@ const Card = ({ card }) => {
       <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
       {/* Content Container */}
-      <div className="relative h-full p-5 md:p-6 lg:p-7 xl:p-10 flex flex-col justify-between z-10">
+      <div className="relative h-full p-5 md:p-6 lg:p-7 xl:p-10 flex flex-col justify-between z-10" style={{ paddingBottom: '2rem' }}>
 
         {/* Top Section */}
         <div>

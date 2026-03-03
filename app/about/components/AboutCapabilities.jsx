@@ -90,11 +90,11 @@ export default function AboutCapabilities() {
                             >
                                 {/* Collapsed / Main Header Line */}
                                 <div className="absolute top-0 w-full h-[80px] flex items-center justify-between px-3 sm:px-4 z-20">
-                                    <div className="flex items-center gap-4 sm:gap-6 md:gap-8 overflow-hidden">
+                                    <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
                                         <span className={`text-xs sm:text-sm font-mono uppercase tracking-widest transition-colors duration-300 shrink-0 ${isActive ? `text-${cap.color}-600` : 'text-slate-400'}`}>
                                             0{capabilities.indexOf(cap) + 1}
                                         </span>
-                                        <h3 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight transition-all duration-300 truncate ${isActive ? 'text-slate-900 md:translate-x-4' : 'text-slate-300 group-hover:text-slate-500'}`}>
+                                        <h3 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight transition-all duration-300 ${isActive ? 'text-slate-900 md:translate-x-4' : 'text-slate-300 group-hover:text-slate-500'}`}>
                                             {cap.title}
                                         </h3>
                                     </div>
